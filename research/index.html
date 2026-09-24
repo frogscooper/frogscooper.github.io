@@ -230,6 +230,18 @@
         grid-template-columns: 1fr;
         gap: 24px;
       }
+    .paper-embed {
+        width: 100%;
+        margin-top: 24px;
+        border: 1px solid var(--line);
+        }
+
+    .paper-embed iframe {
+        display: block;
+        width: 100%;
+        height: 800px;
+        border: 0;
+        }
     }
   </style>
 </head>
@@ -285,16 +297,20 @@
                 <p class="research-description">
                   An investigation into constructive routing methods for connecting
                   recursively partitioned spaces while avoiding unintended room
-                  intersections. The work grew out of my procedural generation project
-                  and explores how the method generalizes beyond three dimensions.
+                  intersections. The idea stems from my procedural generation project
+                  and explores how the method can be generalized beyond three dimensions.
                 </p>
 
                 <div class="research-links">
-                  <a href="/projects/grch/">Project</a>
-                  <a href="https://github.com/frogscooper/grch-procedural-gen">Code</a>
-                  <!-- Add a paper link later:
-                  <a href="/research/bsp-routing.pdf">Paper</a>
-                  -->
+                  <a href="https://github.com/frogscooper/grch-procedural-gen">Original project</a>
+                  <a href="https://github.com/frogscooper/nD-grch">N-dimensional version</a>
+                  <a href="/assets/papers/BSP_preprint_v0_5.pdf">Paper</a>
+                    <div class="paper-embed">
+                        <iframe
+                            src="/assets/papers/BSP_preprint_v0_5.pdf"
+                            title="BSP Routing Paper">
+                        </iframe>
+                    </div>
                 </div>
               </div>
             </article>
@@ -357,7 +373,7 @@
       <div>
         <a href="/">Work</a>
         <a href="/research/">Research</a>
-        <a href="mailto:stemboy@posteo.com">stemboy@posteo.com</a>
+        <a href="mailto:stemboy@posteo.com">Email Me</a>
         <a href="https://github.com/frogscooper">GitHub</a>
       </div>
     </footer>
