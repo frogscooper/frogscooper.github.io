@@ -82,8 +82,8 @@ void main(){
     css.textContent = `.frog-bg-toggle{appearance:none;background:none;border:0;padding:4px 0;margin:0;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:.5em;line-height:1}
 .frog-bg-toggle .fb-l{opacity:.45;transition:opacity .2s}.frog-bg-toggle .fb-l.on{opacity:1}
 .frog-bg-toggle .fb-t{position:relative;width:44px;height:18px;border:1px solid currentColor;border-radius:999px;box-sizing:border-box;flex:none}
-.frog-bg-toggle .fb-k{position:absolute;top:-1px;left:-1px;display:block;transition:transform .3s cubic-bezier(.3,1.4,.5,1)}
-.frog-bg-toggle[aria-checked="true"] .fb-k{transform:translateX(22px)}
+.frog-bg-toggle .fb-k{position:absolute;top:-1px;left:-1px;display:block;filter:grayscale(1);transition:transform .3s cubic-bezier(.3,1.4,.5,1),filter .3s}
+.frog-bg-toggle[aria-checked="true"] .fb-k{transform:translateX(22px);filter:none}
 .frog-bg-toggle .fb-k.hop{animation:fb-hop .3s ease-out}
 @keyframes fb-hop{40%{translate:0 -4px}}
 .frog-bg-toggle:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:4px}
@@ -94,15 +94,15 @@ void main(){
     btn.type = 'button';
     btn.className = 'frog-bg-toggle';
     btn.setAttribute('role', 'switch');
-    btn.innerHTML = `<span class="fb-l">${SCENES[0].label}</span><span class="fb-t">${frogSVG}</span><span class="fb-l">${SCENES[1].label}</span>`;
+    btn.innerHTML = `<span class="fb-l">${SCENES[1].label}</span><span class="fb-t">${frogSVG}</span><span class="fb-l">${SCENES[0].label}</span>`;
     const slot = document.querySelector('[data-frog-toggle]');
     if (slot) slot.appendChild(btn); else { btn.classList.add('frog-bg-float'); document.body.appendChild(btn); }
     const labels = btn.querySelectorAll('.fb-l');
     const syncBtn = () => {
-      btn.setAttribute('aria-checked', String(cur === 1));
-      btn.setAttribute('aria-label', `${SCENES[1].label} background`);
+      btn.setAttribute('aria-checked', String(cur === 0));
+      btn.setAttribute('aria-label', `${SCENES[0].label} background`);
       btn.title = `Background: ${SCENES[cur].name}`;
-      labels[0].classList.toggle('on', cur === 0); labels[1].classList.toggle('on', cur === 1);
+      labels[0].classList.toggle('on', cur === 1); labels[1].classList.toggle('on', cur === 0);
     };
     syncBtn();
 
