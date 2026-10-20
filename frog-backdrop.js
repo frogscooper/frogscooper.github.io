@@ -73,7 +73,7 @@ void main(){
   function init() {
     const c = document.createElement('canvas');
     c.setAttribute('aria-hidden', 'true');
-    c.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:-1;display:block;pointer-events:none';
+    c.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100vh;height:100lvh;z-index:-1;display:block;pointer-events:none';
     document.body.prepend(c);
     const gl = c.getContext('webgl', { antialias: false, alpha: false });
 
@@ -130,8 +130,12 @@ void main(){
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
     const fit = () => {
-      dpr = Math.min(devicePixelRatio || 1, 1.5);
-      c.width = Math.round(innerWidth * dpr); c.height = Math.round(innerHeight * dpr);
+      // Only rebuild when the canvas really changed size. On phones, scrolling shows and hides the
+      // address bar, which fires resize events; the canvas is sized to the large viewport so it stays put.
+      const d = Math.min(devicePixelRatio || 1, 1.5), box = c.getBoundingClientRect();
+      const w = Math.round(box.width * d), h = Math.round(box.height * d);
+      if (w === c.width && h === c.height && d === dpr) return;
+      dpr = d; c.width = w; c.height = h;
       gl.viewport(0, 0, c.width, c.height); gl.uniform2f(u('uRes'), c.width, c.height);
       bind('A', from); bind('B', cur); draw();
     };
