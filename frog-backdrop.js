@@ -3,7 +3,7 @@
  *  then load this file from your page with a deferred script tag (src="/frog-backdrop.js").
  *  Keep html/body backgrounds transparent so the canvas shows through. */
 (() => {
-  const SCENES = [{"id":"paper-lilypad","label":"Pond","name":"Paper Lilypad","pal":["#f4f1e8","#e3e2cc","#c3c99b","#8a9e5c","#4c6b34","#1d3318"],"px":3,"inks":5,"range":0.6,"speed":0.8},{"id":"swiss-contour","label":"Contour","name":"Swiss Contour","pal":["#ffffff","#eef1ec","#cfd8cc","#9aae95","#4f6b4f","#18261a"],"px":2,"inks":5,"range":0.8,"speed":1}];
+  const SCENES = [{"id":"paper-lilypad","label":"Pond","name":"Paper Lilypad","pal":["#f4f1e8","#e3e2cc","#c3c99b","#8a9e5c","#4c6b34","#1d3318"],"px":3,"inks":5,"range":0.45,"speed":0.8},{"id":"swiss-contour","label":"Contour","name":"Swiss Contour","pal":["#ffffff","#eef1ec","#cfd8cc","#9aae95","#4f6b4f","#18261a"],"px":2,"inks":5,"range":0.8,"speed":1}];
   const KEY = 'frog-bg';
   let cur = 0;
   try { cur = Math.max(0, SCENES.findIndex(s => s.id === localStorage.getItem(KEY))); } catch (e) {}
