@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>frogscooper — Swiss Offset / Refined</title>
+  <title>frogscooper — CS @ Ohio State</title>
 
   <style>
     * {
@@ -98,7 +98,7 @@
     }
 
     body {
-      background: var(--bg);
+      background: transparent; /* frog-backdrop.js paints the page behind the content */
       color: var(--ink);
       font: 15px/1.5 Arial, Helvetica, sans-serif;
     }
@@ -135,6 +135,9 @@
 
     nav {
       justify-content: flex-end;
+      flex-wrap: wrap;
+      align-items: center;
+      row-gap: 8px;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.045em;
@@ -285,6 +288,7 @@
         <a href="/research/">Research</a>
         <a href="https://converter.frogscooper.dev">Lilypad</a>
         <a href="https://github.com/frogscooper">GitHub</a>
+        <span data-frog-toggle></span>
       </nav>
     </header>
 
@@ -429,5 +433,6 @@
       </div>
     </footer>
   </div>
+  <script src="/frog-backdrop.js" defer></script>
 </body>
 </html>

@@ -16,7 +16,7 @@
 
     body {
       margin: 0;
-      background: #fafaf8;
+      background: transparent; /* frog-backdrop.js paints the page behind the content */
       color: #101010;
       font: 15px/1.5 Arial, Helvetica, sans-serif;
     }
@@ -80,6 +80,9 @@
     nav {
       display: flex;
       justify-content: flex-end;
+      flex-wrap: wrap;
+      align-items: center;
+      row-gap: 8px;
       gap: 20px;
       font-size: 12px;
       text-transform: uppercase;
@@ -244,6 +247,7 @@
         <a href="/research/">Research</a>
         <a href="https://converter.frogscooper.dev">Lilypad</a>
         <a href="https://github.com/frogscooper">GitHub</a>
+        <span data-frog-toggle></span>
       </nav>
     </header>
 
@@ -318,5 +322,6 @@
       </div>
     </footer>
   </div>
+  <script src="/frog-backdrop.js" defer></script>
 </body>
 </html>
