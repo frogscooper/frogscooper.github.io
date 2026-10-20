@@ -5,8 +5,14 @@
 (() => {
   const SCENES = [{"id":"paper-lilypad","label":"Pond","name":"Paper Lilypad","pal":["#f4f1e8","#e3e2cc","#c3c99b","#8a9e5c","#4c6b34","#1d3318"],"px":3,"inks":5,"range":0.45,"speed":0.8},{"id":"swiss-contour","label":"Contour","name":"Swiss Contour","pal":["#ffffff","#eef1ec","#cfd8cc","#9aae95","#4f6b4f","#18261a"],"px":2,"inks":5,"range":0.8,"speed":1}];
   const KEY = 'frog-bg';
-  let cur = 0;
-  try { cur = Math.max(0, SCENES.findIndex(s => s.id === localStorage.getItem(KEY))); } catch (e) {}
+  let cur = 1; // Swiss Contour unless the visitor has picked
+  try { const i = SCENES.findIndex(s => s.id === localStorage.getItem(KEY)); if (i >= 0) cur = i; } catch (e) {}
+
+  // Pixel frog face for the switch knob: 11x9 grid, 2px per pixel.
+  const FROG = ['.ddd...ddd.','dwwwd.dwwwd','dwkwdgdwkwd','dgggggggggd','dgpgggggpgd','dgdgggggdgd','dggdddddggd','.dgggggggd.','..ddddddd..'];
+  const INK = { d: '#24401a', g: '#74a542', w: '#ffffff', k: '#111111', p: '#e39a86' };
+  const frogSVG = '<svg class="fb-k" viewBox="0 0 11 9" width="22" height="18" shape-rendering="crispEdges" aria-hidden="true">' +
+    FROG.map((row, y) => [...row].map((ch, x) => INK[ch] ? `<rect x="${x}" y="${y}" width="1" height="1" fill="${INK[ch]}"/>` : '').join('')).join('') + '</svg>';
 
   const FS = `precision highp float;
 uniform vec2 uRes;uniform float uT,uMix,uFrom,uTo;
@@ -75,18 +81,20 @@ void main(){
     const css = document.createElement('style');
     css.textContent = `.frog-bg-toggle{appearance:none;background:none;border:0;padding:4px 0;margin:0;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:.5em;line-height:1}
 .frog-bg-toggle .fb-l{opacity:.45;transition:opacity .2s}.frog-bg-toggle .fb-l.on{opacity:1}
-.frog-bg-toggle .fb-t{position:relative;width:28px;height:16px;border:1px solid currentColor;border-radius:999px;box-sizing:border-box;flex:none}
-.frog-bg-toggle .fb-k{position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:currentColor;transition:transform .25s}
-.frog-bg-toggle[aria-checked="true"] .fb-k{transform:translateX(12px)}
+.frog-bg-toggle .fb-t{position:relative;width:44px;height:18px;border:1px solid currentColor;border-radius:999px;box-sizing:border-box;flex:none}
+.frog-bg-toggle .fb-k{position:absolute;top:-1px;left:-1px;display:block;transition:transform .3s cubic-bezier(.3,1.4,.5,1)}
+.frog-bg-toggle[aria-checked="true"] .fb-k{transform:translateX(22px)}
+.frog-bg-toggle .fb-k.hop{animation:fb-hop .3s ease-out}
+@keyframes fb-hop{40%{translate:0 -4px}}
 .frog-bg-toggle:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:4px}
 .frog-bg-float{position:fixed;z-index:10;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px))}
-@media (prefers-reduced-motion:reduce){.frog-bg-toggle .fb-k{transition:none}}`;
+@media (prefers-reduced-motion:reduce){.frog-bg-toggle .fb-k{transition:none}.frog-bg-toggle .fb-k.hop{animation:none}}`;
     document.head.appendChild(css);
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'frog-bg-toggle';
     btn.setAttribute('role', 'switch');
-    btn.innerHTML = `<span class="fb-l">${SCENES[0].label}</span><span class="fb-t"><span class="fb-k"></span></span><span class="fb-l">${SCENES[1].label}</span>`;
+    btn.innerHTML = `<span class="fb-l">${SCENES[0].label}</span><span class="fb-t">${frogSVG}</span><span class="fb-l">${SCENES[1].label}</span>`;
     const slot = document.querySelector('[data-frog-toggle]');
     if (slot) slot.appendChild(btn); else { btn.classList.add('frog-bg-float'); document.body.appendChild(btn); }
     const labels = btn.querySelectorAll('.fb-l');
@@ -137,6 +145,7 @@ void main(){
     const start = () => { if (!running) { running = true; last = 0; requestAnimationFrame(loop); } };
 
     btn.addEventListener('click', () => {
+      const k = btn.querySelector('.fb-k'); k.classList.remove('hop'); void k.getBoundingClientRect(); k.classList.add('hop');
       from = cur; cur = 1 - cur; mix = reduce ? 1 : 0;
       try { localStorage.setItem(KEY, SCENES[cur].id); } catch (e) {}
       bind('A', from); bind('B', cur); setGround(); syncBtn();
