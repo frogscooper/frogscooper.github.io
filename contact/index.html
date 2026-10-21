@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contact — frogscooper</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <title>Contact | frogscooper</title>
 
   <style>
     * {
@@ -231,23 +234,91 @@
         gap: 24px;
       }
     }
+
+    /* Terminal type: JetBrains Mono everywhere. Monospace runs wide, so sizes come down a step. */
+    :root {
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    body {
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.6;
+      font-variant-ligatures: none;
+    }
+
+    .eyebrow,
+    .section h2,
+    .section-head h2,
+    .about h2 {
+      font-family: var(--mono);
+    }
+
+    .identity strong {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .intro p {
+      font-size: 15.5px;
+    }
+
+    .intro h1 {
+      font-size: 30px;
+      letter-spacing: -0.03em;
+    }
+
+    .heading h3 {
+      font-size: 26px;
+      letter-spacing: -0.03em;
+    }
+
+    .secondary .heading h3 {
+      font-size: 21px;
+    }
+
+    nav,
+    .links {
+      letter-spacing: 0.02em;
+    }
+
+    /* The backdrop switch sits at the top of the left column, above the name. */
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .site-header nav {
+      align-self: start;
+      min-height: 26px; /* lines the links up with the switch */
+    }
+
+    .brand [data-frog-toggle] {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
   </style>
 </head>
 
 <body>
   <div class="shell">
     <header class="site-header">
-      <a class="identity" href="/">
-        <strong>frogscooper</strong>
-        <span>CS @ Ohio State</span>
-      </a>
+      <div class="brand">
+        <span data-frog-toggle></span>
+        <a class="identity" href="/">
+          <strong>frogscooper</strong>
+          <span>CS @ Ohio State</span>
+        </a>
+      </div>
 
       <nav aria-label="Primary">
         <a href="/">Work</a>
         <a href="/research/">Research</a>
         <a href="https://converter.frogscooper.dev">Lilypad</a>
         <a href="https://github.com/frogscooper">GitHub</a>
-        <span data-frog-toggle></span>
       </nav>
     </header>
 
