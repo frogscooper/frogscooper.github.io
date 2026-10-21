@@ -421,6 +421,84 @@
       .stat:nth-child(2n+1) { padding-left: 0; border-left: 0; }
       .stat b { font-size: 28px; }
     }
+
+    /* Frames: thin ink border, paper mat, mono caption strip. */
+    .frame {
+      border: 1px solid var(--ink);
+      background: #f6f7f2;
+      padding: 8px;
+      margin: 0 0 21px;
+    }
+
+    .frame .project-image,
+    .frame .stats-card {
+      margin-bottom: 0;
+    }
+
+    .frame .project-image {
+      height: 340px;
+      border: 1px solid var(--ink);
+    }
+
+    .frame .stats-card {
+      border: 1px solid var(--ink);
+    }
+
+    .frame figcaption {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 2px 0;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 700px) {
+      .frame { padding: 6px; }
+      .frame .project-image { height: 220px; }
+    }
+    /* "more" level 2: terminal window, hard ink shadow, crop marks. */
+    .frame {
+      position: relative;
+      border-width: 2px;
+      padding: 0 8px 8px;
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+    .frame::before {
+      content: "";
+      position: absolute;
+      inset: -14px;
+      pointer-events: none;
+      background:
+        linear-gradient(var(--ink),var(--ink)) top left / 14px 1px,
+        linear-gradient(var(--ink),var(--ink)) top left / 1px 14px,
+        linear-gradient(var(--ink),var(--ink)) top right / 14px 1px,
+        linear-gradient(var(--ink),var(--ink)) top right / 1px 14px,
+        linear-gradient(var(--ink),var(--ink)) bottom left / 14px 1px,
+        linear-gradient(var(--ink),var(--ink)) bottom left / 1px 14px,
+        linear-gradient(var(--ink),var(--ink)) bottom right / 14px 1px,
+        linear-gradient(var(--ink),var(--ink)) bottom right / 1px 14px;
+      background-repeat: no-repeat;
+    }
+    .fig-head {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      margin: 0 -8px 8px;
+      padding: 7px 10px;
+      border-bottom: 2px solid var(--ink);
+      background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(16,16,16,0.08) 3px 4px), #e4e9de;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+    }
+    .fig-head span:nth-child(2) { text-align: center; }
+    .fig-head span:last-child { color: var(--muted); }
+    .dots { display: flex; gap: 5px; }
+    .dots i { width: 9px; height: 9px; border: 1.5px solid var(--ink); }
+    .dots i:first-child { background: var(--ink); }
   </style>
 </head>
 
@@ -462,6 +540,8 @@
           <span class="index">01</span>
 
           <div class="project-main">
+            <figure class="frame">
+            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/lilypad/benchmarks.txt</span><span>FIG.01</span></div>
             <a class="stats-card" href="https://lilypad.frogscooper.dev">
               <div class="stats-top"><span class="stats-mark"><svg aria-hidden="true" width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M15.5 17L24.20 11.13A10.5 10.5 0 1 1 21.06 8.10Z" fill="#9fcfa9" stroke="#244a30" stroke-width="1" stroke-linejoin="round"/><path d="M15.5 17L12.56 25.09" stroke="#84b990" stroke-width="0.6" stroke-linecap="round"/><path d="M15.5 17L8.04 21.30" stroke="#84b990" stroke-width="0.6" stroke-linecap="round"/><path d="M15.5 17L7.18 14.77" stroke="#84b990" stroke-width="0.6" stroke-linecap="round"/><path d="M15.5 17L11.19 9.54" stroke="#84b990" stroke-width="0.6" stroke-linecap="round"/><g fill="#16301f" stroke="#ffc7d5" stroke-width=".9" stroke-linejoin="round"><path d="M0 0A4.6 4.6 0 0 1 0 -7A4.6 4.6 0 0 1 0 0Z" transform="translate(23 15.2) rotate(-42.0)" /><path d="M0 0A4.6 4.6 0 0 1 0 -7A4.6 4.6 0 0 1 0 0Z" transform="translate(23 15.2) rotate(0.0)" /><path d="M0 0A4.6 4.6 0 0 1 0 -7A4.6 4.6 0 0 1 0 0Z" transform="translate(23 15.2) rotate(42.0)" /></g><circle cx="23" cy="14.6" r=".9" fill="#f3c95a"/></svg></span>lilypad vs 8 popular online converters</div>
               <div class="stats-grid">
@@ -474,6 +554,8 @@
               </div>
               <div class="stats-foot">measured oct 2026 in headless chrome, median of 3 runs</div>
             </a>
+            <figcaption><span>&gt; fig. 01 / benchmarks</span><span>oct 2026</span></figcaption>
+          </figure>
 
             <div class="desc">
               <div class="heading">
@@ -500,12 +582,16 @@
           <span class="index">02</span>
 
           <div class="project-main">
-             <a class="project-image" href="https://github.com/frogscooper/grch-procedural-gen">
+             <figure class="frame">
+            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/grch/render_top.obj</span><span>FIG.02</span></div>
+            <a class="project-image" href="https://github.com/frogscooper/grch-procedural-gen">
                   <img
                       src="/assets/grch_obj_top_angle.png"
                       alt="GRCH procedural generator render"
                   >
               </a>
+            <figcaption><span>&gt; fig. 02 / bsp dungeon, top view</span><span>obj export</span></figcaption>
+          </figure>
 
             <div class="desc">
               <div class="heading">
