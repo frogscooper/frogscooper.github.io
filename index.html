@@ -227,6 +227,15 @@
       font-size: 24px;
     }
 
+    /* Title above the window, description below; both gaps clear the crop marks and shadow. */
+    .featured .heading {
+      margin-bottom: 28px;
+    }
+
+    .featured .frame {
+      margin-bottom: 28px;
+    }
+
     .about {
       border-top: 1px solid var(--ink);
       padding: 12px 0 68px;
@@ -785,6 +794,13 @@
           <span class="index">01</span>
 
           <div class="project-main">
+            <div class="heading">
+              <h3>
+                <a href="https://lilypad.frogscooper.dev">Lilypad</a>
+              </h3>
+              <span>Web · 2026</span>
+            </div>
+
             <figure class="frame">
             <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/lilypad/benchmarks.txt</span><span>FIG.01</span></div>
             <a class="stats-card" href="https://lilypad.frogscooper.dev">
@@ -803,13 +819,6 @@
           </figure>
 
             <div class="desc">
-              <div class="heading">
-                <h3>
-                  <a href="https://lilypad.frogscooper.dev">Lilypad</a>
-                </h3>
-                <span>Web · 2026</span>
-              </div>
-
               <p>
                 Free image and PDF tools that run entirely in the browser. Batch format
                 conversion (HEIC, WebP, AVIF, PNG, JPG), merging, splitting, and compressing
@@ -827,6 +836,13 @@
           <span class="index">02</span>
 
           <div class="project-main">
+            <div class="heading">
+              <h3>
+                <a href="https://github.com/frogscooper/grch-procedural-gen">GRCH Procedural Generator</a>
+              </h3>
+              <span>Rust · 2026</span>
+            </div>
+
              <figure class="frame">
             <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/grch/render_top.obj</span><span>FIG.02</span></div>
             <div class="project-image grch-demo" id="grch-demo">
@@ -842,13 +858,6 @@
           </figure>
 
             <div class="desc">
-              <div class="heading">
-                <h3>
-                  <a href="https://github.com/frogscooper/grch-procedural-gen">GRCH Procedural Generator</a>
-                </h3>
-                <span>Rust · 2026</span>
-              </div>
-
               <p>
                 A 3D procedural dungeon generator built around binary space partitioning.
                 I wrote a constructive routing algorithm that moves corridors through the BSP
