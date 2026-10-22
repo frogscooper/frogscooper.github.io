@@ -499,6 +499,199 @@
     .dots { display: flex; gap: 5px; }
     .dots i { width: 9px; height: 9px; border: 1.5px solid var(--ink); }
     .dots i:first-child { background: var(--ink); }
+    /* Man page README card: NAME and DESCRIPTION on the left, a key/value list on the right. */
+    .intro.man {
+      padding: 23px 0 84px;
+    }
+
+    .man .frame {
+      margin: 0;
+      padding-bottom: 0;
+    }
+
+    .man-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+      border: 1px solid var(--ink);
+      background: var(--bg);
+    }
+
+    .man-main {
+      display: flex;
+      flex-direction: column;
+      padding: 24px 28px 26px;
+    }
+
+    .man-k {
+      display: block;
+      font: 700 11px/1 var(--mono);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+    }
+
+    .man-main h1 {
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -0.055em;
+      margin: 0 0 30px 14px;
+    }
+
+    .man-main .man-desc {
+      max-width: 34em;
+      font-size: 15.5px;
+      line-height: 1.6;
+      color: #2b2b2b;
+      margin: 0 0 0 14px;
+    }
+
+    .man-acts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: auto 0 0 14px;
+      padding-top: 26px;
+    }
+
+    .man-btn {
+      display: inline-block;
+      padding: 7px 14px;
+      border: 1.5px solid var(--ink);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 13px;
+      box-shadow: 4px 4px 0 var(--ink);
+      transition: transform 0.08s, box-shadow 0.08s;
+    }
+
+    .man-btn:hover {
+      text-decoration: none;
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .man-list {
+      margin: 0;
+      display: grid;
+      grid-template-rows: repeat(5, auto);
+      border-left: 1px solid var(--ink);
+      background: #eef1ea;
+    }
+
+    .man-row {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 14px;
+      align-items: baseline;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .man-row:last-child {
+      border-bottom: 0;
+    }
+
+    .man-row dt {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .man-row dd {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .man-row dd a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+    }
+
+    .man-row.hl {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .man-row.hl dt {
+      color: #c9cfc4;
+    }
+
+    .man .frame figcaption {
+      padding: 8px 2px;
+      text-transform: none;
+      letter-spacing: 0.04em;
+      font-size: 11px;
+    }
+
+    .man figcaption a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .man a:focus-visible,
+    .site-header a:focus-visible,
+    footer a:focus-visible {
+      outline: 2px dashed var(--ink);
+      outline-offset: 3px;
+    }
+
+    .man-row.hl a:focus-visible {
+      outline-color: var(--bg);
+    }
+
+    @media (max-width: 960px) {
+      .man-body {
+        grid-template-columns: 1fr;
+      }
+
+      .man-list {
+        border-left: 0;
+        border-top: 1px solid var(--ink);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .intro.man {
+        gap: 14px;
+        padding-bottom: 60px;
+      }
+
+      .man .frame {
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+
+      .man-main {
+        padding: 18px 16px 20px;
+      }
+
+      .man-main h1 {
+        font-size: 44px;
+        margin: 0 0 22px;
+      }
+
+      .man-main .man-desc,
+      .man-acts {
+        margin-left: 0;
+      }
+
+      .man-main .man-desc {
+        font-size: 14.5px;
+      }
+
+      .man-row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+        padding: 11px 16px;
+      }
+
+      .man .frame figcaption {
+        flex-direction: column;
+        gap: 2px;
+      }
+    }
   </style>
 </head>
 
@@ -522,15 +715,34 @@
     </header>
 
     <main>
-      <section class="intro">
-        <span class="eyebrow">Computer science</span>
-        <p>
-          I’m a computer science student focusing on algorithms, systems programming,
-          procedural generation, and simulation.
-        </p>
+      <section class="intro man" aria-labelledby="man-name">
+        <span class="eyebrow">Readme</span>
+        <figure class="frame">
+          <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>man frogscooper</span><span>FROGSCOOPER(1)</span></div>
+          <div class="man-body">
+            <div class="man-main">
+              <span class="man-k">Name</span>
+              <h1 id="man-name">frogscooper</h1>
+              <span class="man-k">Description</span>
+              <p class="man-desc">CS sophomore @ OSU. I build software with 3 priorities: efficiency, precision, and aura.</p>
+              <div class="man-acts">
+                <a class="man-btn" href="mailto:stemboy@posteo.com">[email]</a>
+                <a class="man-btn" href="https://github.com/frogscooper">[github]</a>
+              </div>
+            </div>
+            <dl class="man-list">
+              <div class="man-row"><dt>currently</dt><dd>fly-osu, a fruit fly connectome that plays osu!</dd></div>
+              <div class="man-row"><dt>shipped</dt><dd><a href="https://lilypad.frogscooper.dev">lilypad</a>, 32 tools in 4 languages, 11x faster than heictojpg.com</dd></div>
+              <div class="man-row"><dt>research</dt><dd><a href="/research/">non-intersecting corridor routing in BSP-generated spaces</a></dd></div>
+              <div class="man-row"><dt>stack</dt><dd>Rust, TypeScript, Python</dd></div>
+              <div class="man-row hl"><dt>looking for</dt><dd>SWE internship</dd></div>
+            </dl>
+          </div>
+          <figcaption><span>&gt; see also: <a href="#projects">projects(1)</a>, <a href="/research/">research(1)</a></span><span>updated oct 2026</span></figcaption>
+        </figure>
       </section>
 
-      <section class="work">
+      <section class="work" id="projects">
         <div class="section-head">
           <h2>Projects</h2>
           <span>Selected work</span>
