@@ -692,6 +692,39 @@
         gap: 2px;
       }
     }
+    /* GRCH live demo: poster plus a run button; the wasm loads only on click. */
+    .grch-demo { position: relative; }
+    .grch-demo > a { display: block; height: 100%; }
+    .grch-run {
+      position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
+      font: 500 12px/1 var(--mono); letter-spacing: 0.06em;
+      padding: 10px 14px; cursor: pointer;
+      color: var(--ink); background: var(--bg);
+      border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+    }
+    .grch-run:hover, .grch-run:focus-visible { background: var(--ink); color: var(--bg); outline: none; }
+    .grch-run:active { transform: translate(calc(-50% + 2px), 2px); box-shadow: 2px 2px 0 var(--ink); }
+    .frame .grch-demo.live { height: auto; display: flex; flex-direction: column; }
+    .grch-canvas { display: block; width: 100%; height: 340px; touch-action: pan-y; cursor: grab; background: var(--ink); }
+    .grch-canvas:active { cursor: grabbing; }
+    .grch-bar {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px;
+      padding: 7px 8px; border-top: 2px solid var(--ink);
+      font: 10px/1.4 var(--mono); letter-spacing: 0.06em;
+    }
+    .grch-bar input, .grch-bar select, .grch-bar button {
+      font: inherit; color: var(--ink); background: var(--bg);
+      border: 1px solid var(--ink); padding: 3px 5px; border-radius: 0;
+    }
+    .grch-bar input { width: 21ch; }
+    .grch-bar button { cursor: pointer; }
+    .grch-bar button:hover { background: var(--ink); color: var(--bg); }
+    .grch-status { color: var(--muted); margin-left: auto; }
+    @media (max-width: 700px) {
+      .grch-canvas { height: 260px; }
+      .grch-bar input { width: 100%; max-width: 21ch; }
+      .grch-status { margin-left: 0; flex-basis: 100%; }
+    }
   </style>
 </head>
 
@@ -796,13 +829,16 @@
           <div class="project-main">
              <figure class="frame">
             <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/grch/render_top.obj</span><span>FIG.02</span></div>
-            <a class="project-image" href="https://github.com/frogscooper/grch-procedural-gen">
+            <div class="project-image grch-demo" id="grch-demo">
+              <a href="https://github.com/frogscooper/grch-procedural-gen">
                   <img
                       src="/assets/grch_obj_top_angle.png"
                       alt="GRCH procedural generator render"
                   >
               </a>
-            <figcaption><span>&gt; fig. 02 / bsp dungeon, top view</span><span>obj export</span></figcaption>
+              <button type="button" class="grch-run" hidden>[ run grch ]</button>
+            </div>
+            <figcaption><span class="grch-cap-l">&gt; fig. 02 / bsp dungeon, top view</span><span class="grch-cap">obj export</span></figcaption>
           </figure>
 
             <div class="desc">
@@ -921,6 +957,29 @@
       </div>
     </footer>
   </div>
+  <script>
+    // GRCH demo: nothing heavy loads until the button is clicked.
+    (() => {
+      const box = document.getElementById('grch-demo');
+      const btn = box && box.querySelector('.grch-run');
+      if (!btn || !window.WebAssembly || !window.Worker) return;
+      btn.hidden = false;
+      btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        btn.textContent = '[ loading ]';
+        try {
+          const { mount } = await import('/assets/grch/demo.js');
+          box.classList.add('live');
+          document.querySelector('.grch-cap').textContent = 'rust to wasm';
+          document.querySelector('.grch-cap-l').textContent = '> fig. 02 / drag to rotate';
+          mount(box);
+        } catch (e) {
+          btn.disabled = false;
+          btn.textContent = '[ failed, retry ]';
+        }
+      });
+    })();
+  </script>
   <script src="/frog-backdrop.js" defer></script>
 </body>
 </html>
