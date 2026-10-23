@@ -701,6 +701,27 @@
         gap: 2px;
       }
     }
+    /* "Try it!" call to action under the lilypad card. */
+    .try-row {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px;
+      margin-top: 22px;
+    }
+    .try-btn {
+      display: inline-block; padding: 12px 22px;
+      font: 700 15px/1 var(--mono); letter-spacing: 0.02em;
+      color: var(--bg); background: var(--ink);
+      border: 2px solid var(--ink); box-shadow: 5px 5px 0 #9fcfa9;
+      transition: transform 0.08s, box-shadow 0.08s;
+    }
+    .try-btn:hover, .try-btn:focus-visible {
+      text-decoration: none; outline: none;
+      transform: translate(3px, 3px); box-shadow: 2px 2px 0 #9fcfa9;
+    }
+    .try-btn:focus-visible { outline: 2px dashed var(--ink); outline-offset: 4px; }
+    .try-btn span { display: inline-block; transition: transform 0.12s; }
+    .try-btn:hover span { transform: translateX(4px); }
+    .try-hint { font-size: 11px; color: var(--muted); letter-spacing: 0.02em; }
+
     /* GRCH live demo: poster plus a run button; the wasm loads only on click. */
     .grch-demo { position: relative; }
     .grch-demo > a { display: block; height: 100%; }
@@ -735,7 +756,7 @@
       .grch-status { margin-left: 0; flex-basis: 100%; }
     }
 
-    /* Activity: GitHub contribution heatmap (ink lily pads). Data: /assets/contrib.json. */
+    /* Activity: GitHub contribution heatmap (pixel frogs). Data: /assets/contrib.json. */
     .activity {
       display: grid; grid-template-columns: 190px 1fr; gap: 44px;
       padding: 12px 0 76px; border-top: 1px solid var(--ink);
@@ -749,18 +770,40 @@
     .cg-fallback a { color: var(--ink); }
     .cg-pond { display: block; width: 100%; height: auto; }
     .cg-pond text { font: 9px var(--mono); fill: var(--muted); }
-    .cg-pond path { fill: var(--ink); stroke: none; }
-    .cg-pond .p0 { fill: none; stroke: var(--line); stroke-width: 1; }
-    .cg-pond .p1 { opacity: 0.22; } .cg-pond .p2 { opacity: 0.45; }
-    .cg-pond .p3 { opacity: 0.7; } .cg-pond .p4 { opacity: 1; }
+    /* frog greens, level 1 to 4 (level 0 is outline only); --dk = spots, --eye = eye white */
+    :root { --f0: #f6f7f2; --f1: #d6e8c4; --f2: #a8d08d; --f3: #6ab04c; --f4: #2e8b3a; --dk: #1d5e26; --eye: #fbfdf6; }
     @media (max-width: 700px) {
       .activity { grid-template-columns: 1fr; gap: 14px; padding-bottom: 56px; }
       .cg-big { margin-top: 8px; font-size: 34px; }
+    }
+
+    /* Wide screens: the heatmap is a vertical rail fixed to the left edge and the in-page
+       Activity section steps aside. Below this (tablet, phone) nothing changes. */
+    .rail { display: none; }
+    @media (min-width: 1100px) and (min-height: 560px) {
+      body { padding-left: 162px; }
+      .activity { display: none; }
+      .rail {
+        display: flex; flex-direction: column; position: fixed; z-index: 5;
+        top: 14px; bottom: 19px; left: 14px; width: 140px; padding: 10px 6px 8px;
+        background: #f6f7f2; border: 2px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
+        font: 10px/1.4 var(--mono);
+      }
+      .rail .cg-big { margin-top: 10px; font-size: 30px; }
+      .rail .cg-big + small { font-size: 9px; }
+      .cg-rail-box { flex: 1; min-height: 0; margin-top: 10px; }
+      .cg-rail-box .cg-pond { height: 100%; }
     }
   </style>
 </head>
 
 <body>
+  <aside class="rail" aria-labelledby="rail-h" data-contrib="rail">
+    <span class="eyebrow" id="rail-h">Activity</span>
+    <strong class="cg-big"><span class="cg-total">450</span></strong>
+    <small>github contributions, last 12 months</small>
+    <div class="cg-rail-box"></div>
+  </aside>
   <div class="shell">
     <header class="site-header">
       <div class="brand">
@@ -818,7 +861,7 @@
           <figure class="frame" data-contrib="pond">
             <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/pond --since=1.year</span><span>POND.LOG</span></div>
             <div class="cg-box"><p class="cg-fallback">The contribution graph needs JavaScript. See it on <a href="https://github.com/frogscooper">github.com/frogscooper</a>.</p></div>
-            <figcaption><span>&gt; <span class="cg-total">450</span> contributions, <span class="cg-range">oct 19 2025 to oct 22 2026</span></span><span>one pad per day, bigger pad, more commits</span></figcaption>
+            <figcaption><span>&gt; <span class="cg-total">450</span> contributions, <span class="cg-range">oct 19 2025 to oct 22 2026</span></span><span>one frog per day, greener frog, more commits</span></figcaption>
           </figure>
         </div>
       </section>
@@ -864,8 +907,9 @@
                 PDFs, QR codes, and more. Nothing gets uploaded.
               </p>
 
-              <div class="links">
-                <a href="https://lilypad.frogscooper.dev">Live ↗</a>
+              <div class="try-row">
+                <a class="try-btn" href="https://lilypad.frogscooper.dev">Try it! <span aria-hidden="true">→</span></a>
+                <span class="try-hint">no signup, nothing uploaded. drop a HEIC and watch.</span>
               </div>
             </div>
           </div>
