@@ -770,8 +770,12 @@
     .cg-fallback a { color: var(--ink); }
     .cg-pond { display: block; width: 100%; height: auto; }
     .cg-pond text { font: 9px var(--mono); fill: var(--muted); }
-    /* frog greens, level 1 to 4 (level 0 is outline only); --dk = spots, --eye = eye white */
-    :root { --f0: #f6f7f2; --f1: #d6e8c4; --f2: #a8d08d; --f3: #6ab04c; --f4: #2e8b3a; --dk: #1d5e26; --eye: #fbfdf6; }
+    /* heatmap palette: espresso ink, muted moss. Level 1 to 4 greens (level 0 is outline only);
+       --dk = spots, --eye = eye white, --cg-ink = outline, pupils, mouth */
+    :root {
+      --cg-ink: #3a2f27; --eye: #f7f2e6;
+      --f0: #f6f7f2; --f1: #e6e9d4; --f2: #c6d2a6; --f3: #9bb07c; --f4: #6f8a58; --dk: #4c6040;
+    }
     @media (max-width: 700px) {
       .activity { grid-template-columns: 1fr; gap: 14px; padding-bottom: 56px; }
       .cg-big { margin-top: 8px; font-size: 34px; }
@@ -780,19 +784,18 @@
     /* Wide screens: the heatmap is a vertical rail fixed to the left edge and the in-page
        Activity section steps aside. Below this (tablet, phone) nothing changes. */
     .rail { display: none; }
-    @media (min-width: 1100px) and (min-height: 560px) {
-      body { padding-left: 162px; }
+    @media (min-width: 1100px) and (min-height: 620px) {
+      body { padding-left: 176px; }
       .activity { display: none; }
       .rail {
-        display: flex; flex-direction: column; position: fixed; z-index: 5;
-        top: 14px; bottom: 19px; left: 14px; width: 140px; padding: 10px 6px 8px;
-        background: #f6f7f2; border: 2px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
+        display: block; position: fixed; z-index: 5; overflow: hidden;
+        top: 14px; left: 14px; width: 150px; max-height: calc(100vh - 32px); padding: 10px 8px 8px;
+        background: #f6f7f2; border: 2px solid var(--cg-ink); box-shadow: 3px 3px 0 var(--cg-ink);
         font: 10px/1.4 var(--mono);
       }
-      .rail .cg-big { margin-top: 10px; font-size: 30px; }
+      .rail .cg-big { margin-top: 8px; font-size: 26px; }
       .rail .cg-big + small { font-size: 9px; }
-      .cg-rail-box { flex: 1; min-height: 0; margin-top: 10px; }
-      .cg-rail-box .cg-pond { height: 100%; }
+      .cg-rail-box { margin-top: 10px; }
     }
   </style>
 </head>
@@ -800,8 +803,8 @@
 <body>
   <aside class="rail" aria-labelledby="rail-h" data-contrib="rail">
     <span class="eyebrow" id="rail-h">Activity</span>
-    <strong class="cg-big"><span class="cg-total">450</span></strong>
-    <small>github contributions, last 12 months</small>
+    <strong class="cg-big"><span class="cg-total">301</span></strong>
+    <small>github contributions, last 6 months</small>
     <div class="cg-rail-box"></div>
   </aside>
   <div class="shell">
@@ -854,14 +857,14 @@
       <section class="activity" id="activity" aria-labelledby="activity-h">
         <div>
           <span class="eyebrow" id="activity-h">Activity</span>
-          <strong class="cg-big"><span class="cg-total">450</span></strong>
-          <small>github contributions, last 12 months</small>
+          <strong class="cg-big"><span class="cg-total">301</span></strong>
+          <small>github contributions, last 6 months</small>
         </div>
         <div>
           <figure class="frame" data-contrib="pond">
-            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/pond --since=1.year</span><span>POND.LOG</span></div>
+            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/pond --since=6.months</span><span>POND.LOG</span></div>
             <div class="cg-box"><p class="cg-fallback">The contribution graph needs JavaScript. See it on <a href="https://github.com/frogscooper">github.com/frogscooper</a>.</p></div>
-            <figcaption><span>&gt; <span class="cg-total">450</span> contributions, <span class="cg-range">oct 19 2025 to oct 22 2026</span></span><span>one frog per day, greener frog, more commits</span></figcaption>
+            <figcaption><span>&gt; <span class="cg-total">301</span> contributions, <span class="cg-range">apr 24 2026 to oct 23 2026</span></span><span>one frog per day, greener frog, more commits</span></figcaption>
           </figure>
         </div>
       </section>

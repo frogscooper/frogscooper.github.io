@@ -6,6 +6,7 @@ const MON = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','
 const fmt = d => `${MON[d.getUTCMonth()]} ${d.getUTCDate()} ${d.getUTCFullYear()}`;
 const day = s => new Date(s + 'T00:00:00Z');
 const f = v => +v.toFixed(2);
+const MONTHS = 6; // how far back to show; the page text says "6 months" too
 
 function weeks(days) {
   const pad = day(days[0][0]).getUTCDay(), cols = [];
@@ -35,7 +36,7 @@ const SPRITE = [
   'XXMMMMMMMXX',
   '.XXXXXXXXX.',
 ];
-const RULES = { E: [1, 'var(--eye)'], O: [1, 'var(--ink)'], M: [2, 'var(--ink)'], S: [4, 'var(--dk)'] };
+const RULES = { E: [1, 'var(--eye)'], O: [1, 'var(--cg-ink)'], M: [2, 'var(--cg-ink)'], S: [4, 'var(--dk)'] };
 const S = 14, PX = Math.min(12 / SPRITE[0].length, 11 / SPRITE.length); // frog is ~12 of the 14 cell
 
 function frogs() {
@@ -58,7 +59,7 @@ function frogs() {
       if (!fill(r, c - 1)) edge += `M${x} ${y}V${y1}`;
       if (!fill(r, c + 1)) edge += `M${x1} ${y}V${y1}`;
     }
-    const stroke = l ? 'var(--ink)' : 'var(--line)';
+    const stroke = l ? 'var(--cg-ink)' : 'var(--line)';
     return `<g id="cg-frog${l}" shape-rendering="crispEdges">${rects}<path d="${edge}" fill="none" stroke="${stroke}" stroke-width=".5" stroke-linecap="square"/></g>`;
   }).join('');
 }
@@ -82,9 +83,13 @@ async function main() {
   const el = document.querySelector('[data-contrib="pond"]'), rail = document.querySelector('[data-contrib="rail"]');
   if (!el && !rail) return;
   const data = await (await fetch('/assets/contrib.json')).json();
-  const cols = weeks(data.days), from = fmt(day(data.from)), to = fmt(day(data.to));
-  const best = data.days.reduce((a, b) => (b[1] > a[1] ? b : a));
-  const label = `${data.total} GitHub contributions from ${from} to ${to}. Busiest day ${fmt(day(best[0]))} with ${best[1]}.`;
+  // the JSON holds a full year; the page only shows the last 6 months
+  const cut = day(data.to);
+  cut.setUTCMonth(cut.getUTCMonth() - MONTHS);
+  const days = data.days.filter(d => day(d[0]) > cut), total = days.reduce((n, d) => n + d[1], 0);
+  const cols = weeks(days), from = fmt(day(days[0][0])), to = fmt(day(data.to));
+  const best = days.reduce((a, b) => (b[1] > a[1] ? b : a));
+  const label = `${total} GitHub contributions from ${from} to ${to}. Busiest day ${fmt(day(best[0]))} with ${best[1]}.`;
   document.body.insertAdjacentHTML('beforeend', `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${frogs()}</defs></svg>`);
   const box = el?.querySelector('.cg-box'), tall = rail?.querySelector('.cg-rail-box');
   if (box) {
@@ -98,7 +103,7 @@ async function main() {
     tall.setAttribute('role', 'img');
     tall.setAttribute('aria-label', label);
   }
-  document.querySelectorAll('.cg-total').forEach(n => (n.textContent = data.total));
+  document.querySelectorAll('.cg-total').forEach(n => (n.textContent = total));
   document.querySelectorAll('.cg-range').forEach(n => (n.textContent = `${from} to ${to}`));
 }
 main().catch(() => {});
