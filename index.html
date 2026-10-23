@@ -784,33 +784,18 @@
     /* Wide screens: the heatmap is a vertical rail fixed to the left edge and the in-page
        Activity section steps aside. Below this (tablet, phone) nothing changes. */
     .rail { display: none; }
-    @media (min-width: 1100px) and (min-height: 720px) {
-      :root { --rail-w: 238px; --pad: 132px; }
+    @media (min-width: 1200px) and (min-height: 720px) {
+      /* --pad widens the left gutter so the whole rail fits left of the page content (labels,
+         dividers and cards) without covering any of it. */
+      :root { --rail-w: 238px; --pad: 243px; }
       body { padding-left: var(--pad); }
       .activity { display: none; }
-      /* Section dividers keep most of their length: each starts 20px to the right of the rail instead
-         of at the page edge, so none runs underneath it. The rail's right edge is (cards edge)/2 +
-         rail-w/2, with cards edge = shell left + 234px, which works out to this width (100% = the
-         divider's own width = shell width). The border stays, transparent, so nothing shifts. */
-      :root { --div-w: calc(75% + 25vw - 117px - var(--rail-w) / 2 - 20px + var(--pad) / 4); }
-      .section-head, .about, footer {
-        border-top-color: transparent;
-        background: linear-gradient(var(--ink), var(--ink)) right top / var(--div-w) 1px no-repeat border-box;
-      }
-      .project {
-        border-top-color: transparent;
-        background: linear-gradient(var(--line), var(--line)) right top / var(--div-w) 1px no-repeat border-box;
-      }
-      .site-header {
-        border-bottom-color: transparent;
-        background: linear-gradient(var(--ink), var(--ink)) right bottom / var(--div-w) 1px no-repeat border-box;
-      }
       .rail {
         display: block; position: fixed; z-index: 5; overflow: hidden;
-        /* centred vertically; horizontally centred halfway from the left edge to the cards, whose
-           left edge = body padding + shell margin + 190px label column + 44px gap (100% = viewport here) */
+        /* centred vertically; horizontally centred halfway between the screen edge and the page
+           content (100% = viewport here; content left = pad + shell margin) */
         top: 50%; transform: translateY(-50%); max-height: calc(100vh - 32px);
-        left: calc((var(--pad) + (100% - var(--pad) - min(1210px, 100% - var(--pad) - 54px)) / 2 + 234px) / 2 - var(--rail-w) / 2);
+        left: calc((var(--pad) + (100% - var(--pad) - min(1210px, 100% - var(--pad) - 54px)) / 2) / 2 - var(--rail-w) / 2);
         width: var(--rail-w); padding: 14px 14px 12px;
         background: #f6f7f2; border: 2px solid var(--cg-ink); box-shadow: 3px 3px 0 var(--cg-ink);
         font: 10px/1.4 var(--mono);
