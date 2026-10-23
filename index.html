@@ -769,7 +769,7 @@
     .cg-fallback { margin: 0; color: var(--muted); }
     .cg-fallback a { color: var(--ink); }
     .cg-pond { display: block; width: 100%; height: auto; }
-    .cg-pond text { font: 9px var(--mono); fill: var(--muted); }
+    .cg-pond text { font-family: var(--mono); fill: var(--muted); } /* size comes from the svg's font-size */
     /* heatmap palette: espresso ink, muted moss. Level 1 to 4 greens (level 0 is outline only);
        --dk = spots, --eye = eye white, --cg-ink = outline, pupils, mouth */
     :root {
@@ -784,18 +784,23 @@
     /* Wide screens: the heatmap is a vertical rail fixed to the left edge and the in-page
        Activity section steps aside. Below this (tablet, phone) nothing changes. */
     .rail { display: none; }
-    @media (min-width: 1100px) and (min-height: 620px) {
-      body { padding-left: 176px; }
+    @media (min-width: 1100px) and (min-height: 720px) {
+      :root { --rail-w: 238px; --pad: 132px; }
+      body { padding-left: var(--pad); }
       .activity { display: none; }
       .rail {
         display: block; position: fixed; z-index: 5; overflow: hidden;
-        top: 14px; left: 14px; width: 150px; max-height: calc(100vh - 32px); padding: 10px 8px 8px;
+        /* centred vertically; horizontally centred 2/3 of the way from the left edge to the cards, whose
+           left edge = body padding + shell margin + 190px label column + 44px gap (100% = viewport here) */
+        top: 50%; transform: translateY(-50%); max-height: calc(100vh - 32px);
+        left: calc((var(--pad) + (100% - var(--pad) - min(1210px, 100% - var(--pad) - 54px)) / 2 + 234px) * 2 / 3 - var(--rail-w) / 2);
+        width: var(--rail-w); padding: 14px 14px 12px;
         background: #f6f7f2; border: 2px solid var(--cg-ink); box-shadow: 3px 3px 0 var(--cg-ink);
         font: 10px/1.4 var(--mono);
       }
-      .rail .cg-big { margin-top: 8px; font-size: 26px; }
+      .rail .cg-big { margin-top: 10px; font-size: 30px; }
       .rail .cg-big + small { font-size: 9px; }
-      .cg-rail-box { margin-top: 10px; }
+      .cg-rail-box { margin-top: 14px; }
     }
   </style>
 </head>
@@ -1076,6 +1081,6 @@
     })();
   </script>
   <script src="/frog-backdrop.js" defer></script>
-  <script type="module" src="/assets/contrib.js"></script>
+  <script type="module" src="/assets/contrib.js?v=4"></script>
 </body>
 </html>
