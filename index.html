@@ -734,6 +734,29 @@
       .grch-bar input { width: 100%; max-width: 21ch; }
       .grch-status { margin-left: 0; flex-basis: 100%; }
     }
+
+    /* Activity: GitHub contribution heatmap (ink lily pads). Data: /assets/contrib.json. */
+    .activity {
+      display: grid; grid-template-columns: 190px 1fr; gap: 44px;
+      padding: 12px 0 76px; border-top: 1px solid var(--ink);
+    }
+    .activity > div { min-width: 0; }
+    .activity .eyebrow { display: block; }
+    .cg-big { display: block; margin-top: 22px; font: 700 44px/1 var(--mono); letter-spacing: -0.03em; }
+    .cg-big + small { display: block; margin-top: 6px; color: var(--muted); font: 10px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+    .cg-box { overflow-x: auto; padding: 14px 10px 10px; font: 10px/1.4 var(--mono); scrollbar-width: thin; }
+    .cg-fallback { margin: 0; color: var(--muted); }
+    .cg-fallback a { color: var(--ink); }
+    .cg-pond { display: block; width: 100%; height: auto; }
+    .cg-pond text { font: 9px var(--mono); fill: var(--muted); }
+    .cg-pond path { fill: var(--ink); stroke: none; }
+    .cg-pond .p0 { fill: none; stroke: var(--line); stroke-width: 1; }
+    .cg-pond .p1 { opacity: 0.22; } .cg-pond .p2 { opacity: 0.45; }
+    .cg-pond .p3 { opacity: 0.7; } .cg-pond .p4 { opacity: 1; }
+    @media (max-width: 700px) {
+      .activity { grid-template-columns: 1fr; gap: 14px; padding-bottom: 56px; }
+      .cg-big { margin-top: 8px; font-size: 34px; }
+    }
   </style>
 </head>
 
@@ -782,6 +805,22 @@
           </div>
           <figcaption><span>&gt; see also: <a href="#projects">projects(1)</a>, <a href="/research/">research(1)</a></span><span>updated oct 2026</span></figcaption>
         </figure>
+      </section>
+
+
+      <section class="activity" id="activity" aria-labelledby="activity-h">
+        <div>
+          <span class="eyebrow" id="activity-h">Activity</span>
+          <strong class="cg-big"><span class="cg-total">450</span></strong>
+          <small>github contributions, last 12 months</small>
+        </div>
+        <div>
+          <figure class="frame" data-contrib="pond">
+            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/pond --since=1.year</span><span>POND.LOG</span></div>
+            <div class="cg-box"><p class="cg-fallback">The contribution graph needs JavaScript. See it on <a href="https://github.com/frogscooper">github.com/frogscooper</a>.</p></div>
+            <figcaption><span>&gt; <span class="cg-total">450</span> contributions, <span class="cg-range">oct 19 2025 to oct 22 2026</span></span><span>one pad per day, bigger pad, more commits</span></figcaption>
+          </figure>
+        </div>
       </section>
 
       <section class="work" id="projects">
@@ -990,5 +1029,6 @@
     })();
   </script>
   <script src="/frog-backdrop.js" defer></script>
+  <script type="module" src="/assets/contrib.js"></script>
 </body>
 </html>
