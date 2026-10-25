@@ -781,6 +781,34 @@
       .cg-big { margin-top: 8px; font-size: 34px; }
     }
 
+    /* Open source: latest PRs to other people's repos. Static rows, refresh with scripts/prs.py. */
+    .prs {
+      display: grid; grid-template-columns: 190px 1fr; gap: 44px;
+      padding: 12px 0 76px; border-top: 1px solid var(--ink);
+    }
+    .prs > div { min-width: 0; }
+    .prs .eyebrow { display: block; }
+    .pr-list { list-style: none; margin: 0; padding: 4px 14px; font: 12px/1.5 var(--mono); }
+    .pr {
+      display: grid; grid-template-columns: minmax(0, 15ch) minmax(0, 1fr) auto 11ch;
+      gap: 6px 18px; align-items: baseline; padding: 10px 0; border-bottom: 1px dashed var(--line);
+    }
+    .pr:last-child { border-bottom: 0; }
+    .pr-repo { color: var(--muted); overflow-wrap: anywhere; }
+    .pr-title { color: var(--ink); overflow-wrap: anywhere; }
+    .pr-tag { padding: 1px 7px; border: 1px solid var(--ink); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .pr-tag.merged { background: var(--ink); color: var(--bg); }
+    .pr-tag.closed { border-style: dashed; color: var(--muted); }
+    .pr-date { color: var(--muted); text-align: right; white-space: nowrap; }
+    .prs-acts { margin-top: 26px; }
+    @media (max-width: 700px) {
+      .prs { grid-template-columns: 1fr; gap: 14px; padding-bottom: 56px; }
+      .pr { grid-template-columns: minmax(0, 1fr) auto; }
+      .pr-title { grid-column: 1 / -1; grid-row: 2; }
+      .pr-tag { grid-row: 3; justify-self: start; }
+      .pr-date { grid-row: 3; }
+    }
+
     /* Wide screens: the heatmap is a vertical rail fixed to the left edge and the in-page
        Activity section steps aside. Below this (tablet, phone) nothing changes. */
     .rail { display: none; }
@@ -873,6 +901,24 @@
             <div class="cg-box"><p class="cg-fallback">The contribution graph needs JavaScript. See it on <a href="https://github.com/frogscooper">github.com/frogscooper</a>.</p></div>
             <figcaption><span>&gt; <span class="cg-total">301</span> contributions, <span class="cg-range">apr 24 2026 to oct 23 2026</span></span><span>one frog per day, greener frog, more commits</span></figcaption>
           </figure>
+        </div>
+      </section>
+
+      <section class="prs" id="open-source" aria-labelledby="prs-h">
+        <div>
+          <span class="eyebrow" id="prs-h">Open source</span>
+        </div>
+        <div>
+          <figure class="frame">
+            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>gh pr list --author frogscooper</span><span>PRS.LOG</span></div>
+            <ul class="pr-list">
+              <!-- prs:start -->
+              <li class="pr"><span class="pr-repo">toss/es-toolkit</span><a class="pr-title" href="https://github.com/toss/es-toolkit/pull/2157">fix[groupBy, keyBy, countBy]: keep __proto__ as an own property</a><span class="pr-tag open">open</span><time class="pr-date" datetime="2026-10-23">oct 23 2026</time></li>
+              <!-- prs:end -->
+            </ul>
+            <figcaption><span>&gt; latest pull requests to repos i don't own</span><span>newest first</span></figcaption>
+          </figure>
+          <div class="prs-acts"><a class="man-btn" href="https://github.com/search?q=author%3Afrogscooper+is%3Apr+-user%3Afrogscooper&amp;type=pullrequests&amp;s=created&amp;o=desc">[ all open source work ]</a></div>
         </div>
       </section>
 
