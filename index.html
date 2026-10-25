@@ -811,7 +811,11 @@
 
     /* Wide screens: the heatmap is a vertical rail fixed to the left edge and the in-page
        Activity section steps aside. Below this (tablet, phone) nothing changes. */
-    .rail { display: none; }
+    /* The rail also carries the Open source list. Below the wide breakpoint only that list shows,
+       in page flow right under the Activity section. */
+    @media not all and (min-width: 1200px) and (min-height: 720px) {
+      .rail > :not(.prs) { display: none; }
+    }
     @media (min-width: 1200px) and (min-height: 720px) {
       /* --pad widens the left gutter so the whole rail fits left of the page content (labels,
          dividers and cards) without covering any of it. */
@@ -831,17 +835,27 @@
       .rail .cg-big { margin-top: 10px; font-size: 30px; }
       .rail .cg-big + small { font-size: 9px; }
       .cg-rail-box { margin-top: 14px; }
+      .rail { overflow-y: auto; scrollbar-width: thin; }
+      /* Open source list, stacked to fit the rail */
+      .rail .prs { display: block; margin-top: 10px; padding: 8px 0 0; border-top: 1px solid var(--cg-ink); }
+      .rail .prs .frame { margin: 6px 0 0; padding: 0 6px 4px; border-width: 1.5px; box-shadow: 3px 3px 0 var(--ink); }
+      .rail .prs .frame::before { display: none; }
+      .rail .prs .fig-head { grid-template-columns: auto 1fr; gap: 8px; margin: 0 -6px 2px; padding: 5px 7px; font-size: 9px; }
+      .rail .prs .fig-head span:nth-child(2) { text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .rail .prs .fig-head span:last-child { display: none; }
+      .rail .pr-list { padding: 0 2px; font-size: 10px; line-height: 1.4; }
+      .rail .pr { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; padding: 6px 0; }
+      .rail .pr-title { grid-column: 1 / -1; grid-row: 2; }
+      .rail .pr-tag { grid-row: 3; justify-self: start; padding: 0 5px; font-size: 9px; }
+      .rail .pr-date { grid-row: 3; }
+      .rail .prs figcaption { display: none; }
+      .rail .prs-acts { margin-top: 10px; padding-bottom: 3px; }
+      .rail .prs .man-btn { padding: 5px 10px; font-size: 11px; box-shadow: 3px 3px 0 var(--ink); }
     }
   </style>
 </head>
 
 <body>
-  <aside class="rail" aria-labelledby="rail-h" data-contrib="rail">
-    <span class="eyebrow" id="rail-h">Activity</span>
-    <strong class="cg-big"><span class="cg-total">301</span></strong>
-    <small>github contributions, last 6 months</small>
-    <div class="cg-rail-box"></div>
-  </aside>
   <div class="shell">
     <header class="site-header">
       <div class="brand">
@@ -904,23 +918,29 @@
         </div>
       </section>
 
-      <section class="prs" id="open-source" aria-labelledby="prs-h">
-        <div>
-          <span class="eyebrow" id="prs-h">Open source</span>
-        </div>
-        <div>
-          <figure class="frame">
-            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>gh pr list --author frogscooper</span><span>PRS.LOG</span></div>
-            <ul class="pr-list">
-              <!-- prs:start -->
-              <li class="pr"><span class="pr-repo">toss/es-toolkit</span><a class="pr-title" href="https://github.com/toss/es-toolkit/pull/2157">fix[groupBy, keyBy, countBy]: keep __proto__ as an own property</a><span class="pr-tag open">open</span><time class="pr-date" datetime="2026-10-23">oct 23 2026</time></li>
-              <!-- prs:end -->
-            </ul>
-            <figcaption><span>&gt; latest pull requests to repos i don't own</span><span>newest first</span></figcaption>
-          </figure>
-          <div class="prs-acts"><a class="man-btn" href="https://github.com/search?q=author%3Afrogscooper+is%3Apr+-user%3Afrogscooper&amp;type=pullrequests&amp;s=created&amp;o=desc">[ all open source work ]</a></div>
-        </div>
-      </section>
+      <aside class="rail" aria-labelledby="rail-h" data-contrib="rail">
+        <span class="eyebrow" id="rail-h">Activity</span>
+        <strong class="cg-big"><span class="cg-total">301</span></strong>
+        <small>github contributions, last 6 months</small>
+        <div class="cg-rail-box"></div>
+        <section class="prs" id="open-source" aria-labelledby="prs-h">
+          <div>
+            <span class="eyebrow" id="prs-h">Open source</span>
+          </div>
+          <div>
+            <figure class="frame">
+              <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>gh pr list --author frogscooper</span><span>PRS.LOG</span></div>
+              <ul class="pr-list">
+                <!-- prs:start -->
+                <li class="pr"><span class="pr-repo">toss/es-toolkit</span><a class="pr-title" href="https://github.com/toss/es-toolkit/pull/2157">fix[groupBy, keyBy, countBy]: keep __proto__ as an own property</a><span class="pr-tag open">open</span><time class="pr-date" datetime="2026-10-23">oct 23 2026</time></li>
+                <!-- prs:end -->
+              </ul>
+              <figcaption><span>&gt; latest pull requests to repos i don't own</span><span>newest first</span></figcaption>
+            </figure>
+            <div class="prs-acts"><a class="man-btn" href="https://github.com/search?q=author%3Afrogscooper+is%3Apr+-user%3Afrogscooper&amp;type=pullrequests&amp;s=created&amp;o=desc">[ all open source work ]</a></div>
+          </div>
+        </section>
+      </aside>
 
       <section class="work" id="projects">
         <div class="section-head">

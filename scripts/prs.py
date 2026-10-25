@@ -26,7 +26,7 @@ for it in items:
 
 path = sys.argv[1]
 s = open(path, encoding='utf-8').read()
-block = '<!-- prs:start -->\n' + '\n'.join('              ' + r for r in rows) + '\n              <!-- prs:end -->'
+block = '<!-- prs:start -->\n' + '\n'.join('                ' + r for r in rows) + '\n                <!-- prs:end -->'
 s2, n = re.subn(r'<!-- prs:start -->.*?<!-- prs:end -->', lambda m: block, s, flags=re.S)
 assert n == 1, 'markers not found'
 if s2 != s:
