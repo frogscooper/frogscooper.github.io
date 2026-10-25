@@ -539,8 +539,11 @@
       margin: 0 0 10px;
     }
 
+    .man-main { container-type: inline-size; } /* lets the name scale to its column */
+
     .man-main h1 {
       font-size: 64px;
+      font-size: min(64px, (100cqi - 14px) / 6.1); /* "frogscooper" is ~6em wide; 14px = left margin */
       line-height: 1;
       letter-spacing: -0.055em;
       margin: 0 0 30px 14px;
@@ -678,6 +681,7 @@
 
       .man-main h1 {
         font-size: 44px;
+        font-size: min(44px, 100cqi / 6.1);
         margin: 0 0 22px;
       }
 
