@@ -1,18 +1,24 @@
-# Refresh the "Open source" PR list in index.html by hand:
+# Refresh the "Open source" PR list in index.html:
 #   python3 scripts/prs.py index.html
-# Reads GitHub's public search API (no token needed) and rewrites the rows between
+# Runs every 4h from .github/workflows/prs.yml, or by hand.
+# Reads GitHub's public search API (no token needed, uses GITHUB_TOKEN if set) and rewrites the rows between
 # <!-- prs:start --> and <!-- prs:end -->. Only PRs to repos not owned by frogscooper.
-import json, re, sys, html, datetime, urllib.parse, urllib.request
+import json, os, re, sys, html, datetime, urllib.parse, urllib.request
 
 USER, N = 'frogscooper', 5
 
 def get(url):
-    req = urllib.request.Request(url, headers={'User-Agent': USER + '-site', 'Accept': 'application/vnd.github+json'})
+    headers = {'User-Agent': USER + '-site', 'Accept': 'application/vnd.github+json'}
+    if os.environ.get('GITHUB_TOKEN'):
+        headers['Authorization'] = 'Bearer ' + os.environ['GITHUB_TOKEN']
+    req = urllib.request.Request(url, headers=headers)
     return json.load(urllib.request.urlopen(req, timeout=30))
 
 q = f'is:pr author:{USER} -user:{USER}'
 items = get('https://api.github.com/search/issues?sort=created&order=desc&per_page=%d&q=%s'
             % (N, urllib.parse.quote(q)))['items']
+if not items:
+    sys.exit('search returned no PRs, leaving index.html alone')
 rows = []
 for it in items:
     repo = it['repository_url'].split('/repos/')[1]

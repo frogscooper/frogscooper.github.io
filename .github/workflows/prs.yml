@@ -1,0 +1,41 @@
+name: Refresh open source PRs
+
+# Rewrites the "Open source" PR rows in index.html (between the prs markers)
+# with the 5 latest PRs frogscooper opened to repos he doesn't own.
+# Only commits when the list actually changed.
+on:
+  schedule:
+    - cron: '53 */4 * * *'   # every 4 hours, 30 min after the contrib refresh
+  workflow_dispatch:         # Actions tab > Run workflow, for a manual refresh
+
+permissions:
+  contents: write
+
+# same group as contrib.yml so the two never push to main at once
+concurrency:
+  group: contrib
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch latest PRs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/prs.py index.html
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "no change"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Refresh open source PRs"
+          git pull --rebase
+          git push
