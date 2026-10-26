@@ -3,12 +3,12 @@
 # Runs every 4h from .github/workflows/prs.yml, or by hand.
 # Reads GitHub's public search API (no token needed, uses GITHUB_TOKEN if set). Only PRs to
 # repos not owned by frogscooper, newest first.
-#   index.html: the 5 latest, between <!-- prs:start --> and <!-- prs:end -->
+#   index.html: the latest one (keeps the frog rail short), between <!-- prs:start --> and <!-- prs:end -->
 #   open-source/index.html (optional 2nd arg): every PR, between <!-- prs-all:start --> and
 #   <!-- prs-all:end -->. A <!-- prs-count:start/end --> pair, if present, gets the total.
 import json, os, re, sys, html, datetime, urllib.parse, urllib.request
 
-USER, N = 'frogscooper', 5
+USER, N = 'frogscooper', 1
 
 def get(url):
     headers = {'User-Agent': USER + '-site', 'Accept': 'application/vnd.github+json'}
