@@ -1,7 +1,7 @@
 name: Refresh open source PRs
 
-# Rewrites the "Open source" PR rows in index.html (between the prs markers)
-# with the 5 latest PRs frogscooper opened to repos he doesn't own.
+# Rewrites the "Open source" PR rows in index.html (5 latest) and open-source/index.html (all)
+# with the PRs frogscooper opened to repos he doesn't own.
 # Only commits when the list actually changed.
 on:
   schedule:
@@ -25,17 +25,17 @@ jobs:
       - name: Fetch latest PRs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 scripts/prs.py index.html
+        run: python3 scripts/prs.py index.html open-source/index.html
 
       - name: Commit if changed
         run: |
-          if git diff --quiet -- index.html; then
+          if git diff --quiet -- index.html open-source/index.html; then
             echo "no change"
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html
+          git add index.html open-source/index.html
           git commit -m "Refresh open source PRs"
           git pull --rebase
           git push
