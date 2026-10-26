@@ -874,6 +874,40 @@
       .rail .prs-acts { margin-top: 10px; padding-bottom: 3px; }
       .rail .prs .man-btn { padding: 5px 10px; font-size: 11px; box-shadow: 3px 3px 0 var(--ink); }
     }
+    /* once: a replay of a real recorded terminal session (see the player script). */
+    .once-term { container-type: inline-size; border: 1px solid var(--ink); background: #eef1ea; }
+    .once-term pre {
+      margin: 0; padding: 16px 18px; overflow: hidden; white-space: pre;
+      font: clamp(9px, calc((100cqi - 36px) / 28), 14px)/1.6 var(--mono); color: var(--ink);
+      height: calc(14 * 1.6em + 32px); box-sizing: border-box;
+    }
+    .once-term .p { color: var(--muted); }
+    .once-term .fx { font-weight: 700; background: #d6e8d6; }
+    .once-term .hit { font-weight: 700; }
+    .once-term .kill { background: var(--ink); color: var(--bg); }
+    .once-term .ret { color: var(--muted); }
+    .once-term .cur { display: inline-block; width: 0.6em; height: 1.15em; vertical-align: -0.2em; background: var(--ink); }
+    .once-src { margin-top: 14px; }
+    .once-src summary { cursor: pointer; font: 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+    .once-src summary:hover { color: var(--ink); }
+    .once-src pre {
+      margin: 10px 0 0; padding: 12px 14px; overflow-x: auto; border: 1px solid var(--line);
+      background: #f6f7f2; font: 11px/1.55 var(--mono); color: var(--ink);
+    }
+    .once-install {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+      margin-top: 18px;
+    }
+    .once-install code {
+      padding: 5px 10px; border: 1.5px solid var(--ink); background: var(--bg);
+      font: 12px/1.4 var(--mono); user-select: all;
+    }
+    .once-copy {
+      padding: 5px 10px; border: 1.5px solid var(--ink); background: var(--bg); color: var(--ink);
+      font: 12px/1.4 var(--mono); cursor: pointer; box-shadow: 3px 3px 0 var(--ink);
+    }
+    .once-copy:hover, .once-copy:focus-visible { background: var(--ink); color: var(--bg); outline: none; }
+    .once-copy:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
     /* nav-css:start */
     .site-header nav { gap: 8px 20px; }
     .nav-group { display: flex; flex-wrap: wrap; gap: 8px 20px; }
@@ -1099,26 +1133,102 @@
           </div>
         </article>
 
-        <article class="project secondary">
+        <article class="project featured">
           <span class="index">04</span>
 
           <div class="project-main">
-            <div class="desc">
-              <div class="heading">
-                <h3>
-                  <a href="https://github.com/frogscooper/once">once</a>
-                </h3>
-                <span>Python · 2026</span>
-              </div>
+            <div class="heading">
+              <h3>
+                <a href="https://github.com/frogscooper/once">once</a>
+              </h3>
+              <span>Python · 2026</span>
+            </div>
 
+            <figure class="frame">
+            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>bash: python agent.py</span><span>FIG.03</span></div>
+            <div class="once-term" id="once-term">
+<pre aria-label="terminal recording: an agent is killed after charging a card, then retries the run"><code><span class="p">$ python agent.py --crash-after charge_card</span>
+-&gt; charge_card(order=&#x27;A12&#x27;, cents=1000)
+<span class="fx">  ** charging card for A12: $10.00</span>
+<span class="ret">  &lt;- &#x27;ch_1&#x27;</span>
+<span class="kill">!! worker killed (simulated timeout)</span>
+<span class="p">$ python agent.py</span>
+-&gt; charge_card(order=&#x27;A12&#x27;, cents=1000)
+<span class="hit">  once: saved result, not run again</span>
+<span class="ret">  &lt;- &#x27;ch_1&#x27;</span>
+-&gt; send_receipt(order=&#x27;A12&#x27;, charge=&#x27;ch_1&#x27;)
+<span class="fx">  ** emailing receipt for A12 (ch_1)</span>
+<span class="ret">  &lt;- &#x27;msg_1&#x27;</span>
+agent: plan done</code></pre>
+            </div>
+            <figcaption><span>&gt; fig. 03 / killed after the charge, retried, charged once</span><span>scripted agent loop, real agent-once 0.1.0 output</span></figcaption>
+          </figure>
+
+            <div class="desc">
               <p>
-                A small Python library that makes side-effecting tool calls safe for AI agents
-                to retry. Each call gets an idempotency key stored in SQLite, so a retried
-                "charge the card" or "send the email" returns the saved result instead of
-                running twice. No dependencies.
+                A Python library that makes side-effecting tool calls safe for AI agents to
+                retry. Each call gets an idempotency key stored in SQLite or Postgres, so a
+                retried "charge the card" or "send the email" returns the saved result
+                instead of running twice.
               </p>
 
+              <div class="once-install">
+                <code>$ pip install agent-once</code>
+                <button type="button" class="once-copy" data-copy="pip install agent-once" hidden>[ copy ]</button>
+                <span class="try-hint">python 3.10+, no dependencies</span>
+              </div>
+
+              <details class="once-src">
+                <summary>[ view agent.py ]</summary>
+<pre><code>&quot;&quot;&quot;A scripted agent loop (no model) that runs a two-step plan through agent-once.&quot;&quot;&quot;
+import os
+import sys
+import time
+
+from once import Hooks, Once
+
+once = Once(&quot;agent.db&quot;, hooks=Hooks(
+    on_replay=lambda e: print(&quot;  once: saved result, not run again&quot;)))
+
+PLAN = [(&quot;charge_card&quot;, {&quot;order&quot;: &quot;A12&quot;, &quot;cents&quot;: 1000}),
+        (&quot;send_receipt&quot;, {&quot;order&quot;: &quot;A12&quot;, &quot;charge&quot;: &quot;$charge_card&quot;})]
+
+
+@once.tool
+def charge_card(order: str, cents: int) -&gt; str:
+    print(f&quot;  ** charging card for {order}: ${cents / 100:.2f}&quot;)
+    return &quot;ch_1&quot;
+
+
+@once.tool
+def send_receipt(order: str, charge: str) -&gt; str:
+    print(f&quot;  ** emailing receipt for {order} ({charge})&quot;)
+    return &quot;msg_1&quot;
+
+
+TOOLS = {&quot;charge_card&quot;: charge_card, &quot;send_receipt&quot;: send_receipt}
+crash_after = sys.argv[2] if sys.argv[1:2] == [&quot;--crash-after&quot;] else None
+
+results = {}
+with once.scope(&quot;run_42&quot;):
+    for name, args in PLAN:
+        time.sleep(0.5)  # stand-in for the model picking the next step
+        args = {k: results.get(v[1:], v) if isinstance(v, str) and v.startswith(&quot;$&quot;) else v
+                for k, v in args.items()}
+        print(f&quot;-&gt; {name}({&#x27;, &#x27;.join(f&#x27;{k}={v!r}&#x27; for k, v in args.items())})&quot;)
+        results[name] = TOOLS[name](**args)
+        print(f&quot;  &lt;- {results[name]!r}&quot;)
+        if name == crash_after:
+            time.sleep(0.4)
+            print(&quot;!! worker killed (simulated timeout)&quot;)
+            sys.stdout.flush()
+            os._exit(137)
+print(&quot;agent: plan done&quot;)</code></pre>
+              </details>
+
               <div class="links">
+                <a href="https://pypi.org/project/agent-once/">PyPI ↗</a>
+                <a href="https://frogscooper.dev/once/">Docs ↗</a>
                 <a href="https://github.com/frogscooper/once">Source ↗</a>
               </div>
             </div>
@@ -1188,6 +1298,58 @@
           btn.disabled = false;
           btn.textContent = '[ failed, retry ]';
         }
+      });
+    })();
+  </script>
+  <script>
+    // once card: replays a real recorded terminal session (asciinema-style cast,
+    // typed commands plus real pty output with real timing). Loops, pauses
+    // offscreen, and shows the final state for reduced motion.
+    (() => {
+      const box = document.getElementById('once-term');
+      const code = box && box.querySelector('code');
+      if (!code || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const CAST = [[0.3,"$ "],[0.73,"p"],[0.76,"y"],[0.79,"t"],[0.82,"h"],[0.85,"o"],[0.88,"n"],[0.91," "],[0.94,"a"],[0.97,"g"],[1.0,"e"],[1.03,"n"],[1.06,"t"],[1.09,"."],[1.12,"p"],[1.16,"y"],[1.19," "],[1.22,"-"],[1.25,"-"],[1.28,"c"],[1.31,"r"],[1.34,"a"],[1.37,"s"],[1.4,"h"],[1.43,"-"],[1.46,"a"],[1.49,"f"],[1.52,"t"],[1.55,"e"],[1.58,"r"],[1.61," "],[1.64,"c"],[1.67,"h"],[1.7,"a"],[1.73,"r"],[1.76,"g"],[1.79,"e"],[1.82,"_"],[1.85,"c"],[1.88,"a"],[1.91,"r"],[1.95,"d"],[2.2,"\n"],[2.76,"-> charge_card(order='A12', cents=1000)\n  ** charging card for A12: $10.00\n  <- 'ch_1'\n"],[3.17,"!! worker killed (simulated timeout)\n"],[4.07,"$ "],[4.5,"p"],[4.53,"y"],[4.56,"t"],[4.59,"h"],[4.62,"o"],[4.66,"n"],[4.68," "],[4.71,"a"],[4.75,"g"],[4.78,"e"],[4.8,"n"],[4.83,"t"],[4.87,"."],[4.9,"p"],[4.93,"y"],[5.18,"\n"],[5.74,"-> charge_card(order='A12', cents=1000)\n  once: saved result, not run again\n  <- 'ch_1'\n"],[6.24,"-> send_receipt(order='A12', charge='ch_1')\n"],[6.25,"  ** emailing receipt for A12 (ch_1)\n  <- 'msg_1'\nagent: plan done\n"],[9.37,""]];
+      const END = 9.37;
+      const kind = (l) => l.startsWith('$ ') ? 'p' : l.startsWith('  ** ') ? 'fx'
+        : l.startsWith('  once:') ? 'hit' : l.startsWith('!!') ? 'kill' : l.startsWith('  <- ') ? 'ret' : '';
+      const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      let shown = -1, base = 0, at = 0, raf = 0, visible = false;
+      const draw = (n) => {
+        if (n === shown) return;
+        shown = n;
+        let text = '';
+        for (let i = 0; i < n; i++) text += CAST[i][1];
+        const lines = text.split('\n');
+        code.innerHTML = lines.map((l, i) => {
+          const k = kind(l), body = esc(l) + (i === lines.length - 1 ? '<span class="cur"></span>' : '');
+          return k ? '<span class="' + k + '">' + body + '</span>' : body;
+        }).join('\n');
+      };
+      const tick = () => {
+        const t = ((performance.now() - base) / 1000) % END;
+        let n = 0;
+        while (n < CAST.length && CAST[n][0] <= t) n++;
+        draw(n);
+        raf = requestAnimationFrame(tick);
+      };
+      const play = () => { if (raf || !visible || document.hidden) return; base = performance.now() - at; raf = requestAnimationFrame(tick); };
+      const stop = () => { if (!raf) return; cancelAnimationFrame(raf); raf = 0; at = performance.now() - base; };
+      draw(0);
+      new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? play() : stop(); }).observe(box);
+      document.addEventListener('visibilitychange', () => (document.hidden ? stop() : play()));
+    })();
+  </script>
+  <script>
+    // once card: copy the install line.
+    (() => {
+      const btn = document.querySelector('.once-copy');
+      if (!btn || !navigator.clipboard) return;
+      btn.hidden = false;
+      btn.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(btn.dataset.copy); btn.textContent = '[ copied ]'; }
+        catch (e) { btn.textContent = '[ copy failed ]'; }
+        setTimeout(() => (btn.textContent = '[ copy ]'), 1500);
       });
     })();
   </script>
