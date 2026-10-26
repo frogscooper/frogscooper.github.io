@@ -6,7 +6,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
-  <title>Open Source | frogscooper</title>
+  <title>Open source contributions | frogscooper</title>
   <meta name="description" content="Open source pull requests by frogscooper.">
   <link rel="canonical" href="https://frogscooper.dev/open-source/">
   <meta name="theme-color" content="#fafaf8">
@@ -383,84 +383,94 @@
       letter-spacing: 0.02em;
     }
 
-    /* PR list: same terminal frame and rows as the home page Open source section. */
-    .frame {
-      position: relative;
+    /* Open source page: plain list on a solid paper panel so it reads over the backdrop. */
+    .os {
+      max-width: 760px;
+      margin: 40px 0 64px;
+      padding: 36px 40px 30px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+    }
+    .os h1 {
+      margin-bottom: 26px;
+      font-size: 30px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .os-list {
+      list-style: none;
       margin: 0;
-      padding: 0 8px 8px;
-      border: 2px solid var(--ink);
-      background: #f6f7f2;
-      box-shadow: 8px 8px 0 var(--ink);
+      padding: 0;
+      border-top: 1px solid var(--line);
     }
-    .frame::before {
-      content: "";
-      position: absolute;
-      inset: -14px;
-      pointer-events: none;
-      background:
-        linear-gradient(var(--ink),var(--ink)) top left / 14px 1px,
-        linear-gradient(var(--ink),var(--ink)) top left / 1px 14px,
-        linear-gradient(var(--ink),var(--ink)) top right / 14px 1px,
-        linear-gradient(var(--ink),var(--ink)) top right / 1px 14px,
-        linear-gradient(var(--ink),var(--ink)) bottom left / 14px 1px,
-        linear-gradient(var(--ink),var(--ink)) bottom left / 1px 14px,
-        linear-gradient(var(--ink),var(--ink)) bottom right / 14px 1px,
-        linear-gradient(var(--ink),var(--ink)) bottom right / 1px 14px;
-      background-repeat: no-repeat;
-    }
-    .fig-head {
+    .os-pr {
       display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 12px;
-      margin: 0 -8px 8px;
-      padding: 7px 10px;
-      border-bottom: 2px solid var(--ink);
-      background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(16,16,16,0.08) 3px 4px), #e4e9de;
-      font-size: 10px;
-      letter-spacing: 0.06em;
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
     }
-    .fig-head span:nth-child(2) { text-align: center; }
-    .fig-head span:last-child { color: var(--muted); }
-    .dots { display: flex; gap: 5px; }
-    .dots i { width: 9px; height: 9px; border: 1.5px solid var(--ink); }
-    .dots i:first-child { background: var(--ink); }
-    .frame figcaption {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 8px 2px 0;
-      font-size: 10px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+    .os-pr a {
+      font-size: 16px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+    .os-meta {
+      grid-column: 1 / -1;
+      margin-top: 4px;
       color: var(--muted);
+      font-size: 13px;
     }
-    .pr-list { list-style: none; margin: 0; padding: 4px 14px; font: 12px/1.5 var(--mono); }
-    .pr {
-      display: grid; grid-template-columns: minmax(0, 15ch) 6ch minmax(0, 1fr) auto 11ch;
-      gap: 6px 18px; align-items: baseline; padding: 10px 0; border-bottom: 1px dashed var(--line);
+    /* state icons. palette lives in this one block; ink-and-paper values are in the comments. */
+    .os {
+      --st-open: #1a7f37;    /* ink: var(--ink) */
+      --st-merged: #8250df;  /* ink: var(--ink) */
+      --st-closed: #cf222e;  /* ink: #9a9a96 */
+      --st-draft: #59636e;   /* ink: #9a9a96 */
     }
-    .pr:last-child { border-bottom: 0; }
-    .pr-repo { color: var(--muted); overflow-wrap: anywhere; }
-    .pr-num { color: var(--muted); }
-    .pr-title { color: var(--ink); overflow-wrap: anywhere; }
-    .pr-tag { padding: 1px 7px; border: 1px solid var(--ink); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
-    .pr-tag.merged { background: var(--ink); color: var(--bg); }
-    .pr-tag.closed { border-style: dashed; color: var(--muted); }
-    .pr-date { color: var(--muted); text-align: right; white-space: nowrap; }
+    .os-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .os-state {
+      position: relative;
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
+      display: flex;
+      margin-top: 3px;
+      cursor: default;
+    }
+    .os-state svg { width: 18px; height: 18px; fill: currentColor; }
+    .os-state.open { color: var(--st-open); }
+    .os-state.merged { color: var(--st-merged); }
+    .os-state.closed { color: var(--st-closed); }
+    .os-state.draft { color: var(--st-draft); }
+    .os-state::after {
+      content: attr(aria-label);
+      position: absolute;
+      right: -6px;
+      bottom: calc(100% + 7px);
+      padding: 3px 7px 4px;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 11px;
+      line-height: 1.3;
+      white-space: nowrap;
+      text-transform: lowercase;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s;
+    }
+    .os-state:hover::after { opacity: 1; }
+    .os-meta time { white-space: nowrap; }
+    .os-more {
+      margin: 22px 0 0;
+      font-size: 13px;
+    }
+    .os-more a { text-decoration: underline; text-underline-offset: 4px; }
     @media (max-width: 760px) {
-      .frame { box-shadow: 5px 5px 0 var(--ink); }
-      .frame::before { inset: -10px; }
-      .fig-head span:last-child,
-      .frame figcaption span:last-child { display: none; }
-      .fig-head { grid-template-columns: auto 1fr; }
-      .fig-head span:nth-child(2) { text-align: left; }
-      .pr-list { padding: 2px 6px; }
-      .pr { grid-template-columns: minmax(0, 1fr) auto; }
-      .pr-num { grid-row: 1; grid-column: 2; text-align: right; }
-      .pr-title { grid-column: 1 / -1; grid-row: 2; }
-      .pr-tag { grid-row: 3; justify-self: start; }
-      .pr-date { grid-row: 3; }
+      .os { margin: 24px -12px 48px; padding: 24px 18px 20px; }
+      .os h1 { font-size: 26px; }
+      .os-pr { column-gap: 12px; }
+      .os-pr a { font-size: 15.5px; }
     }
   </style>
 </head>
@@ -486,39 +496,24 @@
       </nav>
     </header>
 
-    <main>
-      <section class="intro">
-        <span class="eyebrow">Open source</span>
+    <main class="os">
+      <!-- PR state icons: GitHub Primer Octicons (git-pull-request, git-merge, git-pull-request-closed, git-pull-request-draft), MIT License, Copyright GitHub Inc. -->
+      <svg class="os-sprite" aria-hidden="true" focusable="false">
+        <symbol id="oi-open" viewBox="0 0 16 16"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"/></symbol>
+        <symbol id="oi-merged" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z"/></symbol>
+        <symbol id="oi-closed" viewBox="0 0 16 16"><path d="M3.25 1A2.25 2.25 0 0 1 4 5.372v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.251 2.251 0 0 1 3.25 1Zm9.5 5.5a.75.75 0 0 1 .75.75v3.378a2.251 2.251 0 1 1-1.5 0V7.25a.75.75 0 0 1 .75-.75Zm-2.03-5.273a.75.75 0 0 1 1.06 0l.97.97.97-.97a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.97.97.97.97a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-.97-.97-.97.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l.97-.97-.97-.97a.75.75 0 0 1 0-1.06ZM2.5 3.25a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0ZM3.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm9.5 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"/></symbol>
+        <symbol id="oi-draft" viewBox="0 0 16 16"><path d="M3.25 1A2.25 2.25 0 0 1 4 5.372v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.251 2.251 0 0 1 3.25 1Zm9.5 14a2.25 2.25 0 1 1 0-4.5 2.25 2.25 0 0 1 0 4.5ZM2.5 3.25a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0ZM3.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm9.5 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM14 7.5a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Zm0-4.25a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z"/></symbol>
+      </svg>
+      <h1>Open source contributions</h1>
 
-        <div>
-          <h1>Open source</h1>
-          <p>
-            Pull requests I&rsquo;ve opened to projects I don&rsquo;t own, newest first.
-            The list refreshes from GitHub every few hours.
-          </p>
-        </div>
-      </section>
+      <ul class="os-list">
+        <!-- prs-all:start -->
+        <li class="os-pr"><a href="https://github.com/toss/es-toolkit/pull/2165">fix[pickBy]: do not treat objects with a numeric length as array-like</a><span class="os-state merged" role="img" aria-label="Merged"><svg aria-hidden="true" focusable="false"><use href="#oi-merged"/></svg></span><span class="os-meta">toss/es-toolkit #2165 &middot; <time datetime="2026-10-25">oct 25 2026</time></span></li>
+        <li class="os-pr"><a href="https://github.com/toss/es-toolkit/pull/2157">fix[groupBy, keyBy, countBy]: keep __proto__ as an own property</a><span class="os-state open" role="img" aria-label="Open"><svg aria-hidden="true" focusable="false"><use href="#oi-open"/></svg></span><span class="os-meta">toss/es-toolkit #2157 &middot; <time datetime="2026-10-23">oct 23 2026</time></span></li>
+        <!-- prs-all:end -->
+      </ul>
 
-      <section class="section">
-        <h2>Pull requests</h2>
-
-        <div class="section-main">
-          <figure class="frame">
-            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>gh pr list --author frogscooper</span><span>PRS.LOG</span></div>
-            <ul class="pr-list">
-                <!-- prs-all:start -->
-                <li class="pr"><span class="pr-repo">toss/es-toolkit</span><span class="pr-num">#2165</span><a class="pr-title" href="https://github.com/toss/es-toolkit/pull/2165">fix[pickBy]: do not treat objects with a numeric length as array-like</a><span class="pr-tag merged">merged</span><time class="pr-date" datetime="2026-10-25">oct 25 2026</time></li>
-                <li class="pr"><span class="pr-repo">toss/es-toolkit</span><span class="pr-num">#2157</span><a class="pr-title" href="https://github.com/toss/es-toolkit/pull/2157">fix[groupBy, keyBy, countBy]: keep __proto__ as an own property</a><span class="pr-tag open">open</span><time class="pr-date" datetime="2026-10-23">oct 23 2026</time></li>
-                <!-- prs-all:end -->
-            </ul>
-            <figcaption><span>&gt; <!-- prs-count:start -->2<!-- prs-count:end --> pull requests to repos i don't own</span><span>newest first</span></figcaption>
-          </figure>
-
-          <p class="small-note">
-            <a href="https://github.com/search?q=author%3Afrogscooper+is%3Apr+-user%3Afrogscooper&amp;type=pullrequests&amp;s=created&amp;o=desc">view on github &rarr;</a>
-          </p>
-        </div>
-      </section>
+      <p class="os-more"><a href="https://github.com/search?q=author%3Afrogscooper+is%3Apr+-user%3Afrogscooper&amp;type=pullrequests&amp;s=created&amp;o=desc">view on github &rarr;</a></p>
     </main>
 
     <footer>
