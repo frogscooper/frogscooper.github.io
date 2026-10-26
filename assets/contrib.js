@@ -7,6 +7,9 @@ const fmt = d => `${MON[d.getUTCMonth()]} ${d.getUTCDate()} ${d.getUTCFullYear()
 const day = s => new Date(s + 'T00:00:00Z');
 const f = v => +v.toFixed(2);
 const MONTHS = 6; // how far back to show; the page text says "6 months" too
+// The fixed rail on short screens only has room for 4 months of frogs. 897px is where 6 months
+// stop fitting in the rail (it is capped at 100vh - 32px), so short means under 900px tall.
+const SHORT = matchMedia('(max-height: 899px)'), SHORT_MONTHS = 4;
 
 function weeks(days) {
   const pad = day(days[0][0]).getUTCDay(), cols = [];
@@ -43,6 +46,8 @@ const RULES = { E: [1, 'var(--eye)'], O: [1, 'var(--cg-ink)'], M: [2, 'var(--cg-
 const LAYOUT = {
   wide: { s: 1, cx: 13, cy: 12, lab: 0, top: 14 },
   tall: { s: 2, cx: 13, cy: 10, lab: 12, top: 0 },
+  // short screens: 4 months can still span 19 week rows, so rows sit 2px closer to fit 720px
+  short: { s: 2, cx: 13, cy: 9, lab: 12, top: 0 },
 };
 
 function frogs() {
@@ -69,8 +74,8 @@ function frogs() {
   }).join('');
 }
 
-function pond(cols, vertical) {
-  const { s, cx, cy, lab, top } = LAYOUT[vertical ? 'tall' : 'wide'];
+function pond(cols, vertical, short) {
+  const { s, cx, cy, lab, top } = LAYOUT[vertical ? (short ? 'short' : 'tall') : 'wide'];
   const W = vertical ? lab + 7 * cx : cols.length * cx, H = vertical ? cols.length * cy : top + 7 * cy;
   let g = '';
   monthRow(cols).forEach((m, i) => {
@@ -85,31 +90,45 @@ function pond(cols, vertical) {
   return `<svg class="cg-pond" viewBox="0 0 ${W} ${H}" width="${W * s}" height="${H * s}" style="${px}" aria-hidden="true">${g}</svg>`;
 }
 
+// The last `months` of the year in contrib.json, plus everything the labels need.
+function range(data, months) {
+  const cut = day(data.to);
+  cut.setUTCMonth(cut.getUTCMonth() - months);
+  const days = data.days.filter(d => day(d[0]) > cut), total = days.reduce((n, d) => n + d[1], 0);
+  const from = fmt(day(days[0][0])), to = fmt(day(data.to));
+  const best = days.reduce((a, b) => (b[1] > a[1] ? b : a));
+  const label = `${total} GitHub contributions from ${from} to ${to}. Busiest day ${fmt(day(best[0]))} with ${best[1]}.`;
+  return { cols: weeks(days), total, from, to, label };
+}
+
 async function main() {
   const el = document.querySelector('[data-contrib="pond"]'), rail = document.querySelector('[data-contrib="rail"]');
   if (!el && !rail) return;
   const data = await (await fetch('/assets/contrib.json', { cache: 'no-cache' })).json();
   // the JSON holds a full year; the page only shows the last 6 months
-  const cut = day(data.to);
-  cut.setUTCMonth(cut.getUTCMonth() - MONTHS);
-  const days = data.days.filter(d => day(d[0]) > cut), total = days.reduce((n, d) => n + d[1], 0);
-  const cols = weeks(days), from = fmt(day(days[0][0])), to = fmt(day(data.to));
-  const best = days.reduce((a, b) => (b[1] > a[1] ? b : a));
-  const label = `${total} GitHub contributions from ${from} to ${to}. Busiest day ${fmt(day(best[0]))} with ${best[1]}.`;
+  const r = range(data, MONTHS);
   document.body.insertAdjacentHTML('beforeend', `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${frogs()}</defs></svg>`);
   const box = el?.querySelector('.cg-box'), tall = rail?.querySelector('.cg-rail-box');
   if (box) {
-    box.innerHTML = pond(cols, false);
+    box.innerHTML = pond(r.cols, false);
     box.setAttribute('role', 'img');
-    box.setAttribute('aria-label', label);
+    box.setAttribute('aria-label', r.label);
     box.scrollLeft = box.scrollWidth;
   }
+  document.querySelectorAll('.cg-total').forEach(n => (n.textContent = r.total));
+  document.querySelectorAll('.cg-range').forEach(n => (n.textContent = `${r.from} to ${r.to}`));
   if (tall) {
-    tall.innerHTML = pond(cols, true);
-    tall.setAttribute('role', 'img');
-    tall.setAttribute('aria-label', label);
+    // the rail has its own total and month count, since on short screens it shows less
+    const drawRail = () => {
+      const months = SHORT.matches ? SHORT_MONTHS : MONTHS, t = months === MONTHS ? r : range(data, months);
+      tall.innerHTML = pond(t.cols, true, SHORT.matches);
+      tall.setAttribute('role', 'img');
+      tall.setAttribute('aria-label', t.label);
+      rail.querySelectorAll('.cg-rail-total').forEach(n => (n.textContent = t.total));
+      rail.querySelectorAll('.cg-rail-months').forEach(n => (n.textContent = months));
+    };
+    drawRail();
+    SHORT.addEventListener('change', drawRail);
   }
-  document.querySelectorAll('.cg-total').forEach(n => (n.textContent = total));
-  document.querySelectorAll('.cg-range').forEach(n => (n.textContent = `${from} to ${to}`));
 }
 main().catch(() => {});
