@@ -874,6 +874,19 @@
       .rail .prs-acts { margin-top: 10px; padding-bottom: 3px; }
       .rail .prs .man-btn { padding: 5px 10px; font-size: 11px; box-shadow: 3px 3px 0 var(--ink); }
     }
+    /* nav-css:start */
+    .site-header nav { gap: 8px 20px; }
+    .nav-group { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+    .nav-group a { color: var(--muted); }
+    .nav-group a:hover, .nav-group a[aria-current="page"] { color: var(--ink); }
+    .nav-group a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+    .nav-ext { padding-left: 20px; border-left: 1px solid var(--line); }
+    .nav-ext a::after { content: "\2197"; content: "\2197" / ""; margin-left: 3px; font-size: 0.9em; }
+    @media (max-width: 760px) {
+      .site-header nav { flex-direction: column; align-items: flex-start; }
+      .nav-ext { padding-left: 0; border-left: 0; }
+    }
+    /* nav-css:end */
   </style>
 </head>
 
@@ -888,13 +901,20 @@
         </a>
       </div>
 
-      <nav>
-        <a href="/open-source/">Open Source</a>
-        <a href="/contact/">Contact</a>
-        <a href="/research/">Research</a>
-        <a href="https://lilypad.frogscooper.dev">Lilypad</a>
-        <a href="https://github.com/frogscooper">GitHub</a>
+      <!-- nav:start -->
+      <nav aria-label="Primary">
+        <div class="nav-group">
+          <a href="/open-source/">Open Source</a>
+          <a href="/" aria-current="page">Work</a>
+          <a href="/research/">Research</a>
+          <a href="/contact/">Contact</a>
+        </div>
+        <div class="nav-group nav-ext">
+          <a href="https://lilypad.frogscooper.dev">Lilypad</a>
+          <a href="https://github.com/frogscooper">GitHub</a>
+        </div>
       </nav>
+      <!-- nav:end -->
     </header>
 
     <main>
