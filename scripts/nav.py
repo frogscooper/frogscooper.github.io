@@ -6,8 +6,8 @@
 import os, re, sys
 
 NAV = [
+    ('Home', '/'),
     ('Open Source', '/open-source/'),
-    ('Work', '/'),
     ('Research', '/research/'),
     ('Lilypad', 'https://lilypad.frogscooper.dev'),
     ('Contact', '/contact/'),
