@@ -1,7 +1,8 @@
 name: Refresh open source PRs
 
-# Rewrites the "Open source" PR rows in index.html (5 latest) and open-source/index.html (all)
-# with the PRs frogscooper opened to repos he doesn't own.
+# Rewrites the "Open source" PR rows in index.html (latest 1) and open-source/index.html (all)
+# with the PRs frogscooper opened to repos he doesn't own. These baked rows are the fallback;
+# assets/prs.js refreshes the same rows in the browser on each load.
 # Only commits when the list actually changed.
 on:
   schedule:
