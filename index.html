@@ -779,6 +779,29 @@
       .grch-status { margin-left: 0; flex-basis: 100%; }
     }
 
+    /* Slime studies: one iframe of the slime showcase (/slime/, built from the slime repo with ?embed),
+       switched by tabs. The embedded page posts its height so the frame fits it. */
+    .slime-tabs {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin: 0 0 8px;
+    }
+    .slime-tabs button {
+      font: 500 12px/1 var(--mono); letter-spacing: 0.04em;
+      padding: 8px 12px; cursor: pointer; border-radius: 0;
+      color: var(--ink); background: var(--bg); border: 1.5px solid var(--ink);
+    }
+    .slime-tabs button:hover { background: #e4e9de; }
+    .slime-tabs button[aria-selected="true"] { background: var(--ink); color: var(--bg); box-shadow: 3px 3px 0 #f2c21b; }
+    .slime-tabs button:focus-visible { outline: 2px dashed var(--ink); outline-offset: 3px; }
+    .slime-demo { border: 1px solid var(--ink); background: #dce3d3; padding: 12px 0 4px; }
+    .slime-demo iframe { display: block; width: 100%; height: 640px; border: 0; }
+    .slime-desc { margin-top: 12px; }
+    .slime-tm { margin-top: 14px; font-size: 10px; line-height: 1.5; color: var(--muted); }
+    .slime-tm[hidden] { display: none; }
+    @media (max-width: 700px) {
+      .slime-demo iframe { height: 760px; }
+    }
+
     /* Activity: GitHub contribution heatmap (pixel frogs). Data: /assets/contrib.json. */
     .activity {
       display: grid; grid-template-columns: 190px 1fr; gap: 44px;
@@ -1210,8 +1233,53 @@ print(&quot;agent: plan done&quot;)</code></pre>
           </div>
         </article>
 
-        <article class="project secondary">
+        <article class="project featured">
           <span class="index">04</span>
+
+          <div class="project-main">
+            <div class="heading">
+              <h3>
+                <a href="/slime/battle.html" id="slime-title">Slime Studies</a>
+              </h3>
+              <span>TypeScript · Python · 2026</span>
+            </div>
+
+            <figure class="frame">
+            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span id="slime-file">~/slime/battle.html</span><span>FIG.04</span></div>
+            <div class="slime-tabs" role="tablist" aria-label="Slime study" hidden>
+              <button type="button" role="tab" id="slime-tab-battle" aria-controls="slime-demo" aria-selected="true" data-study="battle">pokémon</button>
+              <button type="button" role="tab" id="slime-tab-pong" aria-controls="slime-demo" aria-selected="false" tabindex="-1" data-study="pong">pong</button>
+              <button type="button" role="tab" id="slime-tab-bayarea" aria-controls="slime-demo" aria-selected="false" tabindex="-1" data-study="bayarea">bay area transit</button>
+            </div>
+            <div class="slime-demo" id="slime-demo" role="tabpanel" aria-labelledby="slime-tab-battle">
+              <iframe src="/slime/battle.html?embed" title="Slime Battler: a slime mould making the decisions in a Pokémon battle" loading="lazy"></iframe>
+            </div>
+            <figcaption><span id="slime-cap-l">&gt; fig. 04 / recorded battle, slime regrown live</span><span id="slime-cap-r">jones agent model, in your browser</span></figcaption>
+          </figure>
+
+            <div class="desc">
+              <p>
+                A simulated <i>Physarum</i> slime mould (Jeff Jones's agent model) put to work.
+                In each study something places food, the slime grows toward it, and wherever
+                it gathers is the answer.
+              </p>
+              <p class="slime-desc" id="slime-desc">
+                Every decision in a Pokémon battle. Ten food sites ring the slime, one per move
+                or switch, and the option it gathers on is played. One slime is fed by a PPO
+                network; the other was evolved with CMA-ES to play on its own senses, and beats
+                the network (71% against the strongest-move bot).
+              </p>
+
+              <div class="links">
+                <a href="/slime/battle.html" id="slime-full">Full page ↗</a>
+              </div>
+              <p class="slime-tm" id="slime-tm">Pokémon names are trademarks of Nintendo, Creatures and GAME FREAK. Not affiliated or endorsed; battles simulated on a local Pokémon Showdown server.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="project secondary">
+          <span class="index">05</span>
 
           <div class="project-main">
             <div class="desc">
@@ -1237,7 +1305,7 @@ print(&quot;agent: plan done&quot;)</code></pre>
         </article>
 
         <article class="project secondary">
-          <span class="index">05</span>
+          <span class="index">06</span>
 
           <div class="project-main">
             <div class="desc">
@@ -1352,6 +1420,84 @@ print(&quot;agent: plan done&quot;)</code></pre>
         catch (e) { btn.textContent = '[ copy failed ]'; }
         setTimeout(() => (btn.textContent = '[ copy ]'), 1500);
       });
+    })();
+  </script>
+  <script>
+    // Slime studies card: tabs swap which showcase page the iframe shows. Without JS the
+    // Pokémon study still loads, since it is the iframe's own src.
+    (() => {
+      const tabs = document.querySelector('.slime-tabs');
+      const frame = document.querySelector('#slime-demo iframe');
+      if (!tabs || !frame) return;
+      const STUDIES = {
+        battle: {
+          page: 'battle.html',
+          title: 'Slime Battler: a slime mould making the decisions in a Pokémon battle',
+          cap: ['> fig. 04 / recorded battle, slime regrown live', 'jones agent model, in your browser'],
+          desc: 'Every decision in a Pokémon battle. Ten food sites ring the slime, one per move or switch, and the option it gathers on is played. One slime is fed by a PPO network; the other was evolved with CMA-ES to play on its own senses, and beats the network (71% against the strongest-move bot).',
+        },
+        pong: {
+          page: 'index.html',
+          title: 'Slime Pong: a trained policy steering a slime mould paddle with food',
+          cap: ['> fig. 04 / trained policy, playing live', 'ppo policy, in your browser'],
+          desc: 'Pong, where the paddle is a slime. A PPO agent can only choose where to put food, and the slime takes hundreds of steps to follow, so it has to learn to aim where the ball will be. It returns 76% of balls, six times as many as chasing the ball.',
+        },
+        bayarea: {
+          page: 'bayarea.html',
+          title: 'Slime Transit: a slime mould growing a rail network across the Bay Area',
+          cap: ['> fig. 04 / seed 1, growing live', '2020 census, osm rail'],
+          desc: 'A rail network for the Bay Area. Food goes where 7.4 million residents live, water is a wall except at real bridges, and the slime grows between them. At about the length of today\'s rail (709 vs 762 km), it reaches all 30 population centres and joins every pair.',
+        },
+      };
+      const buttons = [...tabs.querySelectorAll('[role="tab"]')];
+      const panel = document.getElementById('slime-demo');
+      const select = (btn) => {
+        const s = STUDIES[btn.dataset.study];
+        if (btn.getAttribute('aria-selected') === 'true') return;
+        for (const b of buttons) {
+          b.setAttribute('aria-selected', String(b === btn));
+          b.tabIndex = b === btn ? 0 : -1;
+        }
+        panel.setAttribute('aria-labelledby', btn.id);
+        frame.title = s.title;
+        refit();
+        frame.src = '/slime/' + s.page + '?embed';
+        const url = '/slime/' + (s.page === 'index.html' ? '' : s.page);
+        document.getElementById('slime-full').href = url;
+        document.getElementById('slime-title').href = url;
+        document.getElementById('slime-file').textContent = '~/slime/' + s.page;
+        document.getElementById('slime-cap-l').textContent = s.cap[0];
+        document.getElementById('slime-cap-r').textContent = s.cap[1];
+        document.getElementById('slime-desc').textContent = s.desc;
+        document.getElementById('slime-tm').hidden = btn.dataset.study !== 'battle';
+      };
+      tabs.hidden = false;
+      tabs.addEventListener('click', (e) => {
+        const btn = e.target.closest('[role="tab"]');
+        if (btn) select(btn);
+      });
+      tabs.addEventListener('keydown', (e) => {
+        const i = buttons.indexOf(document.activeElement);
+        if (i < 0) return;
+        const j = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: buttons.length - 1 }[e.key];
+        if (j === undefined) return;
+        e.preventDefault();
+        const next = buttons[(j + buttons.length) % buttons.length];
+        next.focus();
+        select(next);
+      });
+      // The embedded page reports its height; fit the frame to it. Only grow while a study is
+      // showing, so the page doesn't jump each time the battle log gets a line shorter.
+      let fit = 0;
+      const refit = () => { fit = 0; frame.style.height = ''; };
+      addEventListener('message', (e) => {
+        const h = e.data && e.data.slimeEmbedHeight;
+        if (e.source !== frame.contentWindow || typeof h !== 'number' || h <= fit) return;
+        fit = h;
+        frame.style.height = h + 'px';
+      });
+      let w = innerWidth;
+      addEventListener('resize', () => { if (innerWidth !== w) { w = innerWidth; refit(); } });
     })();
   </script>
   <script src="/frog-backdrop.js" defer></script>

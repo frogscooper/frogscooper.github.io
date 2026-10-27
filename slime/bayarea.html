@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Slime Transit</title>
+    <meta name="description" content="A simulated slime mould designs a rail network for the San Francisco Bay Area, scored against the real one." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%23F2C21B'/%3E%3C/svg%3E" />
+    <script type="module" crossorigin src="./assets/bayarea-B3q7ei3v.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/cpu-BkjeVOS3.js">
+    <link rel="stylesheet" crossorigin href="./assets/cpu-BxB_B_Ae.css">
+    <link rel="stylesheet" crossorigin href="./assets/bayarea-CrvXFgdT.css">
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <h1 class="title">Slime Transit</h1>
+        <p class="lede">
+          Put food where 7.4 million Bay Area residents live, let a simulated slime mould grow between it, and compare
+          what it builds with the rail network we have.
+        </p>
+      </header>
+
+      <section class="plate" aria-label="Map">
+        <div class="map-frame">
+          <canvas id="map" role="img" aria-label="Map of the San Francisco Bay Area with a slime network growing between population centres"></canvas>
+        </div>
+        <div class="controls">
+          <fieldset class="steer">
+            <legend>Show</legend>
+            <div class="segmented" id="views">
+              <button type="button" data-view="slime" aria-pressed="true">Slime, growing live</button>
+              <button type="button" data-view="real" aria-pressed="false">Rail today</button>
+              <button type="button" data-view="tero" aria-pressed="false">Flow model</button>
+            </div>
+          </fieldset>
+          <div class="playback">
+            <button type="button" id="play" class="ghost">Pause</button>
+            <button type="button" id="restart" class="ghost">Grow again</button>
+          </div>
+        </div>
+        <p class="session" id="status" aria-live="polite">Loading the map…</p>
+        <ul class="legend">
+          <li><span class="swatch swatch-hub"></span>Population centre, sized by residents</li>
+          <li><span class="swatch swatch-slime"></span>Slime</li>
+          <li><span class="swatch swatch-line"></span>Network being scored</li>
+        </ul>
+      </section>
+
+      <section class="prose" aria-labelledby="score">
+        <h2 id="score">Scorecard</h2>
+        <p>
+          Each network is measured the same way. Slime results are the average of several runs, with the range in
+          brackets.
+        </p>
+        <div class="table-wrap">
+          <table class="scorecard" id="scorecard"></table>
+        </div>
+        <p>
+          At about the same length as today's rail, the slime reaches every population centre and joins every pair of
+          them, with similar directness and similar resilience to a broken link. Today's rail puts more residents near a
+          line: it runs through the densest corridors instead of reaching every outlying town.
+        </p>
+      </section>
+
+      <section class="prose" aria-labelledby="how">
+        <h2 id="how">How it works</h2>
+        <p>
+          <strong>Food.</strong> The 2020 census places 1,678 neighbourhoods (tracts) in this window. Grouping them by
+          population gives 30 centres. Each becomes a food source, stronger where more people live.
+        </p>
+        <p>
+          <strong>Water.</strong> The Bay and the ocean are walls. The slime may cross only where a bridge or tunnel
+          crosses today: the Golden Gate, the Bay Bridge and Transbay Tube, the San Mateo, Dumbarton and
+          Richmond–San Rafael bridges.
+        </p>
+        <p>
+          <strong>Slime.</strong> About 4,900 agents follow Jeff Jones's model of <i>Physarum polycephalum</i>: sniff
+          the trail ahead, turn towards the strongest, leave more behind. After 4,000 steps the busiest trails are the
+          network. A second model, Tero's flow model from the famous Tokyo rail experiment, grows tubes that thicken
+          with the flow they carry.
+        </p>
+        <p>
+          <strong>Scoring.</strong> Every network is thinned to its centre lines and measured: length, how many
+          centres and residents are within 2 km, how directly it joins centres, and how much of it could fail without
+          cutting any centre off.
+        </p>
+      </section>
+
+      <section class="prose" aria-labelledby="notes">
+        <h2 id="notes">What it leaves out</h2>
+        <p>
+          The slime sees flat land and water, nothing else. It runs straight over the East Bay hills and the Santa Cruz
+          mountains, ignores what tunnels cost, and knows nothing of ridership, existing roads or buses and ferries. The
+          comparison counts rail only (BART, Caltrain, VTA, Muni Metro, SMART, ACE and the Capitol Corridor). Treat it
+          as a way to see the shape of the region's demand, not as a transit plan.
+        </p>
+        <p class="facts">
+          Data: U.S. Census Bureau (2020 centers of population and cartographic tract boundaries) and rail lines from
+          © OpenStreetMap contributors (ODbL). Simulation and scoring run in TypeScript; the slime you watch above is
+          computed in your browser with the same seed as the scored run.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

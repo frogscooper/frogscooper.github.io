@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Slime Pong</title>
+    <meta name="description" content="A reinforcement-learning agent plays Pong with a simulated slime mould as its paddle, steering it with food." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%23F2C21B'/%3E%3C/svg%3E" />
+    <script type="module" crossorigin src="./assets/pong-6qQQQmNH.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/cpu-BkjeVOS3.js">
+    <link rel="stylesheet" crossorigin href="./assets/cpu-BxB_B_Ae.css">
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <h1 class="title">Slime Pong</h1>
+        <p class="lede">
+          A reinforcement-learning agent plays Pong, but it can't move the paddle. The paddle is a simulated
+          slime mould, and the agent can only steer it by deciding where to put food.
+        </p>
+      </header>
+
+      <section class="plate" aria-label="Live game">
+        <div class="plate-frame">
+          <canvas id="plate" role="img" aria-label="Pong field on the left; the slime lane that forms the paddle on the right"></canvas>
+          <p class="plate-event" id="event" aria-live="polite"></p>
+        </div>
+        <div class="controls">
+          <fieldset class="steer">
+            <legend>Who's steering the slime</legend>
+            <div class="segmented" id="controllers"></div>
+          </fieldset>
+          <div class="playback">
+            <button type="button" id="play" class="ghost">Pause</button>
+            <button type="button" id="speed" class="ghost" aria-pressed="false">Speed ×3</button>
+          </div>
+        </div>
+        <p class="session" id="session" aria-live="polite">Warming up the slime…</p>
+        <ul class="legend">
+          <li><span class="swatch swatch-slime"></span>Slime agents and their trail</li>
+          <li><span class="swatch swatch-food"></span>Food, placed by whoever is steering</li>
+          <li><span class="swatch swatch-paddle"></span>Paddle, at the row with the most slime</li>
+        </ul>
+      </section>
+
+      <section class="prose" aria-labelledby="how">
+        <h2 id="how">How it works</h2>
+        <figure class="loop">
+          <svg viewBox="0 0 520 220" role="img" aria-labelledby="loop-title">
+            <title id="loop-title">Every 8 simulation steps: the slime moves, the paddle follows the densest slime, the policy looks at the ball and the slime, the policy places food, and the slime moves towards it.</title>
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" class="loop-head" />
+              </marker>
+            </defs>
+            <path class="loop-path" d="M150,52 C230,20 290,20 370,52" marker-end="url(#arrow)" />
+            <path class="loop-path" d="M430,86 C470,110 470,120 430,146" marker-end="url(#arrow)" />
+            <path class="loop-path" d="M370,174 C290,206 230,206 150,174" marker-end="url(#arrow)" />
+            <path class="loop-path" d="M90,146 C50,120 50,110 90,86" marker-end="url(#arrow)" />
+            <g class="loop-node"><rect x="20" y="40" width="140" height="44" rx="22" /><text x="90" y="67">Slime moves</text></g>
+            <g class="loop-node"><rect x="360" y="40" width="150" height="44" rx="22" /><text x="435" y="67">Paddle follows it</text></g>
+            <g class="loop-node loop-brain"><rect x="350" y="142" width="160" height="44" rx="22" /><text x="430" y="169">Policy looks</text></g>
+            <g class="loop-node loop-brain"><rect x="20" y="142" width="140" height="44" rx="22" /><text x="90" y="169">Policy feeds</text></g>
+          </svg>
+        </figure>
+        <p>
+          <strong>The slime</strong> is about 70 simulated agents following Jeff Jones's model of
+          <i>Physarum polycephalum</i>. Each one sniffs the chemical trail ahead of it, turns towards the strongest
+          smell and leaves more trail behind. Left alone near food, they gather into a blob on it.
+        </p>
+        <p>
+          <strong>The paddle</strong> sits wherever the lane holds the most slime. Nothing else moves it.
+        </p>
+        <p>
+          <strong>The policy</strong> is a small neural network (<span id="params">21,136</span> numbers). Every 8
+          simulation steps it sees the ball's position and velocity and a coarse profile of the slime, and puts food at
+          one of 16 heights. The slime takes time to follow, so it has to aim where the ball will arrive, not where it is
+          now. It learned that from scratch with PPO, over millions of simulated steps.
+        </p>
+      </section>
+
+      <section class="prose" aria-labelledby="results">
+        <h2 id="results">How well it plays</h2>
+        <p id="results-intro">Share of balls returned in 20 games it never saw during training.</p>
+        <figure class="chart" id="bars"></figure>
+        <p>
+          The hand-coded controller knows the exact geometry of every bounce and puts the food at the arrival point. The
+          trained policy had to discover that from experience, through a paddle it can only coax.
+        </p>
+        <h3>Learning</h3>
+        <figure class="chart" id="curve"></figure>
+      </section>
+
+      <section class="prose" aria-labelledby="notes">
+        <h2 id="notes">Notes</h2>
+        <p>
+          This is a simulation of slime mould, not the organism itself. The agents follow published rules (Jones 2010,
+          2011, 2015), but real <i>Physarum</i> grows, pulses and remembers in ways the model leaves out. Here the food can
+          only pull the slime; there is nothing to push it away.
+        </p>
+        <p>
+          Everything you see is computed live in your browser: the slime simulation in TypeScript, and the trained
+          network running on its exported weights, with no server. The policy was trained in Python with stable-baselines3
+          against the same TypeScript simulation, and every game replays exactly from its seed.
+        </p>
+        <p class="facts" id="facts"></p>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Slime Battler</title>
+    <meta name="description" content="Simulated slime moulds play Pokémon battles: one steered by a neural network, one evolved to play on its own senses." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%23F2C21B'/%3E%3C/svg%3E" />
+    <script type="module" crossorigin src="./assets/battle-y78G9kbD.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/cpu-BkjeVOS3.js">
+    <link rel="stylesheet" crossorigin href="./assets/cpu-BxB_B_Ae.css">
+    <link rel="stylesheet" crossorigin href="./assets/battle-Bz8eeVgg.css">
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <h1 class="title">Slime Battler</h1>
+        <p class="lede">
+          Simulated slime moulds play Pokémon battles. One is steered by a neural network that can only feed it; the
+          other was evolved and plays on its own senses. Either way, whichever option the slime gathers on is what
+          happens.
+        </p>
+      </header>
+
+      <section class="plate" aria-label="Battle replay">
+        <div class="battle-grid">
+          <div class="arena-frame">
+            <canvas id="arena" role="img" aria-label="The slime on a ring of ten options: six team members to switch to and four moves"></canvas>
+          </div>
+          <div class="turn-panel">
+            <p class="turn-head" id="turnHead">Loading the battles…</p>
+            <p class="verdict" id="verdict"></p>
+            <ol class="turn-log" id="turnLog"></ol>
+          </div>
+        </div>
+        <div class="controls">
+          <div class="pickers">
+            <fieldset class="steer">
+              <legend>Who's feeding the slime</legend>
+              <div class="segmented" id="sets"></div>
+            </fieldset>
+            <fieldset class="steer">
+              <legend id="battlesLegend">Recorded battles</legend>
+              <div class="segmented" id="battles"></div>
+            </fieldset>
+          </div>
+          <div class="playback">
+            <button type="button" id="play" class="ghost">Pause</button>
+            <button type="button" id="speed" class="ghost" aria-pressed="false">Speed ×3</button>
+          </div>
+        </div>
+        <p class="session" id="status" aria-live="polite"></p>
+        <ul class="legend">
+          <li><span class="swatch swatch-slime"></span>Slime</li>
+          <li><span class="swatch swatch-food"></span>Food: how much the network wants that option</li>
+          <li><span class="swatch swatch-choice"></span>The slime's choice</li>
+        </ul>
+      </section>
+
+      <section class="prose" aria-labelledby="results">
+        <h2 id="results">How well it plays</h2>
+        <p id="results-intro">Win rate over games against three opponents.</p>
+        <div class="table-wrap">
+          <table class="scorecard" id="winrates"></table>
+        </div>
+        <p id="results-note"></p>
+      </section>
+
+      <section class="prose" aria-labelledby="how">
+        <h2 id="how">How it works</h2>
+        <p>
+          <strong>The options.</strong> Each turn there are up to ten choices: switch to one of six team members, or
+          use one of four moves. Each is a food site on a ring around a slime of about 460 simulated agents.
+        </p>
+        <p>
+          <strong>The network.</strong> A small neural network reads the battle (move power and type matchups, both
+          sides' health, the team) and sets how much food each legal option gets. It never chooses directly.
+        </p>
+        <p>
+          <strong>The slime.</strong> The slime then runs for 100 steps. Its agents follow Jones's model of
+          <i>Physarum polycephalum</i>, drifting towards food. The legal option with the most slime around it is played.
+          The slime is not reset between turns, so where it sat last turn pulls on this one. The network has to learn to
+          steer something with momentum.
+        </p>
+        <p>
+          <strong>Training.</strong> The network learned by playing on a local Showdown server with PPO, its
+          choices always passing through the slime. An identical network trained without the slime shows what the slime
+          costs.
+        </p>
+        <p>
+          <strong>The evolved slime.</strong> A second slime has no network at all. Fixed senses turn the battle into
+          food (expected damage at the move sites, type matchup and health at the switch sites), and evolution tuned
+          everything else: its physiology, how much each sense counts, and whether to build walls between its core and
+          the options. Over 25 generations it learned to attack, never to switch by choice, and to do without walls.
+        </p>
+      </section>
+
+      <section class="prose" aria-labelledby="notes">
+        <h2 id="notes">Notes</h2>
+        <p>
+          The format is random battles (generation 9 singles): both sides get random teams, so there's no team
+          building. The network never terastallizes. All games were played on a private local copy of Pokémon
+          Showdown, never on the public server.
+        </p>
+        <p class="facts" id="facts">
+          The slime you see is regrown in your browser from each battle's seed and the network's recorded feeding, so
+          it's the same slime that made the decisions.
+        </p>
+        <p class="facts">
+          Pokémon and all related names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc. This is an
+          independent research project, not affiliated with or endorsed by them. Battles were simulated with
+          Pokémon Showdown (MIT licence).
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
