@@ -1,66 +1,558 @@
 <!doctype html>
-<html lang="en" data-field="phyllo">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
   <title>Open source contributions | frogscooper</title>
   <meta name="description" content="Open source pull requests by frogscooper.">
   <link rel="canonical" href="https://frogscooper.dev/open-source/">
-  <meta name="theme-color" content="#f2eee2">
+  <meta name="theme-color" content="#fafaf8">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="frogscooper">
-  <meta property="og:title" content="Open source contributions | frogscooper">
+  <meta property="og:title" content="Open Source | frogscooper">
   <meta property="og:description" content="Open source pull requests by frogscooper.">
   <meta property="og:url" content="https://frogscooper.dev/open-source/">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://frogscooper.dev/assets/og.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="frogscooper man page card: CS sophomore @ Ohio State. frogscooper.dev: projects, research, contact.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Open Source | frogscooper">
+  <meta name="twitter:description" content="Open source pull requests by frogscooper.">
+  <meta name="twitter:image" content="https://frogscooper.dev/assets/og.png">
+  <meta name="twitter:image:alt" content="frogscooper man page card: CS sophomore @ Ohio State. frogscooper.dev: projects, research, contact.">
   <meta name="google-adsense-account" content="ca-pub-9008261213236010">
-  <link rel="stylesheet" href="../assets/theme/style.css">
-  <script src="../assets/theme/field.js" defer></script>
-  <script src="../assets/theme/site.js" defer></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: transparent; /* frog-backdrop.js paints the page behind the content */
+      color: #101010;
+      font: 15px/1.5 Arial, Helvetica, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
+
+    :root {
+      --bg: #fafaf8;
+      --ink: #101010;
+      --muted: #686868;
+      --line: #d3d3cf;
+    }
+
+    .shell {
+      width: min(1210px, calc(100% - 54px));
+      margin: auto;
+    }
+
+    .site-header,
+    .intro,
+    .section,
+    footer {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 44px;
+    }
+
+    .site-header {
+      padding: 27px 0 94px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .identity {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .identity strong {
+      font-size: 15px;
+    }
+
+    .identity span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      align-items: center;
+      row-gap: 8px;
+      gap: 20px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.045em;
+    }
+
+    .intro {
+      padding: 23px 0 76px;
+    }
+
+    .eyebrow,
+    .section h2 {
+      font: 700 11px/1 Arial;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .intro h1 {
+      max-width: 760px;
+      margin-bottom: 14px;
+      font-size: 34px;
+      line-height: 1.06;
+      letter-spacing: -0.045em;
+      font-weight: 700;
+    }
+
+    .intro p {
+      max-width: 680px;
+      margin-bottom: 0;
+      color: #4b4b4b;
+      font-size: 17px;
+    }
+
+    .section {
+      padding: 12px 0 58px;
+      border-top: 1px solid var(--ink);
+    }
+
+    .section h2 {
+      margin-bottom: 0;
+    }
+
+    .section-main {
+      min-width: 0;
+      max-width: 780px;
+    }
+
+    footer {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 44px;
+    }
+
+    .site-header {
+      padding: 27px 0 94px;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .identity {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .identity strong {
+      font-size: 15px;
+    }
+
+    .identity span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      align-items: center;
+      row-gap: 8px;
+      gap: 20px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.045em;
+    }
+
+    .intro {
+      padding: 23px 0 76px;
+    }
+
+    .eyebrow,
+    .section h2 {
+      font: 700 11px/1 Arial;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .intro h1 {
+      max-width: 760px;
+      margin-bottom: 14px;
+      font-size: 34px;
+      line-height: 1.06;
+      letter-spacing: -0.045em;
+      font-weight: 700;
+    }
+
+    .intro p {
+      max-width: 680px;
+      margin-bottom: 0;
+      color: #4b4b4b;
+      font-size: 17px;
+    }
+
+    .section {
+      padding: 12px 0 58px;
+      border-top: 1px solid var(--ink);
+    }
+
+    .section h2 {
+      margin-bottom: 0;
+    }
+
+    .section-main {
+      min-width: 0;
+      max-width: 780px;
+    }
+
+    .contact-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: 130px 1fr auto;
+      gap: 24px;
+      align-items: baseline;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .contact-value {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-note {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 34px;
+    }
+
+    .detail-block h3 {
+      margin: 0 0 8px;
+      font-size: 13px;
+    }
+
+    .detail-block p {
+      margin-bottom: 0;
+      color: #4b4b4b;
+    }
+
+    .small-note {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer {
+      padding: 12px 0 32px;
+      border-top: 1px solid var(--ink);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer div {
+      display: flex;
+      gap: 20px;
+    }
+
+    @media (max-width: 760px) {
+      .site-header,
+      .intro,
+      .section,
+      footer {
+        grid-template-columns: 1fr;
+      }
+
+      .site-header {
+        gap: 18px;
+        padding-bottom: 56px;
+      }
+
+      nav {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .intro h1 {
+        font-size: 29px;
+      }
+    }
+
+    /* Terminal type: JetBrains Mono everywhere. Monospace runs wide, so sizes come down a step. */
+    :root {
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    body {
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.6;
+      font-variant-ligatures: none;
+    }
+
+    .eyebrow,
+    .section h2,
+    .section-head h2,
+    .about h2 {
+      font-family: var(--mono);
+    }
+
+    .identity strong {
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .intro p {
+      font-size: 15.5px;
+    }
+
+    .intro h1 {
+      font-size: 30px;
+      letter-spacing: -0.03em;
+    }
+
+    .heading h3 {
+      font-size: 26px;
+      letter-spacing: -0.03em;
+    }
+
+    .secondary .heading h3 {
+      font-size: 21px;
+    }
+
+    nav,
+    .links {
+      letter-spacing: 0.02em;
+    }
+
+    /* The backdrop switch sits at the top of the left column, above the name. */
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .site-header nav {
+      align-self: start;
+      min-height: 26px; /* lines the links up with the switch */
+    }
+
+    .brand [data-frog-toggle] {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    /* Open source page: plain list on a solid paper panel so it reads over the backdrop. */
+    .os {
+      max-width: 760px;
+      margin: 40px 0 64px;
+      padding: 36px 40px 30px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+    }
+    .os h1 {
+      margin-bottom: 26px;
+      font-size: 30px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .os-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+    }
+    .os-pr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .os-pr a {
+      font-size: 16px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+    .os-meta {
+      grid-column: 1 / -1;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    /* state icons. palette lives in this one block; ink-and-paper values are in the comments. */
+    .os {
+      --st-open: #1a7f37;    /* ink: var(--ink) */
+      --st-merged: #8250df;  /* ink: var(--ink) */
+      --st-closed: #cf222e;  /* ink: #9a9a96 */
+      --st-draft: #59636e;   /* ink: #9a9a96 */
+    }
+    .os-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+    .os-state {
+      position: relative;
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
+      display: flex;
+      margin-top: 3px;
+      cursor: default;
+    }
+    .os-state svg { width: 18px; height: 18px; fill: currentColor; }
+    .os-state.open { color: var(--st-open); }
+    .os-state.merged { color: var(--st-merged); }
+    .os-state.closed { color: var(--st-closed); }
+    .os-state.draft { color: var(--st-draft); }
+    .os-state::after {
+      content: attr(aria-label);
+      position: absolute;
+      right: -6px;
+      bottom: calc(100% + 7px);
+      padding: 3px 7px 4px;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 11px;
+      line-height: 1.3;
+      white-space: nowrap;
+      text-transform: lowercase;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s;
+    }
+    .os-state:hover::after { opacity: 1; }
+    .os-meta time { white-space: nowrap; }
+    .os-more {
+      margin: 22px 0 0;
+      font-size: 13px;
+    }
+    .os-more a { text-decoration: underline; text-underline-offset: 4px; }
+    @media (max-width: 760px) {
+      .os { margin: 24px -12px 48px; padding: 24px 18px 20px; }
+      .os h1 { font-size: 26px; }
+      .os-pr { column-gap: 12px; }
+      .os-pr a { font-size: 15.5px; }
+    }
+    /* nav-css:start */
+    .site-header nav { gap: 8px 20px; }
+    .nav-group { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+    .nav-group a { color: var(--muted); }
+    .nav-group a:hover, .nav-group a[aria-current="page"] { color: var(--ink); }
+    .nav-group a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+    .nav-ext { padding-left: 20px; border-left: 1px solid var(--line); }
+    .nav-ext a::after { content: "\2197"; content: "\2197" / ""; margin-left: 3px; font-size: 0.9em; }
+    @media (max-width: 760px) {
+      .site-header nav { flex-direction: column; align-items: flex-start; }
+      .nav-ext { padding-left: 0; border-left: 0; }
+    }
+    /* nav-css:end */
+  </style>
 </head>
-<body class="layout-left d-phyllotaxis">
-  <a class="skip" href="#main">Skip to content</a>
-  <div class="page">
-    <div class="stage"><div class="field-box hero-field"><canvas class="field" data-p="7" aria-hidden="true"></canvas><span class="field-cap" aria-hidden="true"></span></div></div>
-    <div class="content">
-      <div class="wrap">
-        <header class="site-header">
-      <a class="brand" href="../"><strong>frogscooper</strong><span>CS @ Ohio State</span></a>
-      <nav class="site-nav" aria-label="Primary"><a href=".././">Home</a><a href="../open-source/" aria-current="page">Open Source</a><a href="../research/">Research</a><a href="../contact/">Contact</a><a class="ext" href="https://lilypad.frogscooper.dev">Lilypad</a><a class="ext" href="https://github.com/frogscooper">GitHub</a></nav>
-    </header>
-        <main id="main">
-        <div class="page-intro">
-          <span class="eyebrow">Contributions</span>
-          <h1>Open <em>source</em></h1>
-          <p>Pull requests I have opened to repositories I don't own, newest first. This list refreshes itself every few hours.</p>
+
+<body>
+  <div class="shell">
+    <header class="site-header">
+      <div class="brand">
+        <span data-frog-toggle></span>
+        <a class="identity" href="/">
+          <strong>frogscooper</strong>
+          <span>CS @ Ohio State</span>
+        </a>
+      </div>
+
+      <!-- nav:start -->
+      <nav aria-label="Primary">
+        <div class="nav-group">
+          <a href="/">Home</a>
+          <a href="/open-source/" aria-current="page">Open Source</a>
+          <a href="/research/">Research</a>
+          <a href="/contact/">Contact</a>
         </div>
-        <svg class="os-sprite" aria-hidden="true" focusable="false">
+        <div class="nav-group nav-ext">
+          <a href="https://lilypad.frogscooper.dev">Lilypad</a>
+          <a href="https://github.com/frogscooper">GitHub</a>
+        </div>
+      </nav>
+      <!-- nav:end -->
+    </header>
+
+    <main class="os">
+      <!-- PR state icons: GitHub Primer Octicons (git-pull-request, git-merge, git-pull-request-closed, git-pull-request-draft), MIT License, Copyright GitHub Inc. -->
+      <svg class="os-sprite" aria-hidden="true" focusable="false">
         <symbol id="oi-open" viewBox="0 0 16 16"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"/></symbol>
         <symbol id="oi-merged" viewBox="0 0 16 16"><path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z"/></symbol>
         <symbol id="oi-closed" viewBox="0 0 16 16"><path d="M3.25 1A2.25 2.25 0 0 1 4 5.372v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.251 2.251 0 0 1 3.25 1Zm9.5 5.5a.75.75 0 0 1 .75.75v3.378a2.251 2.251 0 1 1-1.5 0V7.25a.75.75 0 0 1 .75-.75Zm-2.03-5.273a.75.75 0 0 1 1.06 0l.97.97.97-.97a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.97.97.97.97a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-.97-.97-.97.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l.97-.97-.97-.97a.75.75 0 0 1 0-1.06ZM2.5 3.25a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0ZM3.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm9.5 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"/></symbol>
         <symbol id="oi-draft" viewBox="0 0 16 16"><path d="M3.25 1A2.25 2.25 0 0 1 4 5.372v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.251 2.251 0 0 1 3.25 1Zm9.5 14a2.25 2.25 0 1 1 0-4.5 2.25 2.25 0 0 1 0 4.5ZM2.5 3.25a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0ZM3.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm9.5 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM14 7.5a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Zm0-4.25a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z"/></symbol>
       </svg>
-      <div class="sec-head"><h2><!-- prs-count:start -->4<!-- prs-count:end --> pull requests</h2><span>to repos i don't own</span></div>
+      <h1>Open source contributions</h1>
+
       <ul class="os-list">
         <!-- prs-all:start -->
-        <li class="os-pr"><a href="https://github.com/toss/es-toolkit/pull/2169">fix[invert, omit, pick]: handle null and undefined without throwing</a><span class="os-state open" role="img" aria-label="Open"><svg aria-hidden="true" focusable="false"><use href="#oi-open"/></svg></span><span class="os-meta">toss/es-toolkit #2169 &middot; <time datetime="2026-10-27">oct 27 2026</time></span></li>
+        <li class="os-pr"><a href="https://github.com/uutils/coreutils/pull/15924">join: accept repeated options like GNU</a><span class="os-state open" role="img" aria-label="Open"><svg aria-hidden="true" focusable="false"><use href="#oi-open"/></svg></span><span class="os-meta">uutils/coreutils #15924 &middot; <time datetime="2026-10-27">oct 27 2026</time></span></li>
+        <li class="os-pr"><a href="https://github.com/astral-sh/ruff/pull/29756">[`ruff`] Skip `with` blocks before `yield` in `unnecessary-assign-bef…</a><span class="os-state closed" role="img" aria-label="Closed"><svg aria-hidden="true" focusable="false"><use href="#oi-closed"/></svg></span><span class="os-meta">astral-sh/ruff #29756 &middot; <time datetime="2026-10-27">oct 27 2026</time></span></li>
+        <li class="os-pr"><a href="https://github.com/urfave/cli/pull/2510">fix: validate a slice or map flag once all of its values are parsed</a><span class="os-state open" role="img" aria-label="Open"><svg aria-hidden="true" focusable="false"><use href="#oi-open"/></svg></span><span class="os-meta">urfave/cli #2510 &middot; <time datetime="2026-10-27">oct 27 2026</time></span></li>
+        <li class="os-pr"><a href="https://github.com/uutils/coreutils/pull/15892">seq, tac, numfmt, sum, ptx: accept repeated options like GNU</a><span class="os-state merged" role="img" aria-label="Merged"><svg aria-hidden="true" focusable="false"><use href="#oi-merged"/></svg></span><span class="os-meta">uutils/coreutils #15892 &middot; <time datetime="2026-10-27">oct 27 2026</time></span></li>
+        <li class="os-pr"><a href="https://github.com/toss/es-toolkit/pull/2169">fix[invert, omit, pick]: handle null and undefined without throwing</a><span class="os-state closed" role="img" aria-label="Closed"><svg aria-hidden="true" focusable="false"><use href="#oi-closed"/></svg></span><span class="os-meta">toss/es-toolkit #2169 &middot; <time datetime="2026-10-27">oct 27 2026</time></span></li>
         <li class="os-pr"><a href="https://github.com/toss/es-toolkit/pull/2168">fix[findLast, some]: do not treat length as an element of array-likes</a><span class="os-state merged" role="img" aria-label="Merged"><svg aria-hidden="true" focusable="false"><use href="#oi-merged"/></svg></span><span class="os-meta">toss/es-toolkit #2168 &middot; <time datetime="2026-10-26">oct 26 2026</time></span></li>
         <li class="os-pr"><a href="https://github.com/toss/es-toolkit/pull/2165">fix[pickBy]: do not treat objects with a numeric length as array-like</a><span class="os-state merged" role="img" aria-label="Merged"><svg aria-hidden="true" focusable="false"><use href="#oi-merged"/></svg></span><span class="os-meta">toss/es-toolkit #2165 &middot; <time datetime="2026-10-25">oct 25 2026</time></span></li>
         <li class="os-pr"><a href="https://github.com/toss/es-toolkit/pull/2157">fix[groupBy, keyBy, countBy]: keep __proto__ as an own property</a><span class="os-state open" role="img" aria-label="Open"><svg aria-hidden="true" focusable="false"><use href="#oi-open"/></svg></span><span class="os-meta">toss/es-toolkit #2157 &middot; <time datetime="2026-10-23">oct 23 2026</time></span></li>
         <!-- prs-all:end -->
       </ul>
-      <div class="acts"><a class="btn" href="https://github.com/search?q=author%3Afrogscooper+is%3Apr+-user%3Afrogscooper&amp;type=pullrequests&amp;s=created&amp;o=desc">View on GitHub →</a></div>
-        </main>
+
+      <p class="os-more"><a href="https://github.com/search?q=author%3Afrogscooper+is%3Apr+-user%3Afrogscooper&amp;type=pullrequests&amp;s=created&amp;o=desc">view on github &rarr;</a></p>
+    </main>
+
+    <footer>
+      <span>frogscooper</span>
+
+      <div>
+        <a href="/">Home</a>
+        <a href="mailto:stemboy@posteo.com">stemboy@posteo.com</a>
+        <a href="https://github.com/frogscooper">GitHub</a>
       </div>
-      <footer class="wrap">
-      <span>frogscooper · updated oct 2026</span>
-      <div><a href="mailto:stemboy@posteo.com">Email</a><a href="https://github.com/frogscooper">GitHub</a><a href="../contact/">Contact</a></div>
     </footer>
-    </div>
   </div>
+  <script src="/frog-backdrop.js" defer></script>
   <script src="/assets/prs.js?v=1" defer></script>
 </body>
 </html>
