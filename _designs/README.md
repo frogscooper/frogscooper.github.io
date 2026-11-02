@@ -1,6 +1,6 @@
 # Site designs
 
-Ten full redesigns of frogscooper.dev, plus the current site. Nothing in this folder is published:
+Twenty full redesigns of frogscooper.dev, plus the site as it was before them. Nothing in this folder is published:
 GitHub Pages builds the site with Jekyll, and Jekyll skips folders whose names start with `_`.
 
 | # | Design | Layout | Field |
@@ -16,6 +16,21 @@ GitHub Pages builds the site with Jekyll, and Jekyll skips folders whose names s
 | 08 | Glass | pinned left | Voronoi stained glass, finer per project |
 | 09 | Ridgelines | top band | ridges in dusk haze, each project brings one forward |
 | 10 | Filings | full screen | iron filings between magnets, poles set per project |
+| 11 | Survey | mounted sheet | contour lines over a lake on a survey sheet; the water slowly rises |
+| 12 | Ebru | mounted sheet | Turkish paper marbling, one traditional pattern per project |
+| 13 | Loom | top band | cloth woven at the fell line, one weave draft per project |
+| 14 | Pool | full screen | caustic light on pool tiles, a different depth per project |
+| 15 | Aurora | full screen | aurora curtains over a ridge, one storm level (Kp) per project |
+| 16 | Physarum | pinned right | the live slime mould model, fed different food per project |
+| 17 | Herbarium | pinned left | a pressed L-system plant, a different species per project |
+| 18 | Orrery | pinned right | two planets in resonance tracing a rose, one ratio per project |
+| 19 | Zellige | top band | quasicrystal tilework, a different symmetry per project |
+| 20 | Rain | full screen | rain rings on a night pond breaking up the moon's reflection |
+
+Layouts: *top band* puts the image above the text; *full screen* fills the first screen with it;
+*pinned left/right* keeps it in a side column that changes with the project in view (a band on
+phones); *mounted sheet* fills the window with it behind the page, like a print in a mat, and it
+also changes with the project in view.
 
 Every page has the real content: home (with the Lilypad benchmarks, the once terminal replay,
 the GRCH wasm demo and the slime studies), open source, research and contact. Every project gets
@@ -46,13 +61,13 @@ The PR and contribution workflows keep working: every design keeps the `prs`, `p
 
 ## Change a design
 
-The ten folders are generated. Edit the source, then rebuild:
+The design folders are generated. Edit the source, then rebuild:
 
     python3 _designs/build.py
 
 - `build.py`: all page content, and each design's colours, fonts and layout (`DESIGNS`)
 - `src/base.css`: the shared layout every design's `style.css` is built from
-- `src/field.js`: the ten generative fields
+- `src/field.js`: the generative fields
 - `src/site.js`: demos, slime tabs, contribution grid, pinned-field behaviour
 
 If you edit content in the live pages after switching, also edit it in `build.py`, or the next

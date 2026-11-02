@@ -1,4 +1,4 @@
-# Builds the ten site designs from one copy of the content. Run from anywhere:
+# Builds the site designs from one copy of the content. Run from anywhere:
 #   python3 _designs/build.py
 # Writes _designs/NN-name/ (index, open-source, research, contact, assets/theme/) for each design in
 # DESIGNS, plus _designs/index.html, a gallery for previewing them locally. Each folder mirrors the
@@ -16,9 +16,14 @@ FONTS = {
     'serif': ('Instrument+Serif:ital@0;1', '"Instrument Serif", "Iowan Old Style", Georgia, serif'),
     'corm': ('Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400', '"Cormorant Garamond", "Iowan Old Style", Georgia, serif'),
     'mono': ('JetBrains+Mono:wght@400;500;700', '"JetBrains Mono", ui-monospace, Consolas, monospace'),
+    'garamond': ('EB+Garamond:ital,wght@0,400;0,500;1,400', '"EB Garamond", Garamond, Georgia, serif'),
+    'fraunces': ('Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300', '"Fraunces", Georgia, serif'),
+    'spectral': ('Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400', '"Spectral", Georgia, serif'),
+    'bodoni': ('Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400', '"Bodoni Moda", Didot, Georgia, serif'),
+    'grotesk': ('Hanken+Grotesk:ital,wght@0,300;0,400;0,500;1,400', '"Hanken Grotesk", "Helvetica Neue", Arial, sans-serif'),
 }
 
-# field: which generator in src/field.js. layout: top | full | left (see src/base.css).
+# field: which generator in src/field.js. layout: top | full | left | right | frame (see src/base.css).
 # display/body: keys of FONTS. extra: CSS appended after the tokens.
 DESIGNS = [
     dict(n='01', key='moire', name='Moiré', field='moire', layout='top', display='cond', body='cond',
@@ -71,12 +76,69 @@ DESIGNS = [
          idea='Iron filings on paper, lined up along the field between magnetic poles.',
          rule='Each project sets out its poles differently.',
          tokens='--h1: clamp(60px, 12vw, 150px); --body-size: 18px;'),
+    dict(n='11', key='survey', name='Survey', field='topo', layout='frame', display='spectral', body='spectral',
+         bg='#f4efe3', ink='#2f2416', mute='#857257', acc='#b0452b',
+         idea='A survey sheet: contour lines over a lake, with every fifth line inked heavier. The water rises very slowly and the contours creep uphill.',
+         rule='Each project is a different sheet of the same country.',
+         tokens='--h-weight: 300; --body-size: 18px;'),
+    dict(n='12', key='ebru', name='Ebru', field='marble', layout='frame', display='garamond', body='garamond',
+         bg='#f1e9d8', ink='#1f2b44', mute='#7d7668', acc='#a2462e',
+         idea='Turkish paper marbling. Drops of ink float as stones, then a stylus and combs draw through them.',
+         rule='Each project is a traditional pattern: battal, gel-git, taraklı, şal, bülbül yuvası.',
+         tokens='--body-size: 19px; --h1: clamp(60px, 11vw, 150px);'),
+    dict(n='13', key='loom', name='Loom', field='weave', layout='top', display='fraunces', body='news',
+         bg='#f1ebdf', ink='#1d2540', mute='#7b7464', acc='#a8432c',
+         idea='A loom, one cell per thread crossing. Cloth is woven at the fell line and wound upward; the bare warp hangs below.',
+         rule='Each project is a different weave draft, from goose-eye twill to houndstooth.',
+         tokens='--h-weight: 300; --h1: clamp(56px, 11vw, 150px); --body-size: 18px;'),
+    dict(n='14', key='pool', name='Pool', field='caustic', layout='full', display='grotesk', body='grotesk',
+         bg='#eaf6f3', ink='#0f3a43', mute='#5a8489', acc='#127a84',
+         idea='Sunlight through moving water, focused into bright nets on the tiles of a pool floor.',
+         rule='Each project is a pool of a different depth.',
+         tokens='--h-weight: 300; --h-track: -.035em; --h1: clamp(60px, 12vw, 168px); --body-size: 17px;'),
+    dict(n='15', key='aurora', name='Aurora', field='aurora', layout='full', display='fraunces', body='grotesk',
+         bg='#070b14', ink='#e9f3ee', mute='#7f91a0', acc='#7fe0b0',
+         idea='Curtains of aurora over a ridge at night, green at the hem and violet higher up.',
+         rule='Each project is a geomagnetic storm level; the higher the Kp, the lower and brighter the curtains.',
+         tokens='--h-weight: 300; --h1: clamp(60px, 12vw, 160px); --body-size: 17px;'),
+    dict(n='16', key='physarum', name='Physarum', field='slime', layout='right', display='serif', body='grotesk',
+         bg='#efecd9', ink='#2b2712', mute='#7b7553', acc='#a8740c',
+         idea='The slime mould from the slime studies, live: thousands of agents lay and follow a trail, and a network grows between the food.',
+         rule='Each project feeds it a different number of food sources and changes how wide it senses.',
+         tokens='--h1: clamp(64px, 12vw, 160px); --body-size: 17px; --radius: 10px;'),
+    dict(n='17', key='herbarium', name='Herbarium', field='herb', layout='left', display='bodoni', body='garamond',
+         bg='#f2ecdd', ink='#3a2e1c', mute='#86775c', acc='#6c6a33',
+         idea='A herbarium sheet: a pressed plant drawn in sepia ink, taped down at the stem. Its tips stir as if in a draught.',
+         rule='Each project is a different plant, grown from its own L-system.',
+         tokens='--em-style: italic; --body-size: 19px; --h1: clamp(56px, 10vw, 128px);'),
+    dict(n='18', key='orrery', name='Orrery', field='orrery', layout='right', display='corm', body='spectral',
+         bg='#0e1a2e', ink='#efe4c8', mute='#8f97a6', acc='#c9a96a',
+         idea='A brass orrery on a star chart. A chord is drawn between two planets as they go round, and over a full cycle it traces a rose.',
+         rule='Each project is an orbital resonance. Home is 8:13, the pentagram of Earth and Venus.',
+         tokens='--h-weight: 500; --h-case: uppercase; --h-track: .05em; --h1: clamp(44px, 8vw, 104px); --h1-sub: clamp(40px, 6vw, 80px); --body-size: 18px;'),
+    dict(n='19', key='zellige', name='Zellige', field='zellige', layout='top', display='serif', body='grotesk',
+         bg='#f5f2ea', ink='#123438', mute='#6b8580', acc='#2b6b66',
+         idea='Glazed tilework from a quasicrystal: plane waves at evenly spaced angles, summed. The pattern never repeats.',
+         rule='Each project has a different order of symmetry.',
+         tokens='--h1: clamp(64px, 13vw, 176px); --body-size: 17px;'),
+    dict(n='20', key='rain', name='Rain', field='rain', layout='full', display='spectral', body='news',
+         bg='#0e1519', ink='#e3ecef', mute='#7c8f97', acc='#9cc3cf',
+         idea='Rain on a pond at night. Each drop sends out rings, flattened by the low angle, and the rings cross.',
+         rule='Each project is a heavier or lighter shower.',
+         tokens='--h-weight: 300; --h1: clamp(60px, 12vw, 160px); --body-size: 18px;'),
 ]
+LAYOUTS = {'top': 'top band', 'full': 'full screen', 'left': 'pinned left', 'right': 'pinned right', 'frame': 'mounted sheet'}
 
 EMAIL = 'stemboy@posteo.com'
 GITHUB = 'https://github.com/frogscooper'
 LILYPAD = 'https://lilypad.frogscooper.dev'
-DESC = 'CS sophomore @ OSU. I build software with 3 priorities: efficiency, precision, and aura.'
+# 100 / (width of "frogscooper" in ems) in each design's display face, measured in a browser and
+# rounded down a little; the hero name is capped at that many cqi so it always fits its column.
+FIT = {'moire': 15.3, 'cyanotype': 18.2, 'star-trails': 24.4, 'chladni': 21.2, 'phyllotaxis': 18.2, 'riso': 15,
+       'phosphor': 15.4, 'glass': 24.4, 'ridgelines': 21.2, 'filings': 18.2, 'survey': 18.7, 'ebru': 21.4,
+       'loom': 22.1, 'pool': 19.3, 'aurora': 22.1, 'physarum': 24.4, 'herbarium': 17.4, 'orrery': 12.6,
+       'zellige': 24.4, 'rain': 18.7}
+DESC ='CS sophomore @ OSU. I build software with 3 priorities: efficiency, precision, and aura.'
 
 PAGES = {  # path: (title, description, field p, nav href)
     'index.html': ('frogscooper | CS @ Ohio State', 'frogscooper, CS sophomore @ Ohio State. Projects, research, and contact.', 0, ''),
@@ -413,7 +475,7 @@ def page(d, path):
     here = PAGES[path][3]
     p = PAGES[path][2]
     lay = d['layout']
-    body_cls = f'layout-{lay} d-{d["key"]}'
+    body_cls = ('layout-left flip' if lay == 'right' else f'layout-{lay}') + f' d-{d["key"]}'
     hdr = nav(pre, here)
     if path == 'index.html':
         top_text = hero_text(pre, lay != 'full')
@@ -432,7 +494,19 @@ def page(d, path):
     home = path == 'index.html'
     scripts = '\n  <script src="/assets/prs.js?v=1" defer></script>' if path in ('index.html', 'open-source/index.html') else ''
 
-    if lay == 'left':
+    if lay == 'frame':
+        body = f'''<div class="stage">{field(p, 'hero-field')}</div>
+  <div class="mount">
+    <div class="wrap">{hdr}</div>
+    <div class="sheet{'' if home else ' sub'}">
+      <main id="main" class="wrap">
+        {top_text}
+        {main}
+      </main>
+      {footer(pre)}
+    </div>
+  </div>'''
+    elif lay in ('left', 'right'):
         body = f'''<div class="page">
     <div class="stage">{field(p, 'hero-field')}</div>
     <div class="content">
@@ -472,7 +546,7 @@ def css(d):
     base = open(os.path.join(SRC, 'base.css'), encoding='utf-8').read()
     return (f'/* {d["n"]} {d["name"]}: {d["idea"]} {d["rule"]}\n   Built by _designs/build.py from src/base.css; edit there, not here. */\n'
             f':root {{\n  color-scheme: {"dark" if is_dark(d["bg"]) else "light"};\n  --bg: {d["bg"]}; --ink: {d["ink"]}; --mute: {d["mute"]}; --acc: {d["acc"]};\n'
-            f'  --display: {disp}; --body: {body};\n  {d["tokens"]}\n}}\n' + base + d.get('extra', ''))
+            f'  --display: {disp}; --body: {body}; --fit: {FIT[d["key"]]};\n  {d["tokens"]}\n}}\n' + base + d.get('extra', ''))
 
 def is_dark(hexc):
     r, g, b = (int(hexc[i:i + 2], 16) for i in (1, 3, 5))
@@ -481,7 +555,7 @@ def is_dark(hexc):
 def gallery():
     cards = ''.join(f'''
     <a class="card" href="{d['n']}-{d['key']}/" style="--bg:{d['bg']};--ink:{d['ink']};--acc:{d['acc']}">
-      <span>{d['n']}</span><strong>{d['name']}</strong><em>{d['layout']} layout</em><p>{e(d['idea'])}</p><small>{e(d['rule'])}</small>
+      <span>{d['n']}</span><strong>{d['name']}</strong><em>{LAYOUTS[d['layout']]}</em><p>{e(d['idea'])}</p><small>{e(d['rule'])}</small>
     </a>''' for d in DESIGNS)
     return f'''<!doctype html>
 <html lang="en">
@@ -508,7 +582,7 @@ def gallery():
 <body>
 <main>
   <h1>Site designs</h1>
-  <p>Ten full designs of frogscooper.dev, built from one copy of the content by <code>_designs/build.py</code>. Nothing in <code>_designs/</code> is published. To put one live, run <code>python3 _designs/switch.py 03</code> (or any number), check it, and commit. <code>python3 _designs/switch.py original</code> restores the old site.</p>
+  <p>{len(DESIGNS)} full designs of frogscooper.dev, built from one copy of the content by <code>_designs/build.py</code>. Nothing in <code>_designs/</code> is published. To put one live, run <code>python3 _designs/switch.py 03</code> (or any number), check it, and commit. <code>python3 _designs/switch.py original</code> restores the old site.</p>
   <div class="grid">{cards}
   </div>
 </main>
