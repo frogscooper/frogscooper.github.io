@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>frogscooper | CS @ Ohio State</title>
+  <meta name="description" content="frogscooper, CS sophomore @ Ohio State. Projects, research, and contact.">
+  <link rel="canonical" href="https://frogscooper.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="frogscooper">
+  <meta property="og:title" content="frogscooper | CS @ Ohio State">
+  <meta property="og:description" content="frogscooper, CS sophomore @ Ohio State. Projects, research, and contact.">
+  <meta property="og:url" content="https://frogscooper.dev/">
+  <meta name="twitter:card" content="summary">
+  <script>
+    // 21 Bili: a creator-profile layout. The banner is one of the twenty _designs fields, a different
+    // one each day (?b=riso picks one). field.js reads <html data-field> when it runs, so set it first.
+    (() => {
+      const B = [['moire', 'Moiré'], ['cyanotype', 'Cyanotype'], ['stars', 'Star trails'], ['chladni', 'Chladni'],
+        ['phyllo', 'Phyllotaxis'], ['riso', 'Riso'], ['lissajous', 'Phosphor'], ['voronoi', 'Glass'], ['fog', 'Ridgelines'],
+        ['filings', 'Filings'], ['topo', 'Survey'], ['marble', 'Ebru'], ['weave', 'Loom'], ['caustic', 'Pool'],
+        ['aurora', 'Aurora'], ['slime', 'Physarum'], ['herb', 'Herbarium'], ['orrery', 'Orrery'], ['zellige', 'Zellige'], ['rain', 'Rain']];
+      const want = new URLSearchParams(location.search).get('b');
+      const day = Math.floor(Date.now() / 864e5);
+      let i = B.findIndex(b => b[0] === want);
+      if (i < 0) i = day % B.length;
+      document.documentElement.dataset.field = B[i][0];
+      window.BANNER = { list: B, i };
+    })();
+  </script>
+  <script src="assets/theme/field.js" defer></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --ink: #18191c;
+      --ink2: #61666d;
+      --mute: #9499a0;
+      --line: #e3e5e7;
+      --pink: #f0679a;
+      --pink-soft: #fde8f0;
+      --blue: #1aa3e0;
+      --blue-soft: #e3f4fc;
+      --green: #2fb46e;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 4px 16px rgba(0, 0, 0, .05);
+      --r: 10px;
+      --sans: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Noto Sans", Roboto, Helvetica, Arial, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #17181a; --card: #222326; --ink: #e7e9eb; --ink2: #a2a7ae; --mute: #757a81; --line: #34363a;
+        --pink-soft: #3a2230; --blue-soft: #16303d; --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1240px, calc(100% - 32px)); margin: 0 auto; }
+    .skip { position: absolute; left: -999px; }
+    .skip:focus { left: 16px; top: 8px; z-index: 50; background: var(--card); padding: 6px 10px; border-radius: 6px; }
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+
+    /* ---- top bar */
+    .bar { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--card) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .bar .wrap { display: flex; align-items: center; gap: 18px; height: 56px; }
+    .logo { font-weight: 800; font-size: 18px; letter-spacing: -.02em; }
+    .logo b { color: var(--pink); }
+    .bar-links { margin-left: auto; display: flex; align-items: center; gap: 18px; color: var(--ink2); font-size: 13px; }
+    .bar-links a:hover { color: var(--blue); }
+    .btn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 16px; border-radius: 8px; font-size: 13px; font-weight: 600; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; transition: background .15s, transform .15s; }
+    .btn:hover { background: var(--bg); }
+    .btn:active { transform: scale(.97); }
+    .btn.pink { background: var(--pink); border-color: var(--pink); color: #fff; }
+    .btn.pink:hover { background: #e2578b; }
+
+    /* ---- banner */
+    .banner { position: relative; height: 180px; overflow: hidden; background: #ddd; }
+    .banner .field-box { position: absolute; inset: -14px; transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+    .banner canvas { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+    .banner canvas.smooth { image-rendering: auto; }
+    .banner::after { content: ""; position: absolute; inset: auto 0 0 0; height: 70px; background: linear-gradient(transparent, rgba(0, 0, 0, .28)); pointer-events: none; }
+    .banner-cap { position: absolute; right: 16px; bottom: 10px; z-index: 2; display: flex; gap: 8px; align-items: center; color: #fff; font-size: 12px; text-shadow: 0 1px 2px rgba(0, 0, 0, .5); }
+    .banner-cap .field-cap { opacity: .8; }
+    .banner-cap button { font: inherit; color: #fff; background: rgba(255, 255, 255, .18); border: 1px solid rgba(255, 255, 255, .35); border-radius: 999px; padding: 2px 10px; cursor: pointer; backdrop-filter: blur(6px); }
+    .banner-cap button:hover { background: rgba(255, 255, 255, .3); }
+
+    /* ---- profile */
+    .profile { background: var(--card); box-shadow: var(--shadow); }
+    .profile .wrap { display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: end; padding: 0 0 16px; }
+    .avatar { width: 96px; height: 96px; margin-top: -40px; border-radius: 50%; border: 4px solid var(--card); background: #cfe6b8; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0, 0, 0, .12); position: relative; z-index: 3; }
+    .avatar svg { width: 58px; height: auto; }
+    .who { padding-top: 12px; min-width: 0; }
+    .who h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .lv { font-size: 11px; font-weight: 700; color: #fff; background: var(--blue); border-radius: 4px; padding: 1px 6px; letter-spacing: .02em; }
+    .who p { margin: 4px 0 0; color: var(--ink2); max-width: 62ch; }
+    .status { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--green); background: color-mix(in srgb, var(--green) 12%, transparent); padding: 3px 10px; border-radius: 999px; }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 25%, transparent); }
+    .side { display: grid; gap: 12px; justify-items: end; }
+    .nums { display: flex; gap: 26px; text-align: center; }
+    .nums b { display: block; font-size: 18px; line-height: 1.2; }
+    .nums span { font-size: 12px; color: var(--mute); }
+    .acts { display: flex; gap: 8px; }
+
+    .tabs { border-top: 1px solid var(--line); }
+    .tabs .wrap { display: flex; gap: 30px; height: 50px; align-items: stretch; overflow-x: auto; scrollbar-width: none; }
+    .tabs a { display: flex; align-items: center; gap: 6px; font-size: 15px; color: var(--ink2); position: relative; white-space: nowrap; }
+    .tabs a small { color: var(--mute); font-size: 12px; }
+    .tabs a:hover { color: var(--blue); }
+    .tabs a[aria-current] { color: var(--ink); font-weight: 600; }
+    .tabs a[aria-current]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-radius: 3px; background: var(--blue); }
+
+    /* ---- sections */
+    main { padding: 24px 0 40px; }
+    .sec-head { display: flex; align-items: baseline; gap: 10px; margin: 8px 0 14px; }
+    .sec-head h2 { margin: 0; font-size: 20px; letter-spacing: -.01em; }
+    .sec-head span { color: var(--mute); font-size: 13px; }
+    .sec-head a { margin-left: auto; font-size: 13px; color: var(--ink2); border: 1px solid var(--line); border-radius: 6px; padding: 3px 10px; background: var(--card); }
+    .sec-head a:hover { color: var(--blue); border-color: var(--blue); }
+
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px 18px; }
+    .grid + .sec-head { margin-top: 36px; }
+
+    /* ---- video cards */
+    .card { min-width: 0; }
+    .cover { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: var(--r); overflow: hidden; background: #222; isolation: isolate; }
+    .cover > .art { position: absolute; inset: 0; transition: transform .35s ease; }
+    .card:hover .cover > .art { transform: scale(1.04); }
+    .cover .shade { position: absolute; inset: auto 0 0 0; height: 44%; background: linear-gradient(transparent, rgba(0, 0, 0, .62)); z-index: 2; pointer-events: none; }
+    .cover .stats { position: absolute; left: 10px; right: 10px; bottom: 7px; z-index: 3; display: flex; align-items: center; gap: 12px; color: #fff; font-size: 12.5px; font-weight: 500; pointer-events: none; }
+    .cover .stats span { display: inline-flex; align-items: center; gap: 4px; }
+    .cover .stats svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .cover .stats .len { margin-left: auto; }
+    .badge { position: absolute; top: 8px; right: 8px; z-index: 3; font-size: 11px; font-weight: 700; color: #fff; background: var(--pink); padding: 1px 7px; border-radius: 4px; }
+    .badge.blue { background: var(--blue); }
+    .badge.dark { background: rgba(0, 0, 0, .55); }
+    .scrub { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--pink); z-index: 4; transition: width .08s linear; }
+    .card h3 { margin: 9px 0 0; font-size: 15px; line-height: 1.4; font-weight: 600; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card h3 a:hover { color: var(--blue); }
+    .card .pitch { margin: 3px 0 0; color: var(--ink2); font-size: 13px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card .meta { margin-top: 5px; display: flex; gap: 8px; align-items: center; color: var(--mute); font-size: 12.5px; }
+    .card .meta .tag { border: 1px solid currentColor; border-radius: 3px; padding: 0 4px; font-size: 11px; line-height: 15px; color: var(--pink); }
+    .card .meta .tag.blue { color: var(--blue); }
+    .card .meta a:hover { color: var(--blue); }
+
+    /* Lilypad: the real race, in real time. 0.8 s against 8.9 s. */
+    .lily { background: linear-gradient(135deg, #fff3f7, #e9f6fd); color: #18191c; padding: 7% 8% 0; display: grid; align-content: start; gap: 9%; }
+    .lily .k { font-size: 11px; color: #61666d; font-weight: 600; letter-spacing: .02em; }
+    .race { display: grid; gap: 8px; }
+    .lane { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; font-size: 12px; }
+    .lane .t { font: 600 12px var(--mono); }
+    .track { grid-column: 1 / -1; height: 9px; border-radius: 9px; background: rgba(0, 0, 0, .07); overflow: hidden; }
+    .fill { height: 100%; width: 100%; border-radius: 9px; background: var(--blue); }
+    .lane.me .fill { background: var(--pink); }
+    .lily .big { font-size: 34px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+    .lily .big small { font-size: 13px; font-weight: 600; color: #61666d; letter-spacing: 0; margin-left: 6px; }
+
+    /* once: real program output. The tail always shows; hovering replays the recording. */
+    .term { background: #15171c; color: #c9d1d9; }
+    .term pre { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding: 12px 14px 34px; font: 11px/1.45 var(--mono); white-space: pre-wrap; }
+    .term .p { color: #7ee787; } .term .fx { color: #d2a8ff; } .term .ret { color: #8b949e; } .term .kill { color: #ff7b72; } .term .hit { color: #ffa657; }
+    .term .caret { display: inline-block; width: 6px; height: 11px; background: #c9d1d9; vertical-align: -1px; animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .15s; }
+    .shots img.on { opacity: 1; }
+    .shots { background: #fafaf8; }
+
+    .swarm { background: radial-gradient(circle at 50% 45%, #1d3c5a, #0d1a28); }
+    .swarm svg, .neuro svg, .slime-art svg { width: 100%; height: 100%; display: block; }
+    .swarm .pkt { opacity: 0; }
+    .card.playing .swarm .pkt { animation: pkt 1.4s linear infinite; }
+    @keyframes pkt { 0% { opacity: 0; offset-distance: 0%; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; offset-distance: 100%; } }
+
+    .neuro { background: #121019; }
+    .neuro circle { transition: opacity .3s; }
+    .card.playing .neuro circle.n { animation: fire 1.2s ease-in-out infinite; }
+    @keyframes fire { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+
+    .paper { background: #e9ebef; display: grid; place-items: end center; padding-top: 10%; }
+    .sheet { width: 62%; height: 100%; background: #fff; border-radius: 3px 3px 0 0; box-shadow: 0 -2px 14px rgba(0, 0, 0, .1); padding: 9% 9% 0; color: #222; transition: transform .35s ease; }
+    .card:hover .sheet { transform: translateY(-6%); }
+    .sheet b { display: block; font: 600 clamp(9px, 1vw, 12px)/1.3 Georgia, "Times New Roman", serif; text-align: center; }
+    .sheet i { display: block; text-align: center; font: italic 9px Georgia, serif; color: #777; margin: 4px 0 8px; }
+    .sheet span { display: block; height: 3px; background: #e3e3e3; border-radius: 2px; margin: 5px 0; }
+    .sheet span:nth-child(4n) { width: 72%; }
+
+    .oss { background: linear-gradient(135deg, #1aa3e0, #6a6ef0); color: #fff; padding: 7% 8%; display: grid; align-content: start; }
+    .oss .big { font-size: 44px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+    .oss .k { font-size: 12px; opacity: .85; margin-top: 4px; }
+    .oss .repos { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+    .oss .repos span { font-size: 11px; background: rgba(255, 255, 255, .18); border-radius: 4px; padding: 1px 6px; }
+
+    /* ---- featured: slime studies, a carousel like a front-page banner */
+    .feature { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; background: var(--card); border-radius: calc(var(--r) + 2px); box-shadow: var(--shadow); overflow: hidden; }
+    .feature .cover { aspect-ratio: auto; flex: 1; min-height: 260px; border-radius: 0; background: #1f1c12; }
+    .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .5s; }
+    .slide.on { opacity: 1; }
+    .slime-art .v { fill: none; stroke: #f2c21b; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+    .slide.on .slime-art .v { animation: grow 2.6s cubic-bezier(.3, .6, .3, 1) both; animation-delay: var(--d, 0s); }
+    @keyframes grow { from { stroke-dashoffset: 1; } }
+    .slime-art .food { fill: #fff3c4; }
+    .slime-art .pick { fill: var(--pink); }
+    .slime-art .water { fill: #233648; }
+    @media (prefers-reduced-motion: reduce) { .slime-art .v { stroke-dashoffset: 0 !important; animation: none !important; } }
+    .feature .ftitle { position: absolute; left: 16px; right: 120px; bottom: 12px; z-index: 3; color: #fff; }
+    .feature .ftitle b { display: block; font-size: 18px; line-height: 1.3; }
+    .feature .ftitle span { font-size: 12.5px; opacity: .85; }
+    .dots { position: absolute; right: 14px; bottom: 16px; z-index: 3; display: flex; gap: 6px; }
+    .dots button { width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .45); cursor: pointer; transition: width .2s; }
+    .dots button[aria-selected="true"] { width: 22px; border-radius: 9px; background: #fff; }
+    .play { position: absolute; left: 50%; top: 44%; z-index: 3; translate: -50% -50%; display: inline-flex; align-items: center; gap: 8px; font: 600 14px var(--sans); color: #fff; background: rgba(0, 0, 0, .45); border: 1px solid rgba(255, 255, 255, .4); border-radius: 999px; padding: 9px 18px 9px 14px; cursor: pointer; backdrop-filter: blur(6px); transition: background .15s, scale .15s; }
+    .play:hover { background: var(--pink); border-color: var(--pink); scale: 1.04; }
+    .play svg { width: 16px; height: 16px; fill: currentColor; }
+    .feature iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 5; background: #fff; }
+    .feature .fbody { padding: 14px 16px 16px; }
+    .feature .fbody p { margin: 0; color: var(--ink2); font-size: 13.5px; }
+    .feature .fbody .meta { margin-top: 8px; }
+    .feature .fbody .fine { margin-top: 6px; font-size: 11px; color: var(--mute); }
+
+    /* ---- activity row */
+    .duo { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 18px; }
+    .panel { background: var(--card); border-radius: calc(var(--r) + 2px); box-shadow: var(--shadow); padding: 16px 18px; min-width: 0; }
+    .panel h2 { margin: 0 0 2px; font-size: 16px; }
+    .panel .sub { color: var(--mute); font-size: 12.5px; margin: 0 0 12px; }
+    .heat { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 1fr); gap: 3px; overflow: hidden; }
+    .heat i { aspect-ratio: 1; border-radius: 2px; background: var(--line); }
+    .heat i[data-l="1"] { background: #f9c7d9; } .heat i[data-l="2"] { background: #f49bbb; } .heat i[data-l="3"] { background: #f0679a; } .heat i[data-l="4"] { background: #c93c72; }
+    .legend { display: flex; gap: 4px; align-items: center; justify-content: flex-end; margin-top: 8px; font-size: 11px; color: var(--mute); }
+    .legend i { width: 10px; height: 10px; border-radius: 2px; }
+    .prs { list-style: none; margin: 0; padding: 0; }
+    .prs li { display: grid; grid-template-columns: 1.6em minmax(0, 1fr) auto; gap: 2px 8px; padding: 8px 0; border-top: 1px solid var(--line); align-items: center; }
+    .prs li:first-child { border-top: 0; }
+    .prs .n { font-weight: 800; color: var(--mute); font-style: italic; text-align: center; }
+    .prs li:nth-child(-n+3) .n { color: var(--pink); }
+    .prs a { font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .prs a:hover { color: var(--blue); }
+    .prs .r { grid-column: 2; font-size: 12px; color: var(--mute); }
+    .pill { grid-row: 1 / 3; grid-column: 3; font-size: 11px; font-weight: 600; border-radius: 999px; padding: 1px 8px; }
+    .pill.merged { color: #8250df; background: #8250df1a; } .pill.open { color: var(--green); background: #2fb46e1a; } .pill.closed { color: var(--mute); background: #9499a01a; }
+
+    footer { border-top: 1px solid var(--line); background: var(--card); }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 18px 0 26px; color: var(--mute); font-size: 12.5px; }
+    footer .wrap div { margin-left: auto; display: flex; gap: 18px; }
+    footer a:hover { color: var(--blue); }
+
+    @media (max-width: 1080px) {
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .feature { grid-column: span 3; grid-row: auto; }
+      .feature .cover { aspect-ratio: 21 / 9; flex: none; min-height: 0; }
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 10px; }
+      .feature { grid-column: span 2; }
+      .feature .cover { aspect-ratio: 16 / 10; }
+      .feature .ftitle { right: 16px; bottom: 30px; }
+      .feature .ftitle b { font-size: 15px; }
+      .dots { right: auto; left: 16px; bottom: 12px; }
+      .profile .wrap { grid-template-columns: auto 1fr; align-items: start; gap: 14px; }
+      .side { grid-column: 1 / -1; justify-items: start; }
+      .avatar { width: 76px; height: 76px; margin-top: -30px; }
+      .lily { padding: 0 7%; align-content: center; }
+      .lily .k { display: none; }
+      .lane { font-size: 10.5px; }
+      .lane .t { font-size: 10.5px; }
+      .avatar svg { width: 46px; }
+      .duo { grid-template-columns: 1fr; }
+      .bar-links .ext { display: none; }
+      .banner { height: 120px; }
+      .card h3 { font-size: 13.5px; }
+      .card .pitch { display: none; }
+      .cover .stats { font-size: 11px; gap: 8px; }
+      .cover .stats .hide-sm { display: none; }
+      .lily .big { font-size: 22px; }
+      .oss .big { font-size: 30px; }
+      .term pre { font-size: 8.5px; padding-bottom: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="bar">
+    <div class="wrap">
+      <a class="logo" href="./">frog<b>scooper</b></a>
+      <nav class="bar-links" aria-label="Elsewhere">
+        <a class="ext" href="https://lilypad.frogscooper.dev">Lilypad ↗</a>
+        <a class="ext" href="https://github.com/frogscooper">GitHub ↗</a>
+        <a class="btn pink" href="mailto:stemboy@posteo.com">Email me</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="banner" id="banner">
+    <div class="field-box"><canvas class="field" data-p="0" aria-hidden="true"></canvas></div>
+    <div class="banner-cap"><span id="banner-name"></span><span class="field-cap" aria-hidden="true"></span><button type="button" id="banner-next">next banner</button></div>
+  </div>
+
+  <section class="profile" aria-label="About">
+    <div class="wrap">
+      <div class="avatar" id="avatar" aria-hidden="true"></div>
+      <div class="who">
+        <h1>frogscooper <span class="lv">CS · Ohio State</span></h1>
+        <p>CS sophomore at Ohio State. I build software in Rust, TypeScript and Python, and right now I'm teaching a simulated slime mould to play Pong.</p>
+        <span class="status">Looking for a SWE internship</span>
+      </div>
+      <div class="side">
+        <div class="nums">
+          <div><b id="n-contrib">566</b><span>contributions / yr</span></div>
+          <div><b id="n-merged">3</b><span>PRs merged</span></div>
+          <div><b>6</b><span>projects</span></div>
+        </div>
+        <div class="acts"><a class="btn pink" href="mailto:stemboy@posteo.com">Email me</a><a class="btn" href="https://github.com/frogscooper">GitHub</a></div>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Primary">
+      <div class="wrap">
+        <a href="./" aria-current="page">Home</a>
+        <a href="#projects">Projects <small>6</small></a>
+        <a href="../../open-source/">Open source</a>
+        <a href="../../research/">Research <small>2</small></a>
+        <a href="../../contact/">Contact</a>
+      </div>
+    </nav>
+  </section>
+
+  <main id="main" class="wrap">
+    <div class="sec-head" id="projects"><h2>Projects</h2><span id="hint">hover a cover to preview</span></div>
+    <div class="grid">
+
+      <article class="feature card" id="slime">
+        <div class="cover" id="slime-cover">
+          <div class="slide on" data-study="battle"><div class="art slime-art" data-art="battle"></div></div>
+          <div class="slide" data-study="pong"><div class="art slime-art" data-art="pong"></div></div>
+          <div class="slide" data-study="bayarea"><div class="art slime-art" data-art="bayarea"></div></div>
+          <div class="shade"></div>
+          <span class="badge">Featured</span>
+          <button type="button" class="play" id="slime-play"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9.5-5.5z"/></svg><span>Play live</span></button>
+          <div class="ftitle"><b id="slime-title">Slime Studies: a slime mould picks every move in a Pokémon battle</b><span id="slime-sub">Jones agent model, regrown live in your browser</span></div>
+          <div class="dots" role="tablist" aria-label="Slime study">
+            <button type="button" role="tab" aria-selected="true" aria-label="Pokémon battle" data-i="0"></button>
+            <button type="button" role="tab" aria-selected="false" aria-label="Pong" data-i="1"></button>
+            <button type="button" role="tab" aria-selected="false" aria-label="Bay Area transit" data-i="2"></button>
+          </div>
+        </div>
+        <div class="fbody">
+          <p id="slime-desc">Ten food sites ring the slime, one per move or switch, and the option it gathers on is played. One slime is fed by a PPO network; the other was evolved with CMA-ES to play on its own senses, and beats the network (71% against the strongest-move bot).</p>
+          <div class="meta"><span class="tag">TypeScript</span><span class="tag blue">Python</span><span>2026</span><a id="slime-full" href="/slime/battle.html">Full page ↗</a></div>
+          <p class="fine" id="slime-tm">Pokémon names are trademarks of Nintendo, Creatures and GAME FREAK. Not affiliated or endorsed; battles simulated on a local Pokémon Showdown server.</p>
+        </div>
+      </article>
+
+      <article class="card" data-preview="lily">
+        <a class="cover" href="https://lilypad.frogscooper.dev" aria-label="Lilypad">
+          <div class="art lily">
+            <div class="k">SAME HEIC PHOTO, CONVERTED TO JPG</div>
+            <div class="race">
+              <div class="lane me"><span>lilypad</span><span class="t" data-to="0.8">0.8 s</span><div class="track"><div class="fill" data-ms="800"></div></div></div>
+              <div class="lane"><span>heictojpg.com</span><span class="t" data-to="8.9">8.9 s</span><div class="track"><div class="fill" data-ms="8900"></div></div></div>
+            </div>
+          </div>
+          <div class="shade"></div>
+          <div class="stats"><span><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>11× faster</span><span class="hide-sm"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/></svg>0 bytes uploaded</span><span class="len">Web</span></div>
+        </a>
+        <h3><a href="https://lilypad.frogscooper.dev">Lilypad: image and PDF tools that never upload your file</a></h3>
+        <p class="pitch">HEIC, WebP, AVIF, PNG and JPG conversion, PDF merge, split and compress, QR codes. 32 tools in 4 languages.</p>
+        <div class="meta"><span class="tag">Web</span><span>2026</span><span>·</span><a href="https://lilypad.frogscooper.dev">try it, no signup</a></div>
+      </article>
+
+      <article class="card" data-preview="term">
+        <a class="cover" href="https://github.com/frogscooper/once" aria-label="once">
+          <div class="art term"><pre aria-label="terminal recording: an agent is killed after charging a card, then retries the run"><code id="once-code"></code></pre></div>
+          <div class="shade"></div>
+          <div class="stats"><span><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>charged once</span><span class="hide-sm">real output</span><span class="len">Python</span></div>
+        </a>
+        <h3><a href="https://github.com/frogscooper/once">once: AI agents can retry “charge the card” without charging twice</a></h3>
+        <p class="pitch">Each tool call gets an idempotency key in SQLite or Postgres, so a retry returns the saved result. <code>pip install agent-once</code></p>
+        <div class="meta"><span class="tag blue">Python</span><span>2026</span><span>·</span><a href="https://pypi.org/project/agent-once/">PyPI</a><a href="https://frogscooper.dev/once/">Docs</a></div>
+      </article>
+
+      <article class="card" data-preview="shots">
+        <a class="cover" href="https://github.com/frogscooper/grch-procedural-gen" aria-label="GRCH Procedural Generator">
+          <div class="art shots">
+            <img class="on" src="/assets/grch_obj_top_angle.png" alt="" loading="lazy">
+            <img src="/assets/grch_obj_angle_1.png" alt="" loading="lazy">
+            <img src="/assets/grch_obj_cutaway.png" alt="" loading="lazy">
+            <img src="/assets/grch_render_alt_angle.png" alt="" loading="lazy">
+          </div>
+          <div class="shade"></div>
+          <span class="badge blue">Paper</span>
+          <div class="stats"><span><svg viewBox="0 0 24 24"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>BSP dungeons</span><span class="hide-sm">4 renders</span><span class="len">Rust</span></div>
+          <span class="scrub"></span>
+        </a>
+        <h3><a href="https://github.com/frogscooper/grch-procedural-gen">GRCH: corridors that route through a BSP dungeon without cutting rooms</a></h3>
+        <p class="pitch">A 3D procedural generator with a constructive routing algorithm, written up as a paper.</p>
+        <div class="meta"><span class="tag">Rust</span><span>2026</span><span>·</span><a href="/assets/papers/BSP_preprint_v0_5.pdf">paper</a></div>
+      </article>
+
+      <article class="card" data-preview="swarm">
+        <a class="cover" href="https://github.com/frogscooper/cbtorrent" aria-label="cbtorrent">
+          <div class="art swarm" id="swarm"></div>
+          <div class="shade"></div>
+          <span class="badge dark">AI-assisted</span>
+          <div class="stats"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="5" r="2"/><circle cx="20" cy="5" r="2"/><circle cx="4" cy="19" r="2"/><circle cx="20" cy="19" r="2"/><path d="M6 6l4 4M18 6l-4 4M6 18l4-4M18 18l-4-4"/></svg>ML peer selection</span><span class="len">Python</span></div>
+        </a>
+        <h3><a href="https://github.com/frogscooper/cbtorrent">cbtorrent: a BitTorrent client that learns which peers to trust</a></h3>
+        <p class="pitch">My first deliberately AI-assisted project: an experiment in how far that workflow goes on real protocol code.</p>
+        <div class="meta"><span class="tag blue">Python</span><span>2026</span></div>
+      </article>
+
+      <article class="card" data-preview="neuro">
+        <div class="cover" aria-hidden="true">
+          <div class="art neuro" id="neuro"></div>
+          <div class="shade"></div>
+          <span class="badge">In progress</span>
+          <div class="stats"><span>fruit fly connectome</span><span class="len">osu!</span></div>
+        </div>
+        <h3>fly-osu: a fruit fly's brain, wired up to play osu!</h3>
+        <p class="pitch">A connectome simulator that turns beatmaps into neural input and decodes activity into cursor moves and clicks.</p>
+        <div class="meta"><span class="tag">Simulation</span><span>in progress</span></div>
+      </article>
+
+      <article class="card">
+        <a class="cover" href="/assets/papers/BSP_preprint_v0_5.pdf" aria-label="BSP routing paper">
+          <div class="art paper"><div class="sheet"><b>Constructive Non-Intersecting Routing in BSP-Generated Spaces</b><i>frogscooper · preprint v0.5</i><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+          <span class="badge blue">Paper</span>
+        </a>
+        <h3><a href="/assets/papers/BSP_preprint_v0_5.pdf">Routing corridors through BSP spaces, generalized past 3D</a></h3>
+        <p class="pitch">The algorithm from GRCH, written up and extended to n dimensions.</p>
+        <div class="meta"><span class="tag blue">Research</span><span>2026</span><span>·</span><a href="https://github.com/frogscooper/nD-grch">nD version</a></div>
+      </article>
+
+      <article class="card">
+        <a class="cover" href="https://github.com/frogscooper/artin-cat0-29" aria-label="Artin group paper">
+          <div class="art paper"><div class="sheet"><b>A Smaller Artin Group with No Geometric CAT(0) Action</b><i>checked in Lean</i><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+          <span class="badge dark">AI-driven</span>
+        </a>
+        <h3><a href="https://github.com/frogscooper/artin-cat0-29">From 116 generators to 29, with the proof checked in Lean</a></h3>
+        <p class="pitch">An edit of OpenAI's CAT(0) counterexample. Almost entirely AI-driven; listed as an experiment in that workflow, not my own math.</p>
+        <div class="meta"><span class="tag blue">Research</span><span>2026</span></div>
+      </article>
+
+      <article class="card">
+        <a class="cover" href="../../open-source/" aria-label="Open source work">
+          <div class="art oss"><div class="big" id="oss-merged">3</div><div class="k">pull requests merged into repos I don't own</div><div class="repos" id="oss-repos"><span>uutils/coreutils</span><span>toss/es-toolkit</span><span>astral-sh/ruff</span><span>urfave/cli</span></div></div>
+        </a>
+        <h3><a href="../../open-source/">Open source: fixes in coreutils, es-toolkit, ruff and more</a></h3>
+        <p class="pitch">Every pull request I've opened elsewhere, with what got merged.</p>
+        <div class="meta"><span class="tag">Open source</span><span id="oss-total">8 PRs</span></div>
+      </article>
+    </div>
+
+    <div class="sec-head"><h2>Activity</h2><span>refreshed every few hours</span><a href="../../open-source/">All open source</a></div>
+    <div class="duo">
+      <section class="panel" aria-labelledby="heat-h">
+        <h2 id="heat-h"><span id="heat-total">566</span> contributions in the last year</h2>
+        <p class="sub" id="heat-range">github.com/frogscooper</p>
+        <div class="heat" id="heat"></div>
+        <div class="legend">less <i style="background:var(--line)"></i><i style="background:#f9c7d9"></i><i style="background:#f49bbb"></i><i style="background:#f0679a"></i><i style="background:#c93c72"></i> more</div>
+      </section>
+      <section class="panel" aria-labelledby="pr-h">
+        <h2 id="pr-h">Latest pull requests</h2>
+        <p class="sub">to repos I don't own</p>
+        <ol class="prs" id="prs">
+          <li><span class="n">1</span><a href="https://github.com/uutils/coreutils/pull/15924">join: accept repeated options like GNU</a><span class="pill open">open</span><span class="r">uutils/coreutils · oct 27</span></li>
+          <li><span class="n">2</span><a href="https://github.com/astral-sh/ruff/pull/29756">[ruff] Skip with blocks before yield in unnecessary-assign-before-return</a><span class="pill closed">closed</span><span class="r">astral-sh/ruff · oct 27</span></li>
+          <li><span class="n">3</span><a href="https://github.com/urfave/cli/pull/2510">fix: validate a slice or map flag once all of its values are parsed</a><span class="pill open">open</span><span class="r">urfave/cli · oct 27</span></li>
+          <li><span class="n">4</span><a href="https://github.com/uutils/coreutils/pull/15892">seq, tac, numfmt, sum, ptx: accept repeated options like GNU</a><span class="pill merged">merged</span><span class="r">uutils/coreutils · oct 27</span></li>
+          <li><span class="n">5</span><a href="https://github.com/toss/es-toolkit/pull/2168">fix[findLast, some]: do not treat length as an element of array-likes</a><span class="pill merged">merged</span><span class="r">toss/es-toolkit · oct 26</span></li>
+        </ol>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap"><span>frogscooper · CS @ Ohio State</span><div><a href="mailto:stemboy@posteo.com">Email</a><a href="https://github.com/frogscooper">GitHub</a><a href="../../contact/">Contact</a></div></div>
+  </footer>
+
+  <script>
+  (() => {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const touch = matchMedia('(hover: none)').matches;
+    const $ = (s, el = document) => el.querySelector(s);
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = (w, h, inner) => `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" xmlns="${NS}">${inner}</svg>`;
+    let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+    // ---- banner: name, parallax, next
+    const { list, i: bi } = window.BANNER;
+    $('#banner-name').textContent = 'banner: ' + list[bi][1];
+    $('#banner-next').onclick = () => { const u = new URL(location); u.searchParams.set('b', list[(bi + 1) % list.length][0]); location = u; };
+    const box = $('#banner .field-box');
+    if (!reduce && !touch) addEventListener('pointermove', e => {
+      if (scrollY > 260) return;
+      const x = e.clientX / innerWidth - .5, y = Math.min(1, e.clientY / 240) - .5;
+      box.style.transform = `translate(${-x * 14}px, ${-y * 8}px)`;
+    });
+
+    // ---- avatar: the pixel frog, the one place it appears
+    const FROG = ['.ddd...ddd.', 'dwwwd.dwwwd', 'dwkwdgdwkwd', 'dgggggggggd', 'dgpgggggpgd', 'dgdgggggdgd', 'dggdddddggd', '.dgggggggd.', '..ddddddd..'];
+    const INK = { d: '#24401a', g: '#74a542', w: '#ffffff', k: '#111111', p: '#e39a86' };
+    $('#avatar').innerHTML = `<svg viewBox="0 0 11 9" shape-rendering="crispEdges">${FROG.map((r, y) => [...r].map((c, x) => INK[c] ? `<rect x="${x}" y="${y}" width="1" height="1" fill="${INK[c]}"/>` : '').join('')).join('')}</svg>`;
+
+    // ---- slime illustrations: veins grow along each edge when the slide shows
+    const vein = (a, b, w, d) => {
+      const mx = (a[0] + b[0]) / 2 + (rnd() - .5) * 10, my = (a[1] + b[1]) / 2 + (rnd() - .5) * 8;
+      return `<path class="v" pathLength="1" style="--d:${d}s" stroke-width="${w}" d="M${a[0]} ${a[1]}Q${mx.toFixed(1)} ${my.toFixed(1)} ${b[0]} ${b[1]}"/>`;
+    };
+    const ART = {
+      battle() {
+        const c = [80, 45], food = Array.from({ length: 10 }, (_, k) => { const t = k / 10 * Math.PI * 2 - Math.PI / 2; return [80 + 52 * Math.cos(t), 45 + 30 * Math.sin(t)]; });
+        let s = food.map((f, k) => vein(c, f, k === 3 ? 2.4 : .5, k === 3 ? .4 : .1 + rnd() * .5)).join('');
+        for (let k = 0; k < 14; k++) { const a = [c[0] + (rnd() - .5) * 60, c[1] + (rnd() - .5) * 36]; s += vein(c, a, .3, rnd()); }
+        s += food.map((f, k) => `<circle class="${k === 3 ? 'pick' : 'food'}" cx="${f[0].toFixed(1)}" cy="${f[1].toFixed(1)}" r="${k === 3 ? 3 : 2}"/>`).join('');
+        return svg(160, 90, s + `<circle class="food" cx="80" cy="45" r="4" opacity=".5"/>`);
+      },
+      pong() {
+        let s = `<rect x="14" y="10" width="92" height="70" rx="2" fill="none" stroke="#5a5233" stroke-width=".6"/><path d="M28 70 L92 26" stroke="#5a5233" stroke-dasharray="2 2" stroke-width=".6" fill="none"/><circle cx="92" cy="26" r="2.2" fill="#fff"/>`;
+        const lane = [124, 45], food = [124, 26];
+        for (let k = 0; k < 16; k++) s += vein([lane[0] + (rnd() - .5) * 10, 78], [lane[0] + (rnd() - .5) * 16, 12 + rnd() * 66], .4 + rnd() * .6, rnd() * .6);
+        s += vein([124, 78], food, 2.2, .3) + `<circle class="pick" cx="${food[0]}" cy="${food[1]}" r="3"/>`;
+        return svg(160, 90, s);
+      },
+      bayarea() {
+        const P = [[40, 20], [52, 30], [46, 44], [60, 52], [74, 62], [92, 70], [110, 74], [124, 62], [118, 46], [104, 36], [96, 22], [82, 14], [66, 18], [134, 80], [30, 34], [56, 70]];
+        const E = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11], [11, 12], [12, 0], [7, 13], [0, 14], [14, 2], [3, 15], [15, 4], [1, 12], [9, 4]];
+        let s = `<path class="water" d="M60 26 C70 22 86 24 92 32 C98 42 96 52 104 60 C108 66 100 68 92 62 C82 54 70 48 64 40 C60 34 56 30 60 26Z"/>`;
+        s += E.map(([a, b], k) => vein(P[a], P[b], .8 + rnd() * 1.4, k * .06)).join('');
+        s += P.map(p => `<circle class="food" cx="${p[0]}" cy="${p[1]}" r="${1.6 + rnd() * 1.4}"/>`).join('');
+        return svg(160, 90, s);
+      },
+    };
+    document.querySelectorAll('.slime-art').forEach(el => { el.innerHTML = ART[el.dataset.art](); });
+
+    // ---- slime carousel
+    const STUDIES = [
+      { page: 'battle.html', title: 'Slime Studies: a slime mould picks every move in a Pokémon battle', sub: 'recorded battle, slime regrown live',
+        desc: 'Ten food sites ring the slime, one per move or switch, and the option it gathers on is played. One slime is fed by a PPO network; the other was evolved with CMA-ES to play on its own senses, and beats the network (71% against the strongest-move bot).' },
+      { page: 'index.html', title: 'Slime Studies: Pong, where the paddle is a slime mould', sub: 'trained policy, playing live',
+        desc: 'A PPO agent can only choose where to put food, and the slime takes hundreds of steps to follow, so it has to learn to aim where the ball will be. It returns 76% of balls, six times as many as chasing the ball.' },
+      { page: 'bayarea.html', title: 'Slime Studies: a slime mould designs Bay Area rail', sub: 'seed 1, 2020 census and OSM rail',
+        desc: "Food goes where 7.4 million residents live, water is a wall except at real bridges, and the slime grows between them. At about the length of today's rail (709 vs 762 km), it reaches all 30 population centres and joins every pair." },
+    ];
+    const cover = $('#slime-cover'), slides = [...cover.querySelectorAll('.slide')], dots = [...cover.querySelectorAll('.dots button')];
+    let cur = 0, timer, live = false;
+    const show = i => {
+      cur = (i + STUDIES.length) % STUDIES.length;
+      const s = STUDIES[cur];
+      slides.forEach((el, k) => el.classList.toggle('on', k === cur));
+      dots.forEach((d, k) => d.setAttribute('aria-selected', String(k === cur)));
+      $('#slime-title').textContent = s.title; $('#slime-sub').textContent = s.sub; $('#slime-desc').textContent = s.desc;
+      $('#slime-full').href = '/slime/' + (s.page === 'index.html' ? '' : s.page);
+      $('#slime-tm').hidden = cur !== 0;
+      const f = $('iframe', cover); if (f) f.src = '/slime/' + s.page + '?embed';
+    };
+    const auto = () => { clearInterval(timer); if (!reduce && !live) timer = setInterval(() => show(cur + 1), 6000); };
+    dots.forEach(d => d.onclick = () => { show(+d.dataset.i); auto(); });
+    cover.addEventListener('pointerenter', () => clearInterval(timer));
+    cover.addEventListener('pointerleave', auto);
+    $('#slime-play').onclick = () => {
+      live = true; clearInterval(timer);
+      const f = document.createElement('iframe');
+      f.title = STUDIES[cur].title; f.src = '/slime/' + STUDIES[cur].page + '?embed';
+      cover.appendChild(f); $('#slime-play').hidden = true;
+    };
+    auto();
+
+    // ---- once recording (the same cast the live site plays)
+    const CAST = [[0.3,"$ "],[0.73,"p"],[0.76,"y"],[0.79,"t"],[0.82,"h"],[0.85,"o"],[0.88,"n"],[0.91," "],[0.94,"a"],[0.97,"g"],[1.0,"e"],[1.03,"n"],[1.06,"t"],[1.09,"."],[1.12,"p"],[1.16,"y"],[1.19," "],[1.22,"-"],[1.25,"-"],[1.28,"c"],[1.31,"r"],[1.34,"a"],[1.37,"s"],[1.4,"h"],[1.43,"-"],[1.46,"a"],[1.49,"f"],[1.52,"t"],[1.55,"e"],[1.58,"r"],[1.61," "],[1.64,"c"],[1.67,"h"],[1.7,"a"],[1.73,"r"],[1.76,"g"],[1.79,"e"],[1.82,"_"],[1.85,"c"],[1.88,"a"],[1.91,"r"],[1.95,"d"],[2.2,"\n"],[2.76,"-> charge_card(order='A12', cents=1000)\n  ** charging card for A12: $10.00\n  <- 'ch_1'\n"],[3.17,"!! worker killed (simulated timeout)\n"],[4.07,"$ "],[4.5,"p"],[4.53,"y"],[4.56,"t"],[4.59,"h"],[4.62,"o"],[4.66,"n"],[4.68," "],[4.71,"a"],[4.75,"g"],[4.78,"e"],[4.8,"n"],[4.83,"t"],[4.87,"."],[4.9,"p"],[4.93,"y"],[5.18,"\n"],[5.74,"-> charge_card(order='A12', cents=1000)\n  once: saved result, not run again\n  <- 'ch_1'\n"],[6.24,"-> send_receipt(order='A12', charge='ch_1')\n"],[6.25,"  ** emailing receipt for A12 (ch_1)\n  <- 'msg_1'\nagent: plan done\n"],[9.37,""]];
+    const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const paint = txt => txt.split('\n').map(l => {
+      const c = l.startsWith('$') ? 'p' : l.startsWith('!!') ? 'kill' : l.includes('once:') ? 'hit' : l.includes('**') ? 'fx' : l.includes('<-') ? 'ret' : '';
+      return c ? `<span class="${c}">${esc(l)}</span>` : esc(l);
+    }).join('\n');
+    const FULL = CAST.map(c => c[1]).join('');
+    const code = $('#once-code');
+    code.innerHTML = paint(FULL.trimEnd());
+
+    // ---- cbtorrent swarm and fly-osu neurons
+    {
+      seed = 11; let s = '', pk = '';
+      const C = [80, 45], peers = Array.from({ length: 11 }, () => [10 + rnd() * 140, 8 + rnd() * 74]);
+      peers.forEach((p, k) => {
+        const good = k % 3 === 0, d = `M${C[0]} ${C[1]}L${p[0].toFixed(1)} ${p[1].toFixed(1)}`;
+        s += `<path d="${d}" stroke="${good ? '#4fc3f7' : '#2b4a66'}" stroke-width="${good ? .9 : .4}"/>`;
+        s += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${good ? 2.6 : 1.8}" fill="${good ? '#4fc3f7' : '#3a5f80'}"/>`;
+        if (good) pk += `<circle class="pkt" r="1.2" fill="#fff" style="offset-path:path('M${p[0].toFixed(1)} ${p[1].toFixed(1)}L${C[0]} ${C[1]}');animation-delay:${(k * .23).toFixed(2)}s"/>`;
+      });
+      $('#swarm').innerHTML = svg(160, 90, s + pk + `<circle cx="80" cy="45" r="5" fill="#f0679a"/>`);
+      seed = 5; s = '';
+      const N = Array.from({ length: 40 }, () => [8 + rnd() * 144, 8 + rnd() * 74]);
+      N.forEach((a, k) => { const b = N[(k * 7 + 3) % N.length]; s += `<path d="M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}" stroke="#3b2f5c" stroke-width=".4"/>`; });
+      s += N.map((a, k) => `<circle class="n" cx="${a[0].toFixed(1)}" cy="${a[1].toFixed(1)}" r="${1 + rnd() * 1.5}" fill="#b18cff" opacity=".35" style="animation-delay:${(rnd() * 1.2).toFixed(2)}s"/>`).join('');
+      $('#neuro').innerHTML = svg(160, 90, s);
+    }
+
+    // ---- hover previews. On touch screens they play when the card is mostly on screen.
+    const PREVIEW = {
+      lily(card) {
+        const fills = card.querySelectorAll('.fill'), ts = card.querySelectorAll('.t'), t0 = performance.now();
+        fills.forEach(f => { f.style.transition = 'none'; f.style.width = '0'; });
+        requestAnimationFrame(() => requestAnimationFrame(() => fills.forEach(f => { f.style.transition = `width ${f.dataset.ms}ms linear`; f.style.width = '100%'; })));
+        const tick = () => {
+          const s = (performance.now() - t0) / 1000;
+          ts.forEach(t => { t.textContent = Math.min(s, +t.dataset.to).toFixed(1) + ' s'; });
+          if (s < 8.9 && card._on) card._raf = requestAnimationFrame(tick);
+        };
+        tick();
+        return () => { cancelAnimationFrame(card._raf); fills.forEach(f => { f.style.transition = 'none'; f.style.width = '100%'; }); ts.forEach(t => { t.textContent = t.dataset.to + ' s'; }); };
+      },
+      term() {
+        let k = 0, txt = '', t0 = performance.now(), raf;
+        const step = () => {
+          const s = (performance.now() - t0) / 1000 * 1.3;
+          while (k < CAST.length && CAST[k][0] <= s) txt += CAST[k++][1];
+          code.innerHTML = paint(txt) + '<span class="caret"></span>';
+          if (k < CAST.length) raf = requestAnimationFrame(step);
+        };
+        step();
+        return () => { cancelAnimationFrame(raf); code.innerHTML = paint(FULL.trimEnd()); };
+      },
+      shots(card) {
+        const imgs = [...card.querySelectorAll('.shots img')], bar = $('.scrub', card), cv = $('.cover', card);
+        const set = f => { const i = Math.min(imgs.length - 1, Math.floor(f * imgs.length)); imgs.forEach((im, k) => im.classList.toggle('on', k === i)); bar.style.width = (f * 100).toFixed(1) + '%'; };
+        const move = e => { const r = cv.getBoundingClientRect(); set(Math.max(0, Math.min(.999, (e.clientX - r.left) / r.width))); };
+        cv.addEventListener('pointermove', move);
+        let iv; if (touch) { let f = 0; iv = setInterval(() => { f = (f + .25) % 1; set(f + .01); }, 900); }
+        return () => { cv.removeEventListener('pointermove', move); clearInterval(iv); bar.style.width = '0'; imgs.forEach((im, k) => im.classList.toggle('on', k === 0)); };
+      },
+      swarm() { return () => {}; },
+      neuro() { return () => {}; },
+    };
+    const start = card => { if (card._on) return; card._on = true; card.classList.add('playing'); card._stop = PREVIEW[card.dataset.preview](card); };
+    const stop = card => { if (!card._on) return; card._on = false; card.classList.remove('playing'); card._stop && card._stop(); };
+    const cards = document.querySelectorAll('[data-preview]');
+    if (touch) $('#hint').textContent = 'covers play as you scroll';
+    if (touch) {
+      const io = new IntersectionObserver(es => es.forEach(e => (e.intersectionRatio > .7 && !reduce ? start : stop)(e.target)), { threshold: [0, .7] });
+      cards.forEach(c => io.observe(c));
+    } else cards.forEach(c => {
+      c.addEventListener('pointerenter', () => start(c));
+      c.addEventListener('pointerleave', () => stop(c));
+      c.addEventListener('focusin', () => start(c));
+      c.addEventListener('focusout', () => stop(c));
+    });
+
+    // ---- contributions heatmap (last 26 weeks) from the data the site already refreshes
+    fetch('/assets/contrib.json').then(r => r.json()).then(j => {
+      const days = j.days.slice(-182);
+      const start = new Date(days[0][0]).getUTCDay();
+      const max = Math.max(1, ...days.map(d => d[1]));
+      const cells = Array(start).fill('<i style="visibility:hidden"></i>');
+      days.forEach(([day, n]) => cells.push(`<i data-l="${n ? Math.min(4, 1 + Math.floor(n / max * 4)) : 0}" title="${day}: ${n}"></i>`));
+      $('#heat').innerHTML = cells.join('');
+      $('#heat-total').textContent = $('#n-contrib').textContent = j.total;
+      $('#heat-range').textContent = `${j.from} to ${j.to} · github.com/${j.user}`;
+    }).catch(() => {});
+
+    // ---- PRs, refreshed from GitHub search (same query as assets/prs.js); baked rows stay on any error
+    const MON = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    const q = encodeURIComponent('is:pr author:frogscooper -user:frogscooper');
+    const use = items => {
+      if (!items || !items.length) return;
+      const st = it => it.pull_request && it.pull_request.merged_at ? 'merged' : it.state;
+      $('#prs').innerHTML = items.slice(0, 5).map((it, k) => {
+        const [, m, d] = it.created_at.slice(0, 10).split('-'), repo = it.repository_url.split('/repos/')[1];
+        return `<li><span class="n">${k + 1}</span><a href="${esc(it.html_url)}">${esc(it.title)}</a><span class="pill ${st(it)}">${st(it)}</span><span class="r">${esc(repo)} · ${MON[+m - 1]} ${+d}</span></li>`;
+      }).join('');
+      const merged = items.filter(it => st(it) === 'merged');
+      $('#n-merged').textContent = $('#oss-merged').textContent = merged.length;
+      $('#oss-total').textContent = items.length + ' PRs';
+      const repos = [...new Set(merged.concat(items).map(it => it.repository_url.split('/repos/')[1]))].slice(0, 5);
+      $('#oss-repos').innerHTML = repos.map(r => `<span>${esc(r)}</span>`).join('');
+    };
+    try { const c = JSON.parse(sessionStorage.getItem('bili-prs')); if (c) use(c); } catch (e) {}
+    fetch(`https://api.github.com/search/issues?sort=created&order=desc&per_page=100&q=${q}`)
+      .then(r => r.ok ? r.json() : null).then(j => { if (j && j.items) { use(j.items); try { sessionStorage.setItem('bili-prs', JSON.stringify(j.items.map(({ html_url, title, state, created_at, repository_url, pull_request }) => ({ html_url, title, state, created_at, repository_url, pull_request: pull_request && { merged_at: pull_request.merged_at } })))); } catch (e) {} } })
+      .catch(() => {});
+  })();
+  </script>
+</body>
+</html>

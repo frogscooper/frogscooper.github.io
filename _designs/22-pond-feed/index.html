@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>frogscooper | CS @ Ohio State</title>
+  <meta name="description" content="frogscooper, CS sophomore @ Ohio State. Projects, research, and contact.">
+  <link rel="canonical" href="https://frogscooper.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="frogscooper">
+  <meta property="og:title" content="frogscooper | CS @ Ohio State">
+  <meta property="og:description" content="frogscooper, CS sophomore @ Ohio State. Projects, research, and contact.">
+  <meta property="og:url" content="https://frogscooper.dev/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 11' shape-rendering='crispEdges'%3E%3Crect x='1' y='1' width='1' height='1' fill='%2324401a'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%2324401a'/%3E%3Crect x='3' y='1' width='1' height='1' fill='%2324401a'/%3E%3Crect x='7' y='1' width='1' height='1' fill='%2324401a'/%3E%3Crect x='8' y='1' width='1' height='1' fill='%2324401a'/%3E%3Crect x='9' y='1' width='1' height='1' fill='%2324401a'/%3E%3Crect x='0' y='2' width='1' height='1' fill='%2324401a'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%23fff'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23fff'/%3E%3Crect x='3' y='2' width='1' height='1' fill='%23fff'/%3E%3Crect x='4' y='2' width='1' height='1' fill='%2324401a'/%3E%3Crect x='6' y='2' width='1' height='1' fill='%2324401a'/%3E%3Crect x='7' y='2' width='1' height='1' fill='%23fff'/%3E%3Crect x='8' y='2' width='1' height='1' fill='%23fff'/%3E%3Crect x='9' y='2' width='1' height='1' fill='%23fff'/%3E%3Crect x='10' y='2' width='1' height='1' fill='%2324401a'/%3E%3Crect x='0' y='3' width='1' height='1' fill='%2324401a'/%3E%3Crect x='1' y='3' width='1' height='1' fill='%23fff'/%3E%3Crect x='2' y='3' width='1' height='1' fill='%23111'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%23fff'/%3E%3Crect x='4' y='3' width='1' height='1' fill='%2324401a'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%2374a542'/%3E%3Crect x='6' y='3' width='1' height='1' fill='%2324401a'/%3E%3Crect x='7' y='3' width='1' height='1' fill='%23fff'/%3E%3Crect x='8' y='3' width='1' height='1' fill='%23111'/%3E%3Crect x='9' y='3' width='1' height='1' fill='%23fff'/%3E%3Crect x='10' y='3' width='1' height='1' fill='%2324401a'/%3E%3Crect x='0' y='4' width='1' height='1' fill='%2324401a'/%3E%3Crect x='1' y='4' width='1' height='1' fill='%2374a542'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%2374a542'/%3E%3Crect x='3' y='4' width='1' height='1' fill='%2374a542'/%3E%3Crect x='4' y='4' width='1' height='1' fill='%2374a542'/%3E%3Crect x='5' y='4' width='1' height='1' fill='%2374a542'/%3E%3Crect x='6' y='4' width='1' height='1' fill='%2374a542'/%3E%3Crect x='7' y='4' width='1' height='1' fill='%2374a542'/%3E%3Crect x='8' y='4' width='1' height='1' fill='%2374a542'/%3E%3Crect x='9' y='4' width='1' height='1' fill='%2374a542'/%3E%3Crect x='10' y='4' width='1' height='1' fill='%2324401a'/%3E%3Crect x='0' y='5' width='1' height='1' fill='%2324401a'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%2374a542'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%23e39a86'/%3E%3Crect x='3' y='5' width='1' height='1' fill='%2374a542'/%3E%3Crect x='4' y='5' width='1' height='1' fill='%2374a542'/%3E%3Crect x='5' y='5' width='1' height='1' fill='%2374a542'/%3E%3Crect x='6' y='5' width='1' height='1' fill='%2374a542'/%3E%3Crect x='7' y='5' width='1' height='1' fill='%2374a542'/%3E%3Crect x='8' y='5' width='1' height='1' fill='%23e39a86'/%3E%3Crect x='9' y='5' width='1' height='1' fill='%2374a542'/%3E%3Crect x='10' y='5' width='1' height='1' fill='%2324401a'/%3E%3Crect x='0' y='6' width='1' height='1' fill='%2324401a'/%3E%3Crect x='1' y='6' width='1' height='1' fill='%2374a542'/%3E%3Crect x='2' y='6' width='1' height='1' fill='%2324401a'/%3E%3Crect x='3' y='6' width='1' height='1' fill='%2374a542'/%3E%3Crect x='4' y='6' width='1' height='1' fill='%2374a542'/%3E%3Crect x='5' y='6' width='1' height='1' fill='%2374a542'/%3E%3Crect x='6' y='6' width='1' height='1' fill='%2374a542'/%3E%3Crect x='7' y='6' width='1' height='1' fill='%2374a542'/%3E%3Crect x='8' y='6' width='1' height='1' fill='%2324401a'/%3E%3Crect x='9' y='6' width='1' height='1' fill='%2374a542'/%3E%3Crect x='10' y='6' width='1' height='1' fill='%2324401a'/%3E%3Crect x='0' y='7' width='1' height='1' fill='%2324401a'/%3E%3Crect x='1' y='7' width='1' height='1' fill='%2374a542'/%3E%3Crect x='2' y='7' width='1' height='1' fill='%2374a542'/%3E%3Crect x='3' y='7' width='1' height='1' fill='%2324401a'/%3E%3Crect x='4' y='7' width='1' height='1' fill='%2324401a'/%3E%3Crect x='5' y='7' width='1' height='1' fill='%2324401a'/%3E%3Crect x='6' y='7' width='1' height='1' fill='%2324401a'/%3E%3Crect x='7' y='7' width='1' height='1' fill='%2324401a'/%3E%3Crect x='8' y='7' width='1' height='1' fill='%2374a542'/%3E%3Crect x='9' y='7' width='1' height='1' fill='%2374a542'/%3E%3Crect x='10' y='7' width='1' height='1' fill='%2324401a'/%3E%3Crect x='1' y='8' width='1' height='1' fill='%2324401a'/%3E%3Crect x='2' y='8' width='1' height='1' fill='%2374a542'/%3E%3Crect x='3' y='8' width='1' height='1' fill='%2374a542'/%3E%3Crect x='4' y='8' width='1' height='1' fill='%2374a542'/%3E%3Crect x='5' y='8' width='1' height='1' fill='%2374a542'/%3E%3Crect x='6' y='8' width='1' height='1' fill='%2374a542'/%3E%3Crect x='7' y='8' width='1' height='1' fill='%2374a542'/%3E%3Crect x='8' y='8' width='1' height='1' fill='%2374a542'/%3E%3Crect x='9' y='8' width='1' height='1' fill='%2324401a'/%3E%3Crect x='2' y='9' width='1' height='1' fill='%2324401a'/%3E%3Crect x='3' y='9' width='1' height='1' fill='%2324401a'/%3E%3Crect x='4' y='9' width='1' height='1' fill='%2324401a'/%3E%3Crect x='5' y='9' width='1' height='1' fill='%2324401a'/%3E%3Crect x='6' y='9' width='1' height='1' fill='%2324401a'/%3E%3Crect x='7' y='9' width='1' height='1' fill='%2324401a'/%3E%3Crect x='8' y='9' width='1' height='1' fill='%2324401a'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+  <!-- 22 Pond feed: 21's layout (profile up top, projects as cards that preview on hover) in the
+       original site's own look: the pond/contour backdrop, paper and ink, hard shadows, frogs. -->
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fafaf8;
+      --ink: #101010;
+      --muted: #686868;
+      --line: #d3d3cf;
+      --moss: #4c6b34;
+      --leaf: #74a542;
+      --pad: #eef1ea;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+      /* frog heatmap palette, same as the live site */
+      --cg-ink: #3a2f27; --eye: #f7f2e6;
+      --f0: #f6f7f2; --f1: #e6e9d4; --f2: #c6d2a6; --f3: #9bb07c; --f4: #6f8a58; --dk: #4c6040;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: transparent; color: var(--ink); font: 15px/1.5 Arial, Helvetica, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1210px, calc(100% - 32px)); margin: 0 auto; }
+    .skip { position: absolute; left: -999px; }
+    .skip:focus { left: 16px; top: 8px; z-index: 50; background: var(--paper); padding: 6px 10px; border: 1px solid var(--ink); }
+    :focus-visible { outline: 2px solid var(--moss); outline-offset: 2px; }
+    .mono { font-family: var(--mono); }
+
+    .btn { display: inline-block; padding: 7px 14px; border: 1.5px solid var(--ink); background: var(--paper); font: 700 12px/1.2 var(--mono); box-shadow: 3px 3px 0 var(--ink); transition: transform .1s, box-shadow .1s; }
+    .btn:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+    .btn.ink { background: var(--ink); color: var(--paper); }
+
+    /* ---- top bar */
+    .bar { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--paper) 94%, transparent); border-bottom: 1px solid var(--ink); }
+    .bar .wrap { display: flex; align-items: center; gap: 18px; height: 52px; }
+    .id { display: flex; flex-direction: column; line-height: 1.2; }
+    .id strong { font-size: 15px; }
+    .id span { font-size: 12px; color: var(--muted); }
+    .bar-r { margin-left: auto; display: flex; align-items: center; gap: 18px; font-size: 12px; text-transform: uppercase; letter-spacing: .045em; }
+    .bar-r a:hover { text-decoration: underline; text-underline-offset: 4px; }
+    [data-frog-toggle] { font-size: 12px; }
+
+    /* ---- the backdrop is the banner: a strip of pond before the paper starts */
+    .pondview { height: 150px; }
+
+    /* ---- profile */
+    .profile { background: var(--paper); border: 1px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); }
+    .prof { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 22px; padding: 0 22px 18px; align-items: start; }
+    .avatar { width: 104px; height: 104px; margin-top: -42px; background: var(--pad); border: 1.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); display: grid; place-items: center; }
+    .avatar svg { width: 66px; height: auto; }
+    .who { padding-top: 16px; min-width: 0; }
+    .who h1 { margin: 0; font-size: 34px; line-height: 1.05; letter-spacing: -.04em; }
+    .who .desc { margin: 8px 0 0; font-size: 16px; max-width: 58ch; }
+    .facts { margin: 12px 0 0; display: grid; gap: 4px; font-size: 13.5px; color: #4b4b4b; max-width: 72ch; }
+    .facts div { display: grid; grid-template-columns: 7.5em 1fr; gap: 10px; }
+    .facts dt { font: 11px/1.9 var(--mono); color: var(--muted); }
+    .facts dd { margin: 0; }
+    .facts a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); }
+    .facts a:hover { text-decoration-color: var(--ink); }
+    .seek { display: inline-block; background: var(--ink); color: var(--paper); font: 700 12px/1 var(--mono); padding: 6px 9px; }
+    .side { padding-top: 18px; display: grid; gap: 16px; justify-items: end; }
+    .nums { display: flex; gap: 0; border: 1px solid var(--ink); }
+    .nums div { padding: 8px 14px; border-left: 1px solid var(--ink); text-align: left; }
+    .nums div:first-child { border-left: 0; }
+    .nums b { display: block; font: 700 24px/1.1 var(--mono); letter-spacing: -.04em; }
+    .nums span { font-size: 11px; color: var(--muted); }
+    .acts { display: flex; gap: 12px; }
+    .tabs { border-top: 1px solid var(--ink); display: flex; gap: 28px; padding: 0 22px; overflow-x: auto; scrollbar-width: none; }
+    .tabs a { padding: 12px 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .045em; color: var(--muted); border-bottom: 2px solid transparent; white-space: nowrap; }
+    .tabs a:hover { color: var(--ink); }
+    .tabs a[aria-current] { color: var(--ink); font-weight: 700; border-color: var(--ink); }
+    .tabs a small { font-family: var(--mono); }
+
+    /* ---- sections */
+    main { padding: 64px 0 90px; }
+    /* Sheets of paper laid on the map: gaps let the backdrop through, each one sits a little askew. */
+    .shelf { background: var(--paper); border: 1px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); padding: 14px 18px 24px; transform: rotate(var(--tilt, 0deg)); }
+    .shelf + .shelf { margin-top: 84px; }
+    .shelf:nth-of-type(1) { --tilt: -.35deg; }
+    .shelf:nth-of-type(2) { --tilt: .45deg; margin-left: 14px; margin-right: -14px; }
+    .shelf:nth-of-type(3) { --tilt: -.25deg; }
+    .sec-head { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--ink); padding-bottom: 8px; margin-bottom: 18px; }
+    .sec-head h2 { margin: 0; font: 700 11px/1 Arial; text-transform: uppercase; letter-spacing: .09em; }
+    .sec-head span { font-size: 12px; color: var(--muted); }
+    .sec-head a { margin-left: auto; font-size: 12px; text-transform: uppercase; letter-spacing: .045em; }
+    .sec-head a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 22px; }
+    .card.folded, .card.out { display: none; }
+    .filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 30px 0 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .filter button { font: 11px/1 var(--mono); padding: 6px 9px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); cursor: pointer; }
+    .filter button:hover { background: var(--pad); }
+    .filter button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+    .filter button small { color: var(--muted); margin-left: 3px; }
+    .filter button[aria-pressed="true"] small { color: #9a9a9a; }
+    .more { margin-top: 26px; text-align: center; }
+
+    /* ---- cards */
+    .card { min-width: 0; }
+    .cover { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid var(--ink); background: #222; transition: transform .12s, box-shadow .12s; }
+    a.cover:hover, .card.playing .cover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+    .cover > .art { position: absolute; inset: 0 0 24px; }
+    .strip { position: absolute; left: 0; right: 0; bottom: 0; height: 24px; z-index: 3; display: flex; align-items: center; gap: 12px; padding: 0 9px; background: var(--ink); color: var(--paper); font: 11px/1 var(--mono); white-space: nowrap; overflow: hidden; }
+    .strip b { color: #c6d2a6; font-weight: 700; }
+    .strip .len { margin-left: auto; color: #9a9a9a; }
+    .badge { position: absolute; top: 0; left: 0; z-index: 3; font: 700 10.5px/1 var(--mono); color: var(--paper); background: var(--ink); padding: 5px 7px; }
+    .badge.leaf { background: var(--leaf); color: var(--ink); }
+    .scrub { position: absolute; left: 0; bottom: 24px; height: 3px; width: 0; background: var(--leaf); z-index: 4; }
+    .card .idx { display: block; margin-top: 10px; font: 11px var(--mono); color: var(--muted); }
+    .card h3 { margin: 2px 0 0; font-size: 21px; line-height: 1.15; letter-spacing: -.03em; }
+    .card h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .card p { margin: 6px 0 0; font-size: 13.5px; color: #4b4b4b; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .card .links { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+    .card .links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .card .links span { color: var(--muted); }
+
+    /* Lilypad: the real race, in real time. 0.8 s against 8.9 s. */
+    .lily { background: var(--pad); color: var(--ink); padding: 0 8%; display: grid; align-content: center; gap: 10px; }
+    .lily .k { font: 10.5px var(--mono); color: var(--muted); }
+    .lane { display: grid; grid-template-columns: 1fr auto; gap: 3px 10px; align-items: center; font-size: 12px; }
+    .lane .t { font: 700 12px var(--mono); }
+    .track { grid-column: 1 / -1; height: 10px; border: 1px solid var(--ink); background: var(--paper); }
+    .fill { height: 100%; width: 100%; background: var(--muted); }
+    .lane.me .fill { background: var(--moss); }
+
+    /* once: real program output, so it stays a terminal. The tail always shows; hovering replays it. */
+    .term { background: #15171c; color: #c9d1d9; }
+    .term pre { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding: 10px 12px; font: 10.5px/1.45 var(--mono); white-space: pre-wrap; }
+    .term .p { color: #7ee787; } .term .fx { color: #d2a8ff; } .term .ret { color: #8b949e; } .term .kill { color: #ff7b72; } .term .hit { color: #ffa657; }
+    .term .caret { display: inline-block; width: 6px; height: 11px; background: #c9d1d9; vertical-align: -1px; animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .shots { background: var(--paper); }
+    .shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .15s; }
+    .shots img.on { opacity: 1; }
+
+    .swarm { background: #f2f3ee; }
+    .swarm svg, .neuro svg, .slime-art svg { width: 100%; height: 100%; display: block; }
+    .swarm .pkt { opacity: 0; }
+    .card.playing .swarm .pkt { animation: pkt 1.4s linear infinite; }
+    @keyframes pkt { 0% { opacity: 0; offset-distance: 0%; } 10%, 90% { opacity: 1; } 100% { opacity: 0; offset-distance: 100%; } }
+    .neuro { background: #f2f3ee; }
+    .card.playing .neuro circle.n { animation: fire 1.2s ease-in-out infinite; }
+    @keyframes fire { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
+
+    .sheet { width: 64%; height: 100%; background: #fff; border: 1px solid var(--ink); border-bottom: 0; padding: 9% 9% 0; color: #222; transition: transform .3s ease; }
+    .paper-row:hover .sheet { transform: translateY(-6%); }
+    .sheet b { display: block; font: 600 clamp(9px, .95vw, 12px)/1.3 Georgia, "Times New Roman", serif; text-align: center; }
+    .sheet i { display: block; text-align: center; font: italic 9px Georgia, serif; color: #777; margin: 4px 0 8px; }
+    .sheet span { display: block; height: 3px; background: #e3e3e3; margin: 5px 0; }
+    .sheet span:nth-child(4n) { width: 72%; }
+
+    /* ---- featured: slime studies */
+    .feature { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 26px; align-items: start; }
+    .feature .cover { aspect-ratio: 16 / 10; background: #1f1c12; }
+    .feature .idx { margin-top: 0; }
+    .slide { position: absolute; inset: 0 0 24px; opacity: 0; transition: opacity .5s; }
+    .slide.on { opacity: 1; }
+    .slime-art .v { fill: none; stroke: #f2c21b; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+    .slide.on .slime-art .v { animation: grow 2.6s cubic-bezier(.3, .6, .3, 1) both; animation-delay: var(--d, 0s); }
+    @keyframes grow { from { stroke-dashoffset: 1; } }
+    .slime-art .food { fill: #fff3c4; }
+    .slime-art .pick { fill: var(--leaf); }
+    .slime-art .water { fill: #233648; }
+    @media (prefers-reduced-motion: reduce) { .slime-art .v { animation: none !important; } }
+    .stabs { position: absolute; right: 0; top: 0; z-index: 4; display: flex; }
+    .stabs button { font: 11px/1 var(--mono); color: var(--paper); background: rgba(16, 16, 16, .7); border: 0; border-left: 1px solid #444; padding: 6px 9px; cursor: pointer; }
+    .stabs button[aria-selected="true"] { background: var(--leaf); color: var(--ink); font-weight: 700; }
+    .play { position: absolute; left: 50%; top: 46%; z-index: 4; translate: -50% -50%; font: 700 13px var(--mono); color: var(--ink); background: var(--paper); border: 1.5px solid var(--ink); box-shadow: 3px 3px 0 var(--leaf); padding: 9px 16px; cursor: pointer; }
+    .play:hover { box-shadow: 1px 1px 0 var(--leaf); translate: calc(-50% + 2px) calc(-50% + 2px); }
+    .feature iframe { position: absolute; inset: 0 0 24px; width: 100%; height: calc(100% - 24px); border: 0; z-index: 5; background: #fff; }
+    .feature h3 { font-size: 29px; }
+    .feature p { display: block; font-size: 14px; }
+
+    /* ---- research: its own shelf, one row per paper */
+    .papers { display: grid; gap: 22px; }
+    .paper-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 22px; align-items: start; }
+    .paper-row + .paper-row { border-top: 1px solid var(--line); padding-top: 22px; }
+    .thumb { position: relative; display: grid; place-items: end center; aspect-ratio: 4 / 3; overflow: hidden; background: #e7e9e1; border: 1px solid var(--ink); padding-top: 10%; }
+    .thumb .sheet { width: 70%; }
+    .thumb .sheet b { font-size: 9px; }
+    .paper-row h3 { margin: 2px 0 0; font-size: 21px; line-height: 1.2; letter-spacing: -.03em; }
+    .paper-row h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .paper-row p { margin: 6px 0 0; font-size: 14px; color: #4b4b4b; max-width: 78ch; }
+    .paper-row .idx { font: 11px var(--mono); color: var(--muted); }
+    .paper-row .links { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+    .paper-row .links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .fine { font-size: 11px !important; color: var(--muted) !important; }
+
+    /* ---- activity */
+    .duo { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; }
+    .duo h3 { margin: 0; font: 700 34px/1 var(--mono); letter-spacing: -.04em; }
+    .duo small { display: block; margin-top: 4px; color: var(--muted); font: 10px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .cg-box { overflow-x: auto; padding: 14px 0 6px; font: 10px/1.4 var(--mono); scrollbar-width: thin; }
+    .cg-fallback { margin: 0; color: var(--muted); }
+    .cg-pond { display: block; width: 100%; height: auto; }
+    .cg-pond text { font-family: var(--mono); fill: var(--muted); }
+    .cap { font: 10.5px var(--mono); color: var(--muted); }
+    .prs { list-style: none; margin: 12px 0 0; padding: 0; }
+    .prs li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 8px 0; border-top: 1px solid var(--line); }
+    .prs a { font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .prs a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .prs .r { font: 10.5px var(--mono); color: var(--muted); }
+    .pill { grid-row: 1 / 3; grid-column: 2; align-self: center; font: 700 10.5px/1 var(--mono); padding: 4px 6px; border: 1px solid var(--ink); }
+    .pill.merged { background: var(--leaf); } .pill.open { background: var(--paper); } .pill.closed { color: var(--muted); border-color: var(--line); }
+    .duo .btn { margin-top: 16px; }
+
+    footer { background: var(--paper); border-top: 1px solid var(--ink); }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 12px 0 28px; font-size: 12px; color: var(--muted); }
+    footer .wrap div { margin-left: auto; display: flex; gap: 18px; }
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 1080px) {
+      .feature { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px; }
+      .pondview { height: 110px; }
+      .prof { grid-template-columns: auto minmax(0, 1fr); }
+      .side { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding-top: 0; }
+      .nums div { padding: 5px 12px; }
+      .nums b { font-size: 19px; }
+    }
+    @media (max-width: 760px) {
+      .pondview { height: 70px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 12px; }
+      .feature { grid-template-columns: minmax(0, 1fr); gap: 0; }
+      .feature .cover { aspect-ratio: 4 / 3; }
+      .feature .idx { margin-top: 10px; }
+      .feature h3 { font-size: 23px; }
+      .filter { margin-top: 22px; }
+      #research .sec-head span { display: none; }
+      .paper-row { grid-template-columns: 84px minmax(0, 1fr); gap: 14px; }
+      .paper-row h3 { font-size: 17px; }
+      .paper-row p { font-size: 13px; }
+      .prof { gap: 14px; padding: 0 14px 16px; }
+      .avatar { width: 76px; height: 76px; margin-top: -30px; }
+      .avatar svg { width: 48px; }
+      .who h1 { font-size: 27px; }
+      .who .desc { font-size: 14.5px; }
+      .facts { grid-column: 1 / -1; }
+      .facts div { grid-template-columns: 1fr; gap: 0; }
+      .tabs { padding: 0 14px; gap: 20px; }
+      .shelf { padding: 12px 12px 20px; box-shadow: 4px 4px 0 var(--ink); }
+      main { padding: 40px 0 60px; }
+      .shelf + .shelf { margin-top: 52px; }
+      .shelf:nth-of-type(2) { margin-left: 6px; margin-right: -6px; }
+      .bar-r .ext { display: none; }
+      .card h3 { font-size: 17px; }
+      .card p { display: none; }
+      .feature p { display: block; }
+      .strip { font-size: 9.5px; gap: 8px; padding: 0 6px; }
+      .strip .hide-sm { display: none; }
+      .lily .k { display: none; }
+      .lane, .lane .t { font-size: 10.5px; }
+      .term pre { font-size: 8px; }
+      .duo { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="bar">
+    <div class="wrap">
+      <a class="id" href="./"><strong>frogscooper</strong><span>CS @ Ohio State</span></a>
+      <div class="bar-r">
+        <span data-frog-toggle></span>
+        <a class="ext" href="https://lilypad.frogscooper.dev">Lilypad ↗</a>
+        <a class="ext" href="https://github.com/frogscooper">GitHub ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="pondview" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <section class="profile" aria-label="About">
+      <div class="prof">
+        <div class="avatar" id="avatar" aria-hidden="true"></div>
+        <div class="who">
+          <h1>frogscooper</h1>
+          <p class="desc">CS sophomore @ OSU. I build software with 3 priorities: efficiency, precision, and aura.</p>
+          <dl class="facts">
+            <div><dt>currently</dt><dd>creating machine learning simulations of <i>Physarum polycephalum</i>. im making it play pokemon and pong, and reproducing Tero et al. with San Francisco</dd></div>
+            <div><dt>stack</dt><dd>Rust, TypeScript, Python</dd></div>
+          </dl>
+        </div>
+        <div class="side">
+          <span class="seek">looking for: SWE internship</span>
+          <div class="nums">
+            <div><b class="cg-total">301</b><span>commits, 6 mo</span></div>
+            <div><b class="n-projects">6</b><span>projects</span></div>
+          </div>
+          <div class="acts"><a class="btn ink" href="mailto:stemboy@posteo.com">email</a><a class="btn" href="https://github.com/frogscooper">github</a></div>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="Primary">
+        <a href="./" aria-current="page">Home</a>
+        <a href="#projects">Projects <small>6</small></a>
+        <a href="../../open-source/">Open source</a>
+        <a href="#research">Research <small>2</small></a>
+        <a href="../../contact/">Contact</a>
+      </nav>
+    </section>
+  </div>
+
+  <main id="main" class="wrap">
+    <section class="shelf" id="projects" aria-labelledby="projects-h">
+      <div class="sec-head"><h2 id="projects-h">Projects</h2><span id="hint">hover a cover to run it</span></div>
+
+      <!-- Pinned: one project at a time gets the wide slot. Move another article in here to swap. -->
+      <article class="feature card" id="slime">
+        <div class="cover" id="slime-cover">
+          <div class="slide on"><div class="art slime-art" data-art="battle"></div></div>
+          <div class="slide"><div class="art slime-art" data-art="pong"></div></div>
+          <div class="slide"><div class="art slime-art" data-art="bayarea"></div></div>
+          <span class="badge leaf">pinned</span>
+          <div class="stabs" role="tablist" aria-label="Slime study">
+            <button type="button" role="tab" aria-selected="true" data-i="0">pokémon</button>
+            <button type="button" role="tab" aria-selected="false" data-i="1">pong</button>
+            <button type="button" role="tab" aria-selected="false" data-i="2">bay area</button>
+          </div>
+          <button type="button" class="play" id="slime-play">▶ run it live</button>
+          <div class="strip"><span id="slime-cap">recorded battle, slime regrown live</span><span class="len">ts · py</span></div>
+        </div>
+        <div class="ftext">
+          <span class="idx">TypeScript · Python · 2026</span>
+          <h3><a id="slime-full" href="/slime/battle.html">Slime Studies</a></h3>
+          <p>A simulated <i>Physarum</i> slime mould (Jeff Jones's agent model) put to work. In each study something places food, the slime grows toward it, and wherever it gathers is the answer.</p>
+          <p id="slime-desc">Every decision in a Pokémon battle. Ten food sites ring the slime, one per move or switch, and the option it gathers on is played. One slime is fed by a PPO network; the other was evolved with CMA-ES to play on its own senses, and beats the network (71% against the strongest-move bot).</p>
+          <div class="links"><a id="slime-open" href="/slime/battle.html">Full page ↗</a></div>
+          <p class="fine" id="slime-tm">Pokémon names are trademarks of Nintendo, Creatures and GAME FREAK. Not affiliated or endorsed.</p>
+        </div>
+      </article>
+
+      <!-- Everything else, newest first. data-tags drives the filter chips; past 6 the rest fold behind "show all". -->
+      <div class="filter" id="filter" role="toolbar" aria-label="Filter projects" hidden></div>
+      <div class="grid" id="grid">
+        <article class="card" data-preview="lily" data-tags="web">
+          <a class="cover" href="https://lilypad.frogscooper.dev" aria-label="Lilypad">
+            <div class="art lily">
+              <div class="k">same heic photo → jpg</div>
+              <div class="lane me"><span>lilypad</span><span class="t" data-to="0.8">0.8 s</span><div class="track"><div class="fill" data-ms="800"></div></div></div>
+              <div class="lane"><span>heictojpg.com</span><span class="t" data-to="8.9">8.9 s</span><div class="track"><div class="fill" data-ms="8900"></div></div></div>
+            </div>
+            <div class="strip"><b>11x faster</b><span class="hide-sm">0 bytes uploaded</span><span class="len">web</span></div>
+          </a>
+          <span class="idx">Web · 2026</span>
+          <h3><a href="https://lilypad.frogscooper.dev">Lilypad</a></h3>
+          <p>Free image and PDF tools that run entirely in the browser. Batch conversion, PDF merging, splitting and compressing, QR codes, and more. Nothing gets uploaded.</p>
+          <div class="links"><a href="https://lilypad.frogscooper.dev">Try it →</a></div>
+        </article>
+
+        <article class="card" data-preview="term" data-tags="python">
+          <a class="cover" href="https://github.com/frogscooper/once" aria-label="once">
+            <div class="art term"><pre aria-label="terminal recording: an agent is killed after charging a card, then retries the run"><code id="once-code"></code></pre></div>
+            <div class="strip"><b>charged once</b><span class="hide-sm">real output</span><span class="len">python</span></div>
+          </a>
+          <span class="idx">Python · 2026</span>
+          <h3><a href="https://github.com/frogscooper/once">once</a></h3>
+          <p>A Python library that makes side-effecting tool calls safe for AI agents to retry. A retried "charge the card" returns the saved result instead of running twice.</p>
+          <div class="links"><a href="https://pypi.org/project/agent-once/">PyPI ↗</a><a href="https://frogscooper.dev/once/">Docs ↗</a><a href="https://github.com/frogscooper/once">Source ↗</a></div>
+        </article>
+
+        <article class="card" data-preview="shots" data-tags="rust">
+          <a class="cover" href="https://github.com/frogscooper/grch-procedural-gen" aria-label="GRCH Procedural Generator">
+            <div class="art shots">
+              <img class="on" src="/assets/grch_obj_top_angle.png" alt="" loading="lazy">
+              <img src="/assets/grch_obj_angle_1.png" alt="" loading="lazy">
+              <img src="/assets/grch_obj_cutaway.png" alt="" loading="lazy">
+              <img src="/assets/grch_render_alt_angle.png" alt="" loading="lazy">
+            </div>
+            <span class="scrub"></span>
+            <div class="strip"><b>bsp dungeon</b><span class="hide-sm">obj export</span><span class="len">rust</span></div>
+          </a>
+          <span class="idx">Rust · 2026</span>
+          <h3><a href="https://github.com/frogscooper/grch-procedural-gen">GRCH Procedural Generator</a></h3>
+          <p>A 3D dungeon generator built around binary space partitioning, with a routing algorithm that moves corridors through the partition without cutting rooms.</p>
+          <div class="links"><a href="https://github.com/frogscooper/grch-procedural-gen">Source ↗</a><a href="#research">Research ↓</a></div>
+        </article>
+
+        <article class="card" data-preview="swarm" data-tags="python">
+          <a class="cover" href="https://github.com/frogscooper/cbtorrent" aria-label="cbtorrent">
+            <div class="art swarm" id="swarm"></div>
+            <span class="badge">ai-assisted</span>
+            <div class="strip"><b>ml peer selection</b><span class="len">python</span></div>
+          </a>
+          <span class="idx">Python · 2026</span>
+          <h3><a href="https://github.com/frogscooper/cbtorrent">cbtorrent</a></h3>
+          <p>A Python BitTorrent client with online ML peer selection. My first deliberately AI-assisted project, an experiment in how far that workflow goes.</p>
+          <div class="links"><a href="https://github.com/frogscooper/cbtorrent">Source ↗</a></div>
+        </article>
+
+        <article class="card" data-preview="neuro" data-tags="simulation">
+          <div class="cover" aria-hidden="true">
+            <div class="art neuro" id="neuro"></div>
+            <span class="badge leaf">in progress</span>
+            <div class="strip"><b>fruit fly cns</b><span class="len">osu!</span></div>
+          </div>
+          <span class="idx">in progress</span>
+          <h3>fly-osu</h3>
+          <p>The reconstructed male fruit fly CNS as a controller for osu!: beatmaps encoded into neural input, network activity decoded into cursor movement and clicks.</p>
+        </article>
+      </div>
+      <div class="more" id="more" hidden><button type="button" class="btn">show all <span></span></button></div>
+    </section>
+
+    <section class="shelf" id="research" aria-labelledby="research-h">
+      <div class="sec-head"><h2 id="research-h">Research</h2><span>between algorithms, simulation, and systems</span><a href="../../research/">all research ↗</a></div>
+      <div class="papers">
+        <article class="paper-row">
+          <a class="thumb" href="/assets/papers/BSP_preprint_v0_5.pdf" aria-label="Read the paper"><div class="sheet"><b>Constructive Non-Intersecting Routing in BSP-Generated Spaces</b><i>preprint v0.5</i><span></span><span></span><span></span><span></span><span></span><span></span></div></a>
+          <div>
+            <span class="idx">2026 · procedural generation · computational geometry · algorithms</span>
+            <h3><a href="/assets/papers/BSP_preprint_v0_5.pdf">Constructive Non-Intersecting Routing in BSP-Generated Spaces</a></h3>
+            <p>An investigation into constructive routing methods for connecting recursively partitioned spaces while avoiding unintended room intersections. The idea stems from my procedural generation project and explores how the method can be generalized beyond three dimensions.</p>
+            <div class="links"><a href="/assets/papers/BSP_preprint_v0_5.pdf">Paper ↗</a><a href="https://github.com/frogscooper/grch-procedural-gen">Original project ↗</a><a href="https://github.com/frogscooper/nD-grch">N-dimensional version ↗</a></div>
+          </div>
+        </article>
+        <article class="paper-row">
+          <a class="thumb" href="https://github.com/frogscooper/artin-cat0-29/blob/HEAD/paper/artin-cat0-29.pdf" aria-label="Read the paper"><div class="sheet"><b>A Smaller Artin Group with No Geometric CAT(0) Action</b><i>checked in Lean</i><span></span><span></span><span></span><span></span><span></span><span></span></div><span class="badge">ai-driven</span></a>
+          <div>
+            <span class="idx">2026 · geometric group theory · Lean · AI-assisted</span>
+            <h3><a href="https://github.com/frogscooper/artin-cat0-29">A Smaller Artin Group with No Geometric CAT(0) Action</a></h3>
+            <p>An edit of OpenAI's preprint that refutes the CAT(0) conjecture for Artin groups, cutting their example from 116 generators to 29 with the full proof checked in Lean. This was almost entirely AI-driven. I'm listing it as an experiment in that workflow, not as my own math.</p>
+            <div class="links"><a href="https://github.com/frogscooper/artin-cat0-29">Repo and Lean proof ↗</a><a href="https://github.com/frogscooper/artin-cat0-29/blob/HEAD/paper/artin-cat0-29.pdf">Paper ↗</a><a href="https://github.com/openai/math">Original ↗</a></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="shelf" aria-labelledby="act-h">
+      <div class="sec-head"><h2 id="act-h">Activity</h2><span>refreshed every few hours</span><a href="https://github.com/frogscooper">github ↗</a></div>
+      <div class="duo">
+        <div data-contrib="pond">
+          <h3 class="cg-total">566</h3>
+          <small>github contributions, last 6 months · <span class="cg-range"></span></small>
+          <div class="cg-box"><p class="cg-fallback">The contribution graph needs JavaScript. See it on <a href="https://github.com/frogscooper">github.com/frogscooper</a>.</p></div>
+          <div class="cap">one frog per day, greener frog, more commits</div>
+        </div>
+        <div>
+          <h3>open source</h3>
+          <small>latest pull requests to repos i don't own</small>
+          <ul class="prs" id="prs">
+            <li><a href="https://github.com/uutils/coreutils/pull/15924">join: accept repeated options like GNU</a><span class="pill open">open</span><span class="r">uutils/coreutils · oct 27</span></li>
+            <li><a href="https://github.com/uutils/coreutils/pull/15892">seq, tac, numfmt, sum, ptx: accept repeated options like GNU</a><span class="pill merged">merged</span><span class="r">uutils/coreutils · oct 27</span></li>
+            <li><a href="https://github.com/toss/es-toolkit/pull/2168">fix[findLast, some]: do not treat length as an element of array-likes</a><span class="pill merged">merged</span><span class="r">toss/es-toolkit · oct 26</span></li>
+          </ul>
+          <a class="btn" href="../../open-source/">all open source work</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap"><span>frogscooper · updated nov 2026</span><div><a href="mailto:stemboy@posteo.com">Email</a><a href="https://github.com/frogscooper">GitHub</a><a href="../../contact/">Contact</a></div></div>
+  </footer>
+
+  <script src="/frog-backdrop.js" defer></script>
+  <script type="module" src="/assets/contrib.js?v=5"></script>
+  <script>
+  (() => {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const touch = matchMedia('(hover: none)').matches;
+    const $ = (s, el = document) => el.querySelector(s);
+    const svg = (w, h, inner) => `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+    let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+    // ---- avatar: the pixel frog from the backdrop switch
+    const FROG = ['.ddd...ddd.', 'dwwwd.dwwwd', 'dwkwdgdwkwd', 'dgggggggggd', 'dgpgggggpgd', 'dgdgggggdgd', 'dggdddddggd', '.dgggggggd.', '..ddddddd..'];
+    const INK = { d: '#24401a', g: '#74a542', w: '#ffffff', k: '#111111', p: '#e39a86' };
+    $('#avatar').innerHTML = `<svg viewBox="0 0 11 9" shape-rendering="crispEdges">${FROG.map((r, y) => [...r].map((c, x) => INK[c] ? `<rect x="${x}" y="${y}" width="1" height="1" fill="${INK[c]}"/>` : '').join('')).join('')}</svg>`;
+
+    // ---- slime drawings: veins grow along each edge when the slide shows
+    const vein = (a, b, w, d) => {
+      const mx = (a[0] + b[0]) / 2 + (rnd() - .5) * 10, my = (a[1] + b[1]) / 2 + (rnd() - .5) * 8;
+      return `<path class="v" pathLength="1" style="--d:${d}s" stroke-width="${w}" d="M${a[0]} ${a[1]}Q${mx.toFixed(1)} ${my.toFixed(1)} ${b[0]} ${b[1]}"/>`;
+    };
+    const ART = {
+      battle() {
+        const c = [80, 45], food = Array.from({ length: 10 }, (_, k) => { const t = k / 10 * Math.PI * 2 - Math.PI / 2; return [80 + 52 * Math.cos(t), 45 + 30 * Math.sin(t)]; });
+        let s = food.map((f, k) => vein(c, f, k === 3 ? 2.4 : .5, k === 3 ? .4 : .1 + rnd() * .5)).join('');
+        for (let k = 0; k < 14; k++) s += vein(c, [c[0] + (rnd() - .5) * 60, c[1] + (rnd() - .5) * 36], .3, rnd());
+        s += food.map((f, k) => `<circle class="${k === 3 ? 'pick' : 'food'}" cx="${f[0].toFixed(1)}" cy="${f[1].toFixed(1)}" r="${k === 3 ? 3 : 2}"/>`).join('');
+        return svg(160, 90, s);
+      },
+      pong() {
+        let s = `<rect x="14" y="10" width="92" height="70" fill="none" stroke="#5a5233" stroke-width=".6"/><path d="M28 70 L92 26" stroke="#5a5233" stroke-dasharray="2 2" stroke-width=".6" fill="none"/><circle cx="92" cy="26" r="2.2" fill="#fff"/>`;
+        for (let k = 0; k < 16; k++) s += vein([124 + (rnd() - .5) * 10, 78], [124 + (rnd() - .5) * 16, 12 + rnd() * 66], .4 + rnd() * .6, rnd() * .6);
+        return svg(160, 90, s + vein([124, 78], [124, 26], 2.2, .3) + `<circle class="pick" cx="124" cy="26" r="3"/>`);
+      },
+      bayarea() {
+        const P = [[40, 20], [52, 30], [46, 44], [60, 52], [74, 62], [92, 70], [110, 74], [124, 62], [118, 46], [104, 36], [96, 22], [82, 14], [66, 18], [134, 80], [30, 34], [56, 70]];
+        const E = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11], [11, 12], [12, 0], [7, 13], [0, 14], [14, 2], [3, 15], [15, 4], [1, 12], [9, 4]];
+        let s = `<path class="water" d="M60 26 C70 22 86 24 92 32 C98 42 96 52 104 60 C108 66 100 68 92 62 C82 54 70 48 64 40 C60 34 56 30 60 26Z"/>`;
+        s += E.map(([a, b], k) => vein(P[a], P[b], .8 + rnd() * 1.4, k * .06)).join('');
+        return svg(160, 90, s + P.map(p => `<circle class="food" cx="${p[0]}" cy="${p[1]}" r="${1.6 + rnd() * 1.4}"/>`).join(''));
+      },
+    };
+    document.querySelectorAll('.slime-art').forEach(el => { el.innerHTML = ART[el.dataset.art](); });
+
+    // ---- project grid: filter chips from data-tags, and past SHOW the rest fold behind "show all"
+    {
+      const SHOW = 6, grid = $('#grid'), cards = [...grid.children], bar = $('#filter'), more = $('#more');
+      document.querySelectorAll('.n-projects').forEach(n => { n.textContent = cards.length + 1; });
+      const count = {};
+      cards.forEach(c => c.dataset.tags.split(' ').forEach(t => { count[t] = (count[t] || 0) + 1; }));
+      let tag = 'all', open = false;
+      const apply = () => {
+        const hit = cards.filter(c => tag === 'all' || c.dataset.tags.split(' ').includes(tag));
+        cards.forEach(c => c.classList.toggle('out', !hit.includes(c)));
+        hit.forEach((c, i) => c.classList.toggle('folded', !open && i >= SHOW));
+        more.hidden = open || hit.length <= SHOW;
+        $('span', more).textContent = hit.length;
+        bar.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tag === tag)));
+      };
+      // Chips only earn their place once there is something to filter.
+      if (cards.length > 4) {
+        bar.innerHTML = [['all', cards.length], ...Object.entries(count).sort((a, b) => b[1] - a[1])]
+          .map(([t, n]) => `<button type="button" data-tag="${t}">${t}<small>${n}</small></button>`).join('');
+        bar.hidden = false;
+        bar.onclick = e => { const b = e.target.closest('button'); if (b) { tag = b.dataset.tag; apply(); } };
+      }
+      $('button', more).onclick = () => { open = true; apply(); };
+      apply();
+    }
+
+    // ---- slime studies: tabs, auto-advance, run live in place
+    const STUDIES = [
+      { page: 'battle.html', cap: 'recorded battle, slime regrown live', desc: 'Every decision in a Pokémon battle. Ten food sites ring the slime, one per move or switch, and the option it gathers on is played. One slime is fed by a PPO network; the other was evolved with CMA-ES to play on its own senses, and beats the network (71% against the strongest-move bot).' },
+      { page: 'index.html', cap: 'trained policy, playing live', desc: 'Pong, where the paddle is a slime. A PPO agent can only choose where to put food, and the slime takes hundreds of steps to follow, so it has to learn to aim where the ball will be. It returns 76% of balls, six times as many as chasing the ball.' },
+      { page: 'bayarea.html', cap: 'seed 1, 2020 census and osm rail', desc: "A rail network for the Bay Area. Food goes where 7.4 million residents live, water is a wall except at real bridges, and the slime grows between them. At about the length of today's rail (709 vs 762 km), it reaches all 30 population centres and joins every pair." },
+    ];
+    const cover = $('#slime-cover'), slides = [...cover.querySelectorAll('.slide')], tabs = [...cover.querySelectorAll('[role="tab"]')];
+    let cur = 0, timer, live = false;
+    const show = i => {
+      cur = (i + STUDIES.length) % STUDIES.length;
+      const s = STUDIES[cur];
+      slides.forEach((el, k) => el.classList.toggle('on', k === cur));
+      tabs.forEach((t, k) => t.setAttribute('aria-selected', String(k === cur)));
+      $('#slime-cap').textContent = s.cap; $('#slime-desc').textContent = s.desc;
+      $('#slime-full').href = $('#slime-open').href = '/slime/' + (s.page === 'index.html' ? '' : s.page);
+      $('#slime-tm').hidden = cur !== 0;
+      const f = $('iframe', cover); if (f) f.src = '/slime/' + s.page + '?embed';
+    };
+    const auto = () => { clearInterval(timer); if (!reduce && !live) timer = setInterval(() => show(cur + 1), 6000); };
+    tabs.forEach(t => t.onclick = () => { show(+t.dataset.i); auto(); });
+    cover.addEventListener('pointerenter', () => clearInterval(timer));
+    cover.addEventListener('pointerleave', auto);
+    $('#slime-play').onclick = () => {
+      live = true; clearInterval(timer);
+      const f = document.createElement('iframe');
+      f.title = 'Slime study, running live'; f.src = '/slime/' + STUDIES[cur].page + '?embed';
+      cover.appendChild(f); $('#slime-play').hidden = true;
+    };
+    auto();
+
+    // ---- once recording (the same cast the live site plays)
+    const CAST = [[0.3,"$ "],[0.73,"p"],[0.76,"y"],[0.79,"t"],[0.82,"h"],[0.85,"o"],[0.88,"n"],[0.91," "],[0.94,"a"],[0.97,"g"],[1.0,"e"],[1.03,"n"],[1.06,"t"],[1.09,"."],[1.12,"p"],[1.16,"y"],[1.19," "],[1.22,"-"],[1.25,"-"],[1.28,"c"],[1.31,"r"],[1.34,"a"],[1.37,"s"],[1.4,"h"],[1.43,"-"],[1.46,"a"],[1.49,"f"],[1.52,"t"],[1.55,"e"],[1.58,"r"],[1.61," "],[1.64,"c"],[1.67,"h"],[1.7,"a"],[1.73,"r"],[1.76,"g"],[1.79,"e"],[1.82,"_"],[1.85,"c"],[1.88,"a"],[1.91,"r"],[1.95,"d"],[2.2,"\n"],[2.76,"-> charge_card(order='A12', cents=1000)\n  ** charging card for A12: $10.00\n  <- 'ch_1'\n"],[3.17,"!! worker killed (simulated timeout)\n"],[4.07,"$ "],[4.5,"p"],[4.53,"y"],[4.56,"t"],[4.59,"h"],[4.62,"o"],[4.66,"n"],[4.68," "],[4.71,"a"],[4.75,"g"],[4.78,"e"],[4.8,"n"],[4.83,"t"],[4.87,"."],[4.9,"p"],[4.93,"y"],[5.18,"\n"],[5.74,"-> charge_card(order='A12', cents=1000)\n  once: saved result, not run again\n  <- 'ch_1'\n"],[6.24,"-> send_receipt(order='A12', charge='ch_1')\n"],[6.25,"  ** emailing receipt for A12 (ch_1)\n  <- 'msg_1'\nagent: plan done\n"],[9.37,""]];
+    const paint = txt => txt.split('\n').map(l => {
+      const c = l.startsWith('$') ? 'p' : l.startsWith('!!') ? 'kill' : l.includes('once:') ? 'hit' : l.includes('**') ? 'fx' : l.includes('<-') ? 'ret' : '';
+      return c ? `<span class="${c}">${esc(l)}</span>` : esc(l);
+    }).join('\n');
+    const FULL = CAST.map(c => c[1]).join('').trimEnd(), code = $('#once-code');
+    code.innerHTML = paint(FULL);
+
+    // ---- cbtorrent swarm and fly-osu neurons, in ink and moss
+    {
+      seed = 11; let s = '', pk = '';
+      const C = [80, 45], peers = Array.from({ length: 11 }, () => [10 + rnd() * 140, 8 + rnd() * 74]);
+      peers.forEach((p, k) => {
+        const good = k % 3 === 0;
+        s += `<path d="M${C[0]} ${C[1]}L${p[0].toFixed(1)} ${p[1].toFixed(1)}" stroke="${good ? '#4c6b34' : '#c9ccc2'}" stroke-width="${good ? .9 : .5}"/>`;
+        s += `<rect x="${(p[0] - 2).toFixed(1)}" y="${(p[1] - 2).toFixed(1)}" width="4" height="4" fill="${good ? '#74a542' : '#fafaf8'}" stroke="#101010" stroke-width=".5"/>`;
+        if (good) pk += `<circle class="pkt" r="1.3" fill="#101010" style="offset-path:path('M${p[0].toFixed(1)} ${p[1].toFixed(1)}L${C[0]} ${C[1]}');animation-delay:${(k * .23).toFixed(2)}s"/>`;
+      });
+      $('#swarm').innerHTML = svg(160, 90, s + pk + `<rect x="75" y="40" width="10" height="10" fill="#101010"/>`);
+      seed = 5; s = '';
+      const N = Array.from({ length: 40 }, () => [8 + rnd() * 144, 8 + rnd() * 74]);
+      N.forEach((a, k) => { const b = N[(k * 7 + 3) % N.length]; s += `<path d="M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}" stroke="#c9ccc2" stroke-width=".5"/>`; });
+      s += N.map(a => `<circle class="n" cx="${a[0].toFixed(1)}" cy="${a[1].toFixed(1)}" r="${1 + rnd() * 1.5}" fill="#4c6b34" opacity=".35" style="animation-delay:${(rnd() * 1.2).toFixed(2)}s"/>`).join('');
+      $('#neuro').innerHTML = svg(160, 90, s);
+    }
+
+    // ---- hover previews. On touch screens they play when the card is mostly on screen.
+    const PREVIEW = {
+      lily(card) {
+        const fills = card.querySelectorAll('.fill'), ts = card.querySelectorAll('.t'), t0 = performance.now();
+        fills.forEach(f => { f.style.transition = 'none'; f.style.width = '0'; });
+        requestAnimationFrame(() => requestAnimationFrame(() => fills.forEach(f => { f.style.transition = `width ${f.dataset.ms}ms linear`; f.style.width = '100%'; })));
+        const tick = () => {
+          const s = (performance.now() - t0) / 1000;
+          ts.forEach(t => { t.textContent = Math.min(s, +t.dataset.to).toFixed(1) + ' s'; });
+          if (s < 8.9 && card._on) card._raf = requestAnimationFrame(tick);
+        };
+        tick();
+        return () => { cancelAnimationFrame(card._raf); fills.forEach(f => { f.style.transition = 'none'; f.style.width = '100%'; }); ts.forEach(t => { t.textContent = t.dataset.to + ' s'; }); };
+      },
+      term() {
+        let k = 0, txt = '', raf; const t0 = performance.now();
+        const step = () => {
+          const s = (performance.now() - t0) / 1000 * 1.3;
+          while (k < CAST.length && CAST[k][0] <= s) txt += CAST[k++][1];
+          code.innerHTML = paint(txt) + '<span class="caret"></span>';
+          if (k < CAST.length) raf = requestAnimationFrame(step);
+        };
+        step();
+        return () => { cancelAnimationFrame(raf); code.innerHTML = paint(FULL); };
+      },
+      shots(card) {
+        const imgs = [...card.querySelectorAll('.shots img')], bar = $('.scrub', card), cv = $('.cover', card);
+        const set = f => { const i = Math.min(imgs.length - 1, Math.floor(f * imgs.length)); imgs.forEach((im, k) => im.classList.toggle('on', k === i)); bar.style.width = (f * 100).toFixed(1) + '%'; };
+        const move = e => { const r = cv.getBoundingClientRect(); set(Math.max(0, Math.min(.999, (e.clientX - r.left) / r.width))); };
+        cv.addEventListener('pointermove', move);
+        let iv; if (touch) { let f = 0; iv = setInterval(() => { f = (f + .25) % 1; set(f + .01); }, 900); }
+        return () => { cv.removeEventListener('pointermove', move); clearInterval(iv); bar.style.width = '0'; imgs.forEach((im, k) => im.classList.toggle('on', k === 0)); };
+      },
+      swarm() { return () => {}; },
+      neuro() { return () => {}; },
+    };
+    const start = c => { if (c._on) return; c._on = true; c.classList.add('playing'); c._stop = PREVIEW[c.dataset.preview](c); };
+    const stop = c => { if (!c._on) return; c._on = false; c.classList.remove('playing'); c._stop && c._stop(); };
+    const cards = document.querySelectorAll('[data-preview]');
+    if (touch) {
+      $('#hint').textContent = 'covers run as you scroll';
+      const io = new IntersectionObserver(es => es.forEach(e => (e.intersectionRatio > .7 && !reduce ? start : stop)(e.target)), { threshold: [0, .7] });
+      cards.forEach(c => io.observe(c));
+    } else cards.forEach(c => {
+      c.addEventListener('pointerenter', () => start(c));
+      c.addEventListener('pointerleave', () => stop(c));
+      c.addEventListener('focusin', () => start(c));
+      c.addEventListener('focusout', () => stop(c));
+    });
+
+    // ---- PRs, refreshed from GitHub search (same query as assets/prs.js); baked rows stay on any error
+    const MON = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    const q = encodeURIComponent('is:pr author:frogscooper -user:frogscooper');
+    const use = items => {
+      if (!items || !items.length) return;
+      const st = it => it.pull_request && it.pull_request.merged_at ? 'merged' : it.state;
+      $('#prs').innerHTML = items.slice(0, 4).map(it => {
+        const [, m, d] = it.created_at.slice(0, 10).split('-'), repo = it.repository_url.split('/repos/')[1];
+        return `<li><a href="${esc(it.html_url)}">${esc(it.title)}</a><span class="pill ${st(it)}">${st(it)}</span><span class="r">${esc(repo)} · ${MON[+m - 1]} ${+d}</span></li>`;
+      }).join('');
+    };
+    try { const c = JSON.parse(sessionStorage.getItem('pond-prs')); if (c) use(c); } catch (e) {}
+    fetch(`https://api.github.com/search/issues?sort=created&order=desc&per_page=100&q=${q}`)
+      .then(r => r.ok ? r.json() : null).then(j => { if (j && j.items) { use(j.items); try { sessionStorage.setItem('pond-prs', JSON.stringify(j.items.map(({ html_url, title, state, created_at, repository_url, pull_request }) => ({ html_url, title, state, created_at, repository_url, pull_request: pull_request && { merged_at: pull_request.merged_at } })))); } catch (e) {} } })
+      .catch(() => {});
+  })();
+  </script>
+</body>
+</html>

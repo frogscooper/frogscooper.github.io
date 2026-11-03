@@ -26,6 +26,19 @@ GitHub Pages builds the site with Jekyll, and Jekyll skips folders whose names s
 | 18 | Orrery | pinned right | two planets in resonance tracing a rose, one ratio per project |
 | 19 | Zellige | top band | quasicrystal tilework, a different symmetry per project |
 | 20 | Rain | full screen | rain rings on a night pond breaking up the moon's reflection |
+| 21 | Bili | creator profile | banner, avatar and tabs; projects as video cards that preview on hover |
+| 22 | Pond feed | creator profile | 21's layout in the original look: pond backdrop, paper and ink, frog graph |
+
+21 and 22 are hand-written prototypes, not built by `build.py`: only the home page exists
+(`21-bili/index.html`, with `assets/theme/field.js` copied from `src/`; `22-pond-feed/index.html`,
+which loads the live `/frog-backdrop.js` and `/assets/contrib.js`), and their links to the other
+pages assume they are served from `_designs/NN-name/`, so `switch.py` can't put them live yet.
+21's banner picks one of the twenty fields by the date; `?b=riso` (any field key) picks one.
+
+22 is the live site since 2026-11-02, built out to every page without the research shelf on home.
+The served pages are now the source for it: `assets/pond.css` (shared styles), `assets/pond.js`
+(the avatar frog), `assets/frog.svg` (favicon), and `scripts/nav.py` for the tabs and top-bar links.
+`22-pond-feed/` is left as the prototype it started from.
 
 Layouts: *top band* puts the image above the text; *full screen* fills the first screen with it;
 *pinned left/right* keeps it in a side column that changes with the project in view (a band on

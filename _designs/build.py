@@ -552,11 +552,20 @@ def is_dark(hexc):
     r, g, b = (int(hexc[i:i + 2], 16) for i in (1, 3, 5))
     return 0.299 * r + 0.587 * g + 0.114 * b < 128
 
+# Designs written by hand rather than built here; main() leaves their folders alone.
+HAND_CARDS = '''
+    <a class="card" href="21-bili/" style="--bg:#f6f7f9;--ink:#18191c;--acc:#f0679a">
+      <span>21</span><strong>Bili</strong><em>creator profile</em><p>A video-site creator page: banner, avatar, tabs, and projects as video cards whose covers preview on hover.</p><small>The banner is one of the twenty fields above, a different one each day. Home page only, hand-written.</small>
+    </a>
+    <a class="card" href="22-pond-feed/" style="--bg:#fafaf8;--ink:#101010;--acc:#4c6b34">
+      <span>22</span><strong>Pond feed</strong><em>creator profile</em><p>21's layout in the original site's own look: the pond backdrop as the banner, paper and ink, hard shadows, the frog-per-day graph.</p><small>Projects are cards whose covers run on hover. Home page only, hand-written.</small>
+    </a>'''
+
 def gallery():
     cards = ''.join(f'''
     <a class="card" href="{d['n']}-{d['key']}/" style="--bg:{d['bg']};--ink:{d['ink']};--acc:{d['acc']}">
       <span>{d['n']}</span><strong>{d['name']}</strong><em>{LAYOUTS[d['layout']]}</em><p>{e(d['idea'])}</p><small>{e(d['rule'])}</small>
-    </a>''' for d in DESIGNS)
+    </a>''' for d in DESIGNS) + HAND_CARDS
     return f'''<!doctype html>
 <html lang="en">
 <head>
