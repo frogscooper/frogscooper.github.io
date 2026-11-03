@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
   <title>frogscooper | CS @ Ohio State</title>
   <meta name="description" content="frogscooper, CS sophomore @ Ohio State. Projects, research, and contact.">
   <link rel="canonical" href="https://frogscooper.dev/">
+  <link rel="icon" type="image/svg+xml" href="/assets/frog.svg">
   <meta name="theme-color" content="#fafaf8">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="frogscooper">
@@ -26,1482 +27,395 @@
   <meta name="twitter:image" content="https://frogscooper.dev/assets/og.png">
   <meta name="twitter:image:alt" content="frogscooper man page card: CS sophomore @ Ohio State. frogscooper.dev: projects, research, contact.">
   <meta name="google-adsense-account" content="ca-pub-9008261213236010">
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-
-    h1,
-    h2,
-    h3,
-    p {
-      margin-top: 0;
-    }
-
-    .identity {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .site-header nav,
-    .links,
-    footer div {
-      display: flex;
-      gap: 20px;
-    }
-
-    .project-image {
-      display: block;
-      overflow: hidden;
-    }
-
-    .placeholder {
-      height: 100%;
-      position: relative;
-    }
-
-    .placeholder span {
-      position: absolute;
-      left: 14px;
-      bottom: 12px;
-      font: 11px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace;
-    }
-
-    .heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 24px;
-    }
-
-    .heading h3 {
-      margin: 0;
-    }
-
-    .desc p,
-    .intro p,
-    .about p {
-      margin-bottom: 0;
-    }
-
-    .project-main {
-      min-width: 0;
-    }
-
-    .index {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    :root {
-      --bg: #fafaf8;
-      --ink: #101010;
-      --muted: #686868;
-      --line: #d3d3cf;
-    }
-
-    body {
-      background: transparent; /* frog-backdrop.js paints the page behind the content */
-      color: var(--ink);
-      font: 15px/1.5 Arial, Helvetica, sans-serif;
-    }
-
-    .shell {
-      width: min(1210px, calc(100% - 54px));
-      margin: auto;
-    }
-
-    .site-header,
-    .intro,
-    .section-head,
-    .project,
-    .about,
-    footer {
-      display: grid;
-      grid-template-columns: 190px 1fr;
-      gap: 44px;
-    }
-
-    .site-header {
-      padding: 27px 0 94px;
-      border-bottom: 1px solid var(--ink);
-    }
-
-    .identity strong {
-      font-size: 15px;
-    }
-
-    .identity span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    nav {
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      align-items: center;
-      row-gap: 8px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.045em;
-    }
-
-    .intro {
-      padding: 23px 0 76px;
-    }
-
-    .eyebrow,
-    .section-head h2,
-    .about h2 {
-      font: 700 11px/1 Arial;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-    }
-
-    .intro p {
-      max-width: 660px;
-      font-size: 17px;
-    }
-
-    .section-head {
-      border-top: 1px solid var(--ink);
-      padding-top: 9px;
-    }
-
-    .section-head span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .project {
-      border-top: 1px solid var(--line);
-      padding: 19px 0 56px;
-      margin-top: 18px;
-    }
-
-    .project-main {
-      grid-column: 2;
-    }
-
-    .project .index {
-      grid-column: 1;
-      grid-row: 1;
-    }
-
-    .project-image {
-      height: 372px;
-      margin-bottom: 21px;
-    }
-
-    .project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    }
-
-    .heading h3 {
-      font-size: 29px;
-      letter-spacing: -0.04em;
-    }
-
-    .heading span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .desc p {
-      color: #4b4b4b;
-      max-width: 720px;
-      margin-top: 10px;
-    }
-
-    .links {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: 18px;
-    }
-
-    .secondary .heading h3 {
-      font-size: 24px;
-    }
-
-    /* Title above the window, description below; both gaps clear the crop marks and shadow. */
-    .featured .heading {
-      margin-bottom: 28px;
-    }
-
-    .featured .frame {
-      margin-bottom: 28px;
-    }
-
-    .about {
-      border-top: 1px solid var(--ink);
-      padding: 12px 0 68px;
-    }
-
-    .about p {
-      max-width: 700px;
-      color: #4b4b4b;
-    }
-
-    footer {
-      border-top: 1px solid var(--ink);
-      padding: 12px 0 32px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    @media (max-width: 760px) {
-      .site-header,
-      .intro,
-      .section-head,
-      .project,
-      .about,
-      footer {
-        grid-template-columns: 1fr;
-      }
-
-      .site-header {
-        gap: 18px;
-        padding-bottom: 56px;
-      }
-
-      nav {
-        justify-content: flex-start;
-      }
-
-      .project-main {
-        grid-column: 1;
-      }
-
-      .project .index {
-        display: none;
-      }
-
-      .project-image {
-        height: 250px;
-      }
-    }
-
-    /* Terminal type: JetBrains Mono everywhere. Monospace runs wide, so sizes come down a step. */
-    :root {
-      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
-    }
-
-    body {
-      font-family: var(--mono);
-      font-size: 14px;
-      line-height: 1.6;
-      font-variant-ligatures: none;
-    }
-
-    .eyebrow,
-    .section h2,
-    .section-head h2,
-    .about h2 {
-      font-family: var(--mono);
-    }
-
-    .identity strong {
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .intro p {
-      font-size: 15.5px;
-    }
-
-    .intro h1 {
-      font-size: 30px;
-      letter-spacing: -0.03em;
-    }
-
-    .heading h3 {
-      font-size: 26px;
-      letter-spacing: -0.03em;
-    }
-
-    .secondary .heading h3 {
-      font-size: 21px;
-    }
-
-    nav,
-    .links {
-      letter-spacing: 0.02em;
-    }
-
-    /* The backdrop switch sits at the top of the left column, above the name. */
-    .brand {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 14px;
-    }
-
-    .site-header nav {
-      align-self: start;
-      min-height: 26px; /* lines the links up with the switch */
-    }
-
-    .brand [data-frog-toggle] {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    /* Lilypad stats card: real text, not an image. */
-    .stats-card {
-      display: block;
-      background: #eef1ea;
-      padding: 22px 28px 16px;
-      margin-bottom: 21px;
-      font-size: 11px;
-      line-height: 1.4;
-      color: var(--ink);
-    }
-
-    .stats-top {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 14px;
-    }
-
-    .stats-mark {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: #16301f;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid var(--ink);
-    }
-
-    .stat {
-      padding: 13px 15px 12px;
-      border-bottom: 1px solid var(--ink);
-      border-left: 1px solid var(--ink);
-    }
-
-    .stat:nth-child(3n+1) {
-      padding-left: 0;
-      border-left: 0;
-    }
-
-    .stat b {
-      display: block;
-      font-size: 34px;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin-bottom: 6px;
-    }
-
-    .stat b small {
-      font-size: 15px;
-      font-weight: 400;
-      letter-spacing: 0;
-    }
-
-    .stat span {
-      display: block;
-      color: var(--muted);
-    }
-
-    .stats-foot {
-      color: var(--muted);
-      font-size: 9px;
-      margin-top: 10px;
-    }
-
-    @media (max-width: 700px) {
-      .stats-card { padding: 16px 16px 12px; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .stat:nth-child(3n+1) { padding-left: 15px; border-left: 1px solid var(--ink); }
-      .stat:nth-child(2n+1) { padding-left: 0; border-left: 0; }
-      .stat b { font-size: 28px; }
-    }
-
-    /* Frames: thin ink border, paper mat, mono caption strip. */
-    .frame {
-      border: 1px solid var(--ink);
-      background: #f6f7f2;
-      padding: 8px;
-      margin: 0 0 21px;
-    }
-
-    .frame .project-image,
-    .frame .stats-card {
-      margin-bottom: 0;
-    }
-
-    .frame .project-image {
-      height: 340px;
-      border: 1px solid var(--ink);
-    }
-
-    .frame .stats-card {
-      border: 1px solid var(--ink);
-    }
-
-    .frame figcaption {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 8px 2px 0;
-      font-size: 10px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    @media (max-width: 700px) {
-      .frame { padding: 6px; }
-      .frame .project-image { height: 220px; }
-    }
-    /* "more" level 2: terminal window, hard ink shadow, crop marks. */
-    .frame {
-      position: relative;
-      border-width: 2px;
-      padding: 0 8px 8px;
-      box-shadow: 8px 8px 0 var(--ink);
-    }
-    .frame::before {
-      content: "";
-      position: absolute;
-      inset: -14px;
-      pointer-events: none;
-      background:
-        linear-gradient(var(--ink),var(--ink)) top left / 14px 1px,
-        linear-gradient(var(--ink),var(--ink)) top left / 1px 14px,
-        linear-gradient(var(--ink),var(--ink)) top right / 14px 1px,
-        linear-gradient(var(--ink),var(--ink)) top right / 1px 14px,
-        linear-gradient(var(--ink),var(--ink)) bottom left / 14px 1px,
-        linear-gradient(var(--ink),var(--ink)) bottom left / 1px 14px,
-        linear-gradient(var(--ink),var(--ink)) bottom right / 14px 1px,
-        linear-gradient(var(--ink),var(--ink)) bottom right / 1px 14px;
-      background-repeat: no-repeat;
-    }
-    .fig-head {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 12px;
-      margin: 0 -8px 8px;
-      padding: 7px 10px;
-      border-bottom: 2px solid var(--ink);
-      background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(16,16,16,0.08) 3px 4px), #e4e9de;
-      font-size: 10px;
-      letter-spacing: 0.06em;
-    }
-    .fig-head span:nth-child(2) { text-align: center; }
-    .fig-head span:last-child { color: var(--muted); }
-    .dots { display: flex; gap: 5px; }
-    .dots i { width: 9px; height: 9px; border: 1.5px solid var(--ink); }
-    .dots i:first-child { background: var(--ink); }
-    /* Man page README card: NAME and DESCRIPTION on the left, a key/value list on the right. */
-    .intro.man {
-      padding: 23px 0 84px;
-    }
-
-    .man .frame {
-      margin: 0;
-      padding-bottom: 0;
-    }
-
-    .man-body {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
-      border: 1px solid var(--ink);
-      background: var(--bg);
-    }
-
-    .man-main {
-      display: flex;
-      flex-direction: column;
-      padding: 24px 28px 26px;
-    }
-
-    .man-k {
-      display: block;
-      font: 700 11px/1 var(--mono);
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      margin: 0 0 10px;
-    }
-
-    .man-main { container-type: inline-size; } /* lets the name scale to its column */
-
-    .man-main h1 {
-      font-size: 64px;
-      font-size: min(64px, (100cqi - 14px) / 6.1); /* "frogscooper" is ~6em wide; 14px = left margin */
-      line-height: 1;
-      letter-spacing: -0.055em;
-      margin: 0 0 30px 14px;
-    }
-
-    .man-main .man-desc {
-      max-width: 34em;
-      font-size: 15.5px;
-      line-height: 1.6;
-      color: #2b2b2b;
-      margin: 0 0 0 14px;
-    }
-
-    .man-acts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin: auto 0 0 14px;
-      padding-top: 26px;
-    }
-
-    .man-btn {
-      display: inline-block;
-      padding: 7px 14px;
-      border: 1.5px solid var(--ink);
-      background: var(--bg);
-      color: var(--ink);
-      font-size: 13px;
-      box-shadow: 4px 4px 0 var(--ink);
-      transition: transform 0.08s, box-shadow 0.08s;
-    }
-
-    .man-btn:hover {
-      text-decoration: none;
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0 var(--ink);
-    }
-
-    .man-list {
-      margin: 0;
-      display: grid;
-      grid-template-rows: repeat(5, auto);
-      border-left: 1px solid var(--ink);
-      background: #eef1ea;
-    }
-
-    .man-row {
-      display: grid;
-      grid-template-columns: 112px 1fr;
-      gap: 14px;
-      align-items: baseline;
-      padding: 13px 16px;
-      border-bottom: 1px solid var(--ink);
-    }
-
-    .man-row:last-child {
-      border-bottom: 0;
-    }
-
-    .man-row dt {
-      font-size: 11px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .man-row dd {
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .man-row dd a {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      text-decoration-thickness: 1px;
-    }
-
-    .man-row.hl {
-      background: var(--ink);
-      color: var(--bg);
-    }
-
-    .man-row.hl dt {
-      color: #c9cfc4;
-    }
-
-    .man .frame figcaption {
-      padding: 8px 2px;
-      text-transform: none;
-      letter-spacing: 0.04em;
-      font-size: 11px;
-    }
-
-    .man figcaption a {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    .man a:focus-visible,
-    .site-header a:focus-visible,
-    footer a:focus-visible {
-      outline: 2px dashed var(--ink);
-      outline-offset: 3px;
-    }
-
-    .man-row.hl a:focus-visible {
-      outline-color: var(--bg);
-    }
-
-    @media (max-width: 960px) {
-      .man-body {
-        grid-template-columns: 1fr;
-      }
-
-      .man-list {
-        border-left: 0;
-        border-top: 1px solid var(--ink);
-      }
-    }
-
-    @media (max-width: 760px) {
-      .intro.man {
-        gap: 14px;
-        padding-bottom: 60px;
-      }
-
-      .man .frame {
-        box-shadow: 6px 6px 0 var(--ink);
-      }
-
-      .man-main {
-        padding: 18px 16px 20px;
-      }
-
-      .man-main h1 {
-        font-size: 44px;
-        font-size: min(44px, 100cqi / 6.1);
-        margin: 0 0 22px;
-      }
-
-      .man-main .man-desc,
-      .man-acts {
-        margin-left: 0;
-      }
-
-      .man-main .man-desc {
-        font-size: 14.5px;
-      }
-
-      .man-row {
-        grid-template-columns: 1fr;
-        gap: 2px;
-        padding: 11px 16px;
-      }
-
-      .man .frame figcaption {
-        flex-direction: column;
-        gap: 2px;
-      }
-    }
-    /* "Try it!" call to action under the lilypad card. */
-    .try-row {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px;
-      margin-top: 22px;
-    }
-    .try-btn {
-      display: inline-block; padding: 12px 22px;
-      font: 700 15px/1 var(--mono); letter-spacing: 0.02em;
-      color: var(--bg); background: var(--ink);
-      border: 2px solid var(--ink); box-shadow: 5px 5px 0 #9fcfa9;
-      transition: transform 0.08s, box-shadow 0.08s;
-    }
-    .try-btn:hover, .try-btn:focus-visible {
-      text-decoration: none; outline: none;
-      transform: translate(3px, 3px); box-shadow: 2px 2px 0 #9fcfa9;
-    }
-    .try-btn:focus-visible { outline: 2px dashed var(--ink); outline-offset: 4px; }
-    .try-btn span { display: inline-block; transition: transform 0.12s; }
-    .try-btn:hover span { transform: translateX(4px); }
-    .try-hint { font-size: 11px; color: var(--muted); letter-spacing: 0.02em; }
-
-    /* GRCH live demo: poster plus a run button; the wasm loads only on click. */
-    .grch-demo { position: relative; }
-    .grch-demo > a { display: block; height: 100%; }
-    .grch-run {
-      position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
-      font: 500 12px/1 var(--mono); letter-spacing: 0.06em;
-      padding: 10px 14px; cursor: pointer;
-      color: var(--ink); background: var(--bg);
-      border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
-    }
-    .grch-run:hover, .grch-run:focus-visible { background: var(--ink); color: var(--bg); outline: none; }
-    .grch-run:active { transform: translate(calc(-50% + 2px), 2px); box-shadow: 2px 2px 0 var(--ink); }
-    .frame .grch-demo.live { height: auto; display: flex; flex-direction: column; }
-    .grch-canvas { display: block; width: 100%; height: 340px; touch-action: pan-y; cursor: grab; background: var(--ink); }
-    .grch-canvas:active { cursor: grabbing; }
-    .grch-bar {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px;
-      padding: 7px 8px; border-top: 2px solid var(--ink);
-      font: 10px/1.4 var(--mono); letter-spacing: 0.06em;
-    }
-    .grch-bar input, .grch-bar select, .grch-bar button {
-      font: inherit; color: var(--ink); background: var(--bg);
-      border: 1px solid var(--ink); padding: 3px 5px; border-radius: 0;
-    }
-    .grch-bar input { width: 21ch; }
-    .grch-bar button { cursor: pointer; }
-    .grch-bar button:hover { background: var(--ink); color: var(--bg); }
-    .grch-status { color: var(--muted); margin-left: auto; }
-    @media (max-width: 700px) {
-      .grch-canvas { height: 260px; }
-      .grch-bar input { width: 100%; max-width: 21ch; }
-      .grch-status { margin-left: 0; flex-basis: 100%; }
-    }
-
-    /* Slime studies: one iframe of the slime showcase (/slime/, built from the slime repo with ?embed),
-       switched by tabs. The embedded page posts its height so the frame fits it. */
-    .slime-tabs {
-      display: flex; flex-wrap: wrap; gap: 6px;
-      margin: 0 0 8px;
-    }
-    .slime-tabs button {
-      font: 500 12px/1 var(--mono); letter-spacing: 0.04em;
-      padding: 8px 12px; cursor: pointer; border-radius: 0;
-      color: var(--ink); background: var(--bg); border: 1.5px solid var(--ink);
-    }
-    .slime-tabs button:hover { background: #e4e9de; }
-    .slime-tabs button[aria-selected="true"] { background: var(--ink); color: var(--bg); box-shadow: 3px 3px 0 #f2c21b; }
-    .slime-tabs button:focus-visible { outline: 2px dashed var(--ink); outline-offset: 3px; }
-    .slime-demo { border: 1px solid var(--ink); background: #dce3d3; padding: 12px 0 4px; }
-    .slime-demo iframe { display: block; width: 100%; height: 640px; border: 0; }
-    .slime-desc { margin-top: 12px; }
-    .slime-tm { margin-top: 14px; font-size: 10px; line-height: 1.5; color: var(--muted); }
-    .slime-tm[hidden] { display: none; }
-    @media (max-width: 700px) {
-      .slime-demo iframe { height: 760px; }
-    }
-
-    /* Activity: GitHub contribution heatmap (pixel frogs). Data: /assets/contrib.json. */
-    .activity {
-      display: grid; grid-template-columns: 190px 1fr; gap: 44px;
-      padding: 12px 0 76px; border-top: 1px solid var(--ink);
-    }
-    .activity > div { min-width: 0; }
-    .activity .eyebrow { display: block; }
-    .cg-big { display: block; margin-top: 22px; font: 700 44px/1 var(--mono); letter-spacing: -0.03em; }
-    .cg-big + small { display: block; margin-top: 6px; color: var(--muted); font: 10px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
-    .cg-box { overflow-x: auto; padding: 14px 10px 10px; font: 10px/1.4 var(--mono); scrollbar-width: thin; }
-    .cg-fallback { margin: 0; color: var(--muted); }
-    .cg-fallback a { color: var(--ink); }
-    .cg-pond { display: block; width: 100%; height: auto; }
-    .cg-pond text { font-family: var(--mono); fill: var(--muted); } /* size comes from the svg's font-size */
-    /* heatmap palette: espresso ink, muted moss. Level 1 to 4 greens (level 0 is outline only);
-       --dk = spots, --eye = eye white, --cg-ink = outline, pupils, mouth */
-    :root {
-      --cg-ink: #3a2f27; --eye: #f7f2e6;
-      --f0: #f6f7f2; --f1: #e6e9d4; --f2: #c6d2a6; --f3: #9bb07c; --f4: #6f8a58; --dk: #4c6040;
-    }
-    @media (max-width: 700px) {
-      .activity { grid-template-columns: 1fr; gap: 14px; padding-bottom: 56px; }
-      .cg-big { margin-top: 8px; font-size: 34px; }
-    }
-
-    /* Open source: latest PRs to other people's repos. Static rows, refresh with scripts/prs.py. */
-    .prs {
-      display: grid; grid-template-columns: 190px 1fr; gap: 44px;
-      padding: 12px 0 76px; border-top: 1px solid var(--ink);
-    }
-    .prs > div { min-width: 0; }
-    .prs .eyebrow { display: block; }
-    .pr-list { list-style: none; margin: 0; padding: 4px 14px; font: 12px/1.5 var(--mono); }
-    .pr {
-      display: grid; grid-template-columns: minmax(0, 15ch) minmax(0, 1fr) auto 11ch;
-      gap: 6px 18px; align-items: baseline; padding: 10px 0; border-bottom: 1px dashed var(--line);
-    }
-    .pr:last-child { border-bottom: 0; }
-    .pr-repo { color: var(--muted); overflow-wrap: anywhere; }
-    .pr-title { color: var(--ink); overflow-wrap: anywhere; }
-    .pr-tag { padding: 1px 7px; border: 1px solid var(--ink); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
-    .pr-tag.merged { background: var(--ink); color: var(--bg); }
-    .pr-tag.closed { border-style: dashed; color: var(--muted); }
-    .pr-date { color: var(--muted); text-align: right; white-space: nowrap; }
-    .prs-acts { margin-top: 26px; }
-    @media (max-width: 700px) {
-      .prs { grid-template-columns: 1fr; gap: 14px; padding-bottom: 56px; }
-      .pr { grid-template-columns: minmax(0, 1fr) auto; }
-      .pr-title { grid-column: 1 / -1; grid-row: 2; }
-      .pr-tag { grid-row: 3; justify-self: start; }
-      .pr-date { grid-row: 3; }
-    }
-
-    /* Wide screens: the heatmap is a vertical rail fixed to the left edge and the in-page
-       Activity section steps aside. Below this (tablet, phone) nothing changes. */
-    /* The rail also carries the Open source list. Below the wide breakpoint only that list shows,
-       in page flow right under the Activity section. */
-    @media not all and (min-width: 1200px) and (min-height: 720px) {
-      .rail > :not(.prs) { display: none; }
-    }
-    @media (min-width: 1200px) and (min-height: 720px) {
-      /* --pad widens the left gutter so the whole rail fits left of the page content (labels,
-         dividers and cards) without covering any of it. */
-      :root { --rail-w: 238px; --pad: 243px; }
-      body { padding-left: var(--pad); }
-      .activity { display: none; }
-      .rail {
-        display: block; position: fixed; z-index: 5; overflow: hidden;
-        /* centred vertically; horizontally centred halfway between the screen edge and the page
-           content (100% = viewport here; content left = pad + shell margin) */
-        top: 50%; transform: translateY(-50%); max-height: calc(100vh - 32px);
-        left: calc((var(--pad) + (100% - var(--pad) - min(1210px, 100% - var(--pad) - 54px)) / 2) / 2 - var(--rail-w) / 2);
-        width: var(--rail-w); padding: 14px 14px 12px;
-        background: #f6f7f2; border: 2px solid var(--cg-ink); box-shadow: 3px 3px 0 var(--cg-ink);
-        font: 10px/1.4 var(--mono);
-      }
-      .rail .cg-big { margin-top: 10px; font-size: 30px; }
-      .rail .cg-big + small { font-size: 9px; }
-      .cg-rail-box { margin-top: 14px; }
-      .rail { overflow-y: auto; scrollbar-width: thin; }
-      /* Open source list, stacked to fit the rail */
-      .rail .prs { display: block; margin-top: 10px; padding: 8px 0 0; border-top: 1px solid var(--cg-ink); }
-      .rail .prs .frame { margin: 6px 0 0; padding: 0 6px 4px; border-width: 1.5px; box-shadow: 3px 3px 0 var(--ink); }
-      .rail .prs .frame::before { display: none; }
-      .rail .prs .fig-head { grid-template-columns: auto 1fr; gap: 8px; margin: 0 -6px 2px; padding: 5px 7px; font-size: 9px; }
-      .rail .prs .fig-head span:nth-child(2) { text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .rail .prs .fig-head span:last-child { display: none; }
-      .rail .pr-list { padding: 0 2px; font-size: 10px; line-height: 1.4; }
-      .rail .pr { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; padding: 6px 0; }
-      .rail .pr-title { grid-column: 1 / -1; grid-row: 2; }
-      .rail .pr-tag { grid-row: 3; justify-self: start; padding: 0 5px; font-size: 9px; }
-      .rail .pr-date { grid-row: 3; }
-      .rail .prs figcaption { display: none; }
-      .rail .prs-acts { margin-top: 10px; padding-bottom: 3px; }
-      .rail .prs .man-btn { padding: 5px 10px; font-size: 11px; box-shadow: 3px 3px 0 var(--ink); }
-    }
-    /* once: a replay of a real recorded terminal session (see the player script). */
-    .once-term { container-type: inline-size; border: 1px solid var(--ink); background: #eef1ea; }
-    .once-term pre {
-      margin: 0; padding: 16px 18px; overflow: hidden; white-space: pre;
-      font: clamp(9px, calc((100cqi - 36px) / 28), 14px)/1.6 var(--mono); color: var(--ink);
-      height: calc(14 * 1.6em + 32px); box-sizing: border-box;
-    }
-    .once-term .p { color: var(--muted); }
-    .once-term .fx { font-weight: 700; background: #d6e8d6; }
-    .once-term .hit { font-weight: 700; }
-    .once-term .kill { background: var(--ink); color: var(--bg); }
-    .once-term .ret { color: var(--muted); }
-    .once-term .cur { display: inline-block; width: 0.6em; height: 1.15em; vertical-align: -0.2em; background: var(--ink); }
-    .once-src { margin-top: 14px; }
-    .once-src summary { cursor: pointer; font: 11px/1.4 var(--mono); text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
-    .once-src summary:hover { color: var(--ink); }
-    .once-src pre {
-      margin: 10px 0 0; padding: 12px 14px; overflow-x: auto; border: 1px solid var(--line);
-      background: #f6f7f2; font: 11px/1.55 var(--mono); color: var(--ink);
-    }
-    .once-install {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
-      margin-top: 18px;
-    }
-    .once-install code {
-      padding: 5px 10px; border: 1.5px solid var(--ink); background: var(--bg);
-      font: 12px/1.4 var(--mono); user-select: all;
-    }
-    .once-copy {
-      padding: 5px 10px; border: 1.5px solid var(--ink); background: var(--bg); color: var(--ink);
-      font: 12px/1.4 var(--mono); cursor: pointer; box-shadow: 3px 3px 0 var(--ink);
-    }
-    .once-copy:hover, .once-copy:focus-visible { background: var(--ink); color: var(--bg); outline: none; }
-    .once-copy:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-    /* nav-css:start */
-    .site-header nav { gap: 8px 20px; }
-    .nav-group { display: flex; flex-wrap: wrap; gap: 8px 20px; }
-    .nav-group a { color: var(--muted); }
-    .nav-group a:hover, .nav-group a[aria-current="page"] { color: var(--ink); }
-    .nav-group a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
-    .nav-ext { padding-left: 20px; border-left: 1px solid var(--line); }
-    .nav-ext a::after { content: "\2197"; content: "\2197" / ""; margin-left: 3px; font-size: 0.9em; }
-    @media (max-width: 760px) {
-      .site-header nav { flex-direction: column; align-items: flex-start; }
-      .nav-ext { padding-left: 0; border-left: 0; }
-    }
-    /* nav-css:end */
-  </style>
+  <link rel="stylesheet" href="/assets/pond.css?v=3">
 </head>
-
 <body>
-  <div class="shell">
-    <header class="site-header">
-      <div class="brand">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="bar">
+    <div class="wrap">
+      <a class="id" href="/"><strong>frogscooper</strong><span>CS @ Ohio State</span></a>
+      <div class="bar-r">
         <span data-frog-toggle></span>
-        <a class="identity" href="/">
-          <strong>frogscooper</strong>
-          <span>CS @ Ohio State</span>
-        </a>
+        <!-- links:start -->
+        <a class="ext" href="https://lilypad.frogscooper.dev">Lilypad ↗</a>
+        <a class="ext" href="https://github.com/frogscooper">GitHub ↗</a>
+      <!-- links:end -->
       </div>
+    </div>
+  </header>
 
-      <!-- nav:start -->
-      <nav aria-label="Primary">
-        <div class="nav-group">
-          <a href="/" aria-current="page">Home</a>
-          <a href="/open-source/">Open Source</a>
-          <a href="/research/">Research</a>
-          <a href="/contact/">Contact</a>
+  <div class="pondview" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <section class="profile" aria-label="About">
+      <div class="prof">
+        <div class="avatar" aria-hidden="true"></div>
+        <div class="who">
+          <h1>frogscooper</h1>
+          <p class="desc">CS sophomore @ OSU. I build software with 3 priorities: efficiency, precision, and aura.</p>
+          <dl class="facts">
+            <div><dt>currently</dt><dd>creating machine learning simulations of <i>Physarum polycephalum</i>. im making it play pokemon and pong, and reproducing Tero et al. with San Francisco</dd></div>
+            <div><dt>stack</dt><dd>Rust, TypeScript, Python</dd></div>
+          </dl>
         </div>
-        <div class="nav-group nav-ext">
-          <a href="https://lilypad.frogscooper.dev">Lilypad</a>
-          <a href="https://github.com/frogscooper">GitHub</a>
+        <div class="side">
+          <span class="seek">looking for: SWE internship</span>
+          <div class="nums">
+            <div><b class="cg-total">301</b><span>commits, 6 mo</span></div>
+            <div><b class="n-projects">6</b><span>projects</span></div>
+          </div>
+          <div class="acts"><a class="btn ink" href="mailto:stemboy@posteo.com">email</a><a class="btn" href="https://github.com/frogscooper">github</a></div>
         </div>
-      </nav>
+      </div>
+      <nav class="tabs" aria-label="Primary">
+        <!-- nav:start -->
+        <a href="/" aria-current="page">Home</a>
+        <a href="/open-source/">Open Source</a>
+        <a href="/research/">Research</a>
+        <a href="/contact/">Contact</a>
       <!-- nav:end -->
-    </header>
+      </nav>
+    </section>
+  </div>
 
-    <main>
-      <section class="intro man" aria-labelledby="man-name">
-        <span class="eyebrow">Readme</span>
-        <figure class="frame">
-          <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>man frogscooper</span><span>FROGSCOOPER(1)</span></div>
-          <div class="man-body">
-            <div class="man-main">
-              <span class="man-k">Name</span>
-              <h1 id="man-name">frogscooper</h1>
-              <span class="man-k">Description</span>
-              <p class="man-desc">CS sophomore @ OSU. I build software with 3 priorities: efficiency, precision, and aura.</p>
-              <div class="man-acts">
-                <a class="man-btn" href="mailto:stemboy@posteo.com">[email]</a>
-                <a class="man-btn" href="https://github.com/frogscooper">[github]</a>
-              </div>
+
+  <main id="main" class="wrap">
+    <section class="shelf" id="projects" aria-labelledby="projects-h">
+      <div class="sec-head"><h2 id="projects-h">Projects</h2><span id="hint">hover a cover to run it</span></div>
+
+      <!-- Pinned: one project at a time gets the wide slot. Move another article in here to swap. -->
+      <article class="feature card" id="lilypad" data-preview="lily">
+        <a class="cover" href="https://lilypad.frogscooper.dev" aria-label="Lilypad">
+          <div class="art lily">
+            <div class="k">same heic photo → jpg, measured oct 2026</div>
+            <div class="lane me"><span>lilypad</span><span class="t" data-to="0.8">0.8 s</span><div class="track"><div class="fill" data-ms="800"></div></div></div>
+            <div class="lane"><span>heictojpg.com</span><span class="t" data-to="8.9">8.9 s</span><div class="track"><div class="fill" data-ms="8900"></div></div></div>
+          </div>
+          <span class="badge leaf">pinned</span>
+          <div class="strip"><b>11x faster</b><span class="hide-sm">0 bytes uploaded</span><span class="len">web</span></div>
+        </a>
+        <div class="ftext">
+          <span class="idx">Web · 2026</span>
+          <h3><a href="https://lilypad.frogscooper.dev">Lilypad</a></h3>
+          <p>Free image and PDF tools that run entirely in the browser. Batch format conversion (HEIC, WebP, AVIF, PNG, JPG), merging, splitting, and compressing PDFs, QR codes, and more. Nothing gets uploaded.</p>
+          <dl class="bench" aria-label="lilypad vs 8 popular online converters">
+            <div><dt>0 <small>bytes</small></dt><dd>uploaded<span>7 of the 8 say they upload your file</span></dd></div>
+            <div><dt>never</dt><dd>stored<span>the rest keep them 2 hours to 7 days</span></dd></div>
+            <div><dt>2.6 <small>s</small></dt><dd>to load on a phone<span>median 8.3 s, simulated 3G</span></dd></div>
+            <div><dt>4.6x</dt><dd>lighter page<span>236 KB vs a median of 1,096 KB</span></dd></div>
+          </dl>
+          <div class="links"><a href="https://lilypad.frogscooper.dev">Try it →</a><span>no signup, nothing uploaded. drop a HEIC and watch.</span></div>
+          <p class="fine">vs 8 popular online converters, measured oct 2026 in headless chrome, median of 3 runs</p>
+        </div>
+      </article>
+
+      <!-- Everything else, newest first. data-tags drives the filter chips; past 6 the rest fold behind "show all". -->
+      <div class="filter" id="filter" role="toolbar" aria-label="Filter projects" hidden></div>
+      <div class="grid" id="grid">
+        <article class="card" id="slime" data-tags="typescript python">
+          <div class="cover" id="slime-cover">
+            <div class="slide on"><div class="art slime-art" data-art="battle"></div></div>
+            <div class="slide"><div class="art slime-art" data-art="pong"></div></div>
+            <div class="slide"><div class="art slime-art" data-art="bayarea"></div></div>
+            <div class="stabs" role="tablist" aria-label="Slime study">
+              <button type="button" role="tab" aria-selected="true" data-i="0">pokémon</button>
+              <button type="button" role="tab" aria-selected="false" data-i="1">pong</button>
+              <button type="button" role="tab" aria-selected="false" data-i="2">bay area</button>
             </div>
-            <dl class="man-list">
-              <div class="man-row"><dt>currently</dt><dd>creating machine learning simulations of Physarum polycephalum. im making it play pokemon and pong, and reproducing Tero et al. with San Francisco</dd></div>
-              <div class="man-row"><dt>shipped</dt><dd><a href="https://lilypad.frogscooper.dev">lilypad</a>, 32 tools in 4 languages, 11x faster than heictojpg.com</dd></div>
-              <div class="man-row"><dt>research</dt><dd><a href="/research/">non-intersecting corridor routing in BSP-generated spaces</a></dd></div>
-              <div class="man-row"><dt>stack</dt><dd>Rust, TypeScript, Python</dd></div>
-              <div class="man-row hl"><dt>looking for</dt><dd>SWE internship</dd></div>
-            </dl>
+            <button type="button" class="play" id="slime-play">▶ run it live</button>
+            <div class="strip"><span id="slime-cap">recorded battle, slime regrown live</span><span class="len">ts · py</span></div>
           </div>
-          <figcaption><span>&gt; see also: <a href="#projects">projects(1)</a>, <a href="/research/">research(1)</a></span><span>updated oct 2026</span></figcaption>
-        </figure>
-      </section>
+          <span class="idx">TypeScript · Python · 2026</span>
+          <h3><a id="slime-full" href="/slime/battle.html">Slime Studies</a></h3>
+          <p>A simulated <i>Physarum</i> slime mould (Jeff Jones's agent model) put to work. In each study something places food, the slime grows toward it, and wherever it gathers is the answer.</p>
+          <p id="slime-desc">Every decision in a Pokémon battle. Ten food sites ring the slime, one per move or switch, and the option it gathers on is played. One slime is fed by a PPO network; the other was evolved with CMA-ES to play on its own senses, and beats the network (71% against the strongest-move bot).</p>
+          <div class="links"><a id="slime-open" href="/slime/battle.html">Full page ↗</a></div>
+          <p class="fine" id="slime-tm">Pokémon names are trademarks of Nintendo, Creatures and GAME FREAK. Not affiliated or endorsed.</p>
+        </article>
 
+        <article class="card" data-preview="term" data-tags="python">
+          <a class="cover" href="https://github.com/frogscooper/once" aria-label="once">
+            <div class="art term"><pre aria-label="terminal recording: an agent is killed after charging a card, then retries the run"><code id="once-code"></code></pre></div>
+            <div class="strip"><b>charged once</b><span class="hide-sm">real output</span><span class="len">python</span></div>
+          </a>
+          <span class="idx">Python · 2026</span>
+          <h3><a href="https://github.com/frogscooper/once">once</a></h3>
+          <p>A Python library that makes side-effecting tool calls safe for AI agents to retry. A retried "charge the card" returns the saved result instead of running twice.</p>
+          <div class="links"><a href="https://pypi.org/project/agent-once/">PyPI ↗</a><a href="https://frogscooper.dev/once/">Docs ↗</a><a href="https://github.com/frogscooper/once">Source ↗</a></div>
+        </article>
 
-      <section class="activity" id="activity" aria-labelledby="activity-h">
-        <div>
-          <span class="eyebrow" id="activity-h">Activity</span>
-          <strong class="cg-big"><span class="cg-total">301</span></strong>
-          <small>github contributions, last 6 months</small>
+        <article class="card" id="grch" data-preview="shots" data-tags="rust">
+          <a class="cover" href="https://github.com/frogscooper/grch-procedural-gen" aria-label="GRCH Procedural Generator">
+            <div class="art shots">
+              <img class="on" src="/assets/grch_obj_top_angle.png" alt="" loading="lazy">
+              <img src="/assets/grch_obj_angle_1.png" alt="" loading="lazy">
+              <img src="/assets/grch_obj_cutaway.png" alt="" loading="lazy">
+              <img src="/assets/grch_render_alt_angle.png" alt="" loading="lazy">
+            </div>
+            <span class="scrub"></span>
+            <div class="strip"><b>bsp dungeon</b><span class="hide-sm">obj export</span><span class="len">rust</span></div>
+          </a>
+          <span class="idx">Rust · 2026</span>
+          <h3><a href="https://github.com/frogscooper/grch-procedural-gen">GRCH Procedural Generator</a></h3>
+          <p>A 3D dungeon generator built around binary space partitioning, with a routing algorithm that moves corridors through the partition without cutting rooms.</p>
+          <div class="links"><a href="https://github.com/frogscooper/grch-procedural-gen">Source ↗</a><a href="/research/">Research →</a><button type="button" class="run" hidden>Run it live ▶</button></div>
+        </article>
+
+        <article class="card" data-preview="swarm" data-tags="python">
+          <a class="cover" href="https://github.com/frogscooper/cbtorrent" aria-label="cbtorrent">
+            <div class="art swarm" id="swarm"></div>
+            <span class="badge">ai-assisted</span>
+            <div class="strip"><b>ml peer selection</b><span class="len">python</span></div>
+          </a>
+          <span class="idx">Python · 2026</span>
+          <h3><a href="https://github.com/frogscooper/cbtorrent">cbtorrent</a></h3>
+          <p>A Python BitTorrent client with online ML peer selection. My first deliberately AI-assisted project, an experiment in how far that workflow goes.</p>
+          <div class="links"><a href="https://github.com/frogscooper/cbtorrent">Source ↗</a></div>
+        </article>
+
+        <article class="card" data-preview="neuro" data-tags="simulation">
+          <div class="cover" aria-hidden="true">
+            <div class="art neuro" id="neuro"></div>
+            <span class="badge leaf">in progress</span>
+            <div class="strip"><b>fruit fly cns</b><span class="len">osu!</span></div>
+          </div>
+          <span class="idx">in progress</span>
+          <h3>fly-osu</h3>
+          <p>The reconstructed male fruit fly CNS as a controller for osu!: beatmaps encoded into neural input, network activity decoded into cursor movement and clicks.</p>
+        </article>
+      </div>
+      <div class="more" id="more" hidden><button type="button" class="btn">show all <span></span></button></div>
+    </section>
+
+    <section class="shelf" aria-labelledby="act-h">
+      <div class="sec-head"><h2 id="act-h">Activity</h2><span class="opt">refreshed every few hours</span><a href="https://github.com/frogscooper">github ↗</a></div>
+      <div class="duo">
+        <div data-contrib="pond">
+          <h3 class="cg-total">301</h3>
+          <small>github contributions, last 6 months · <span class="cg-range"></span></small>
+          <div class="cg-box"><p class="cg-fallback">The contribution graph needs JavaScript. See it on <a href="https://github.com/frogscooper">github.com/frogscooper</a>.</p></div>
+          <div class="cap">one frog per day, greener frog, more commits</div>
         </div>
         <div>
-          <figure class="frame" data-contrib="pond">
-            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/pond --since=6.months</span><span>POND.LOG</span></div>
-            <div class="cg-box"><p class="cg-fallback">The contribution graph needs JavaScript. See it on <a href="https://github.com/frogscooper">github.com/frogscooper</a>.</p></div>
-            <figcaption><span>&gt; <span class="cg-total">301</span> contributions, <span class="cg-range">apr 24 2026 to oct 23 2026</span></span><span>one frog per day, greener frog, more commits</span></figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <aside class="rail" aria-labelledby="rail-h" data-contrib="rail">
-        <span class="eyebrow" id="rail-h">Activity</span>
-        <strong class="cg-big"><span class="cg-rail-total">301</span></strong>
-        <small>github contributions, last <span class="cg-rail-months">6</span> months</small>
-        <div class="cg-rail-box"></div>
-        <section class="prs" id="open-source" aria-labelledby="prs-h">
-          <div>
-            <span class="eyebrow" id="prs-h">Open source</span>
-          </div>
-          <div>
-            <figure class="frame">
-              <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>gh pr list --author frogscooper</span><span>PRS.LOG</span></div>
-              <ul class="pr-list">
+          <h3>open source</h3>
+          <small>latest pull requests to repos i don't own</small>
+          <ul class="prs">
                 <!-- prs:start -->
                 <li class="pr"><span class="pr-repo">ggml-org/llama.cpp</span><a class="pr-title" href="https://github.com/ggml-org/llama.cpp/pull/31556">chat : allow constraint type after gpt-oss final channel</a><span class="pr-tag merged">merged</span><time class="pr-date" datetime="2026-11-02">nov 02 2026</time></li>
+                <li class="pr"><span class="pr-repo">uutils/coreutils</span><a class="pr-title" href="https://github.com/uutils/coreutils/pull/15924">join: accept repeated options like GNU</a><span class="pr-tag open">open</span><time class="pr-date" datetime="2026-10-27">oct 27 2026</time></li>
+                <li class="pr"><span class="pr-repo">astral-sh/ruff</span><a class="pr-title" href="https://github.com/astral-sh/ruff/pull/29756">[`ruff`] Skip `with` blocks before `yield` in `unnecessary-assign-bef…</a><span class="pr-tag closed">closed</span><time class="pr-date" datetime="2026-10-27">oct 27 2026</time></li>
+                <li class="pr"><span class="pr-repo">urfave/cli</span><a class="pr-title" href="https://github.com/urfave/cli/pull/2510">fix: validate a slice or map flag once all of its values are parsed</a><span class="pr-tag open">open</span><time class="pr-date" datetime="2026-10-27">oct 27 2026</time></li>
                 <!-- prs:end -->
-              </ul>
-              <figcaption><span>&gt; latest pull request to a repo i don't own</span><span>most recent</span></figcaption>
-            </figure>
-            <div class="prs-acts"><a class="man-btn" href="/open-source/">[ all open source work ]</a></div>
-          </div>
-        </section>
-      </aside>
-
-      <section class="work" id="projects">
-        <div class="section-head">
-          <h2>Projects</h2>
-          <span>Selected work</span>
+          </ul>
+          <a class="btn" href="/open-source/">all open source work</a>
         </div>
-
-        <article class="project featured">
-          <span class="index">01</span>
-
-          <div class="project-main">
-            <div class="heading">
-              <h3>
-                <a href="https://lilypad.frogscooper.dev">Lilypad</a>
-              </h3>
-              <span>Web · 2026</span>
-            </div>
-
-            <figure class="frame">
-            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/lilypad/benchmarks.txt</span><span>FIG.01</span></div>
-            <a class="stats-card" href="https://lilypad.frogscooper.dev">
-              <div class="stats-top"><span class="stats-mark"><svg aria-hidden="true" width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M15.5 17L24.20 11.13A10.5 10.5 0 1 1 21.06 8.10Z" fill="#9fcfa9" stroke="#244a30" stroke-width="1" stroke-linejoin="round"/><path d="M15.5 17L12.56 25.09" stroke="#84b990" stroke-width="0.6" stroke-linecap="round"/><path d="M15.5 17L8.04 21.30" stroke="#84b990" stroke-width="0.6" stroke-linecap="round"/><path d="M15.5 17L7.18 14.77" stroke="#84b990" stroke-width="0.6" stroke-linecap="round"/><path d="M15.5 17L11.19 9.54" stroke="#84b990" stroke-width="0.6" stroke-linecap="round"/><g fill="#16301f" stroke="#ffc7d5" stroke-width=".9" stroke-linejoin="round"><path d="M0 0A4.6 4.6 0 0 1 0 -7A4.6 4.6 0 0 1 0 0Z" transform="translate(23 15.2) rotate(-42.0)" /><path d="M0 0A4.6 4.6 0 0 1 0 -7A4.6 4.6 0 0 1 0 0Z" transform="translate(23 15.2) rotate(0.0)" /><path d="M0 0A4.6 4.6 0 0 1 0 -7A4.6 4.6 0 0 1 0 0Z" transform="translate(23 15.2) rotate(42.0)" /></g><circle cx="23" cy="14.6" r=".9" fill="#f3c95a"/></svg></span>lilypad vs 8 popular online converters</div>
-              <div class="stats-grid">
-                <div class="stat"><b>0 <small>bytes</small></b>uploaded<span>7 of the 8 say they upload your file</span></div>
-                <div class="stat"><b>never</b>stored<span>the rest keep them 2 hours to 7 days</span></div>
-                <div class="stat"><b>11x</b>faster on the same photo<span>0.8 s vs 8.9 s on heictojpg.com</span></div>
-                <div class="stat"><b>2.6 <small>s</small></b>to load on a phone<span>median 8.3 s, simulated 3G</span></div>
-                <div class="stat"><b>4.6x</b>lighter page<span>236 KB vs a median of 1,096 KB</span></div>
-                <div class="stat"><b>no cap</b>on daily conversions<span>Zamzar's free tier allows 2 files a day</span></div>
-              </div>
-              <div class="stats-foot">measured oct 2026 in headless chrome, median of 3 runs</div>
-            </a>
-            <figcaption><span>&gt; fig. 01 / benchmarks</span><span>oct 2026</span></figcaption>
-          </figure>
-
-            <div class="desc">
-              <p>
-                Free image and PDF tools that run entirely in the browser. Batch format
-                conversion (HEIC, WebP, AVIF, PNG, JPG), merging, splitting, and compressing
-                PDFs, QR codes, and more. Nothing gets uploaded.
-              </p>
-
-              <div class="try-row">
-                <a class="try-btn" href="https://lilypad.frogscooper.dev">Try it! <span aria-hidden="true">→</span></a>
-                <span class="try-hint">no signup, nothing uploaded. drop a HEIC and watch.</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="project featured">
-          <span class="index">02</span>
-
-          <div class="project-main">
-            <div class="heading">
-              <h3>
-                <a href="https://github.com/frogscooper/once">once</a>
-              </h3>
-              <span>Python · 2026</span>
-            </div>
-
-            <figure class="frame">
-            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>bash: python agent.py</span><span>FIG.02</span></div>
-            <div class="once-term" id="once-term">
-<pre aria-label="terminal recording: an agent is killed after charging a card, then retries the run"><code><span class="p">$ python agent.py --crash-after charge_card</span>
--&gt; charge_card(order=&#x27;A12&#x27;, cents=1000)
-<span class="fx">  ** charging card for A12: $10.00</span>
-<span class="ret">  &lt;- &#x27;ch_1&#x27;</span>
-<span class="kill">!! worker killed (simulated timeout)</span>
-<span class="p">$ python agent.py</span>
--&gt; charge_card(order=&#x27;A12&#x27;, cents=1000)
-<span class="hit">  once: saved result, not run again</span>
-<span class="ret">  &lt;- &#x27;ch_1&#x27;</span>
--&gt; send_receipt(order=&#x27;A12&#x27;, charge=&#x27;ch_1&#x27;)
-<span class="fx">  ** emailing receipt for A12 (ch_1)</span>
-<span class="ret">  &lt;- &#x27;msg_1&#x27;</span>
-agent: plan done</code></pre>
-            </div>
-            <figcaption><span>&gt; fig. 02 / killed after the charge, retried, charged once</span><span>scripted agent loop, real agent-once 0.1.0 output</span></figcaption>
-          </figure>
-
-            <div class="desc">
-              <p>
-                A Python library that makes side-effecting tool calls safe for AI agents to
-                retry. Each call gets an idempotency key stored in SQLite or Postgres, so a
-                retried "charge the card" or "send the email" returns the saved result
-                instead of running twice.
-              </p>
-
-              <div class="once-install">
-                <code>$ pip install agent-once</code>
-                <button type="button" class="once-copy" data-copy="pip install agent-once" hidden>[ copy ]</button>
-                <span class="try-hint">python 3.10+, no dependencies</span>
-              </div>
-
-              <details class="once-src">
-                <summary>[ view agent.py ]</summary>
-<pre><code>&quot;&quot;&quot;A scripted agent loop (no model) that runs a two-step plan through agent-once.&quot;&quot;&quot;
-import os
-import sys
-import time
-
-from once import Hooks, Once
-
-once = Once(&quot;agent.db&quot;, hooks=Hooks(
-    on_replay=lambda e: print(&quot;  once: saved result, not run again&quot;)))
-
-PLAN = [(&quot;charge_card&quot;, {&quot;order&quot;: &quot;A12&quot;, &quot;cents&quot;: 1000}),
-        (&quot;send_receipt&quot;, {&quot;order&quot;: &quot;A12&quot;, &quot;charge&quot;: &quot;$charge_card&quot;})]
-
-
-@once.tool
-def charge_card(order: str, cents: int) -&gt; str:
-    print(f&quot;  ** charging card for {order}: ${cents / 100:.2f}&quot;)
-    return &quot;ch_1&quot;
-
-
-@once.tool
-def send_receipt(order: str, charge: str) -&gt; str:
-    print(f&quot;  ** emailing receipt for {order} ({charge})&quot;)
-    return &quot;msg_1&quot;
-
-
-TOOLS = {&quot;charge_card&quot;: charge_card, &quot;send_receipt&quot;: send_receipt}
-crash_after = sys.argv[2] if sys.argv[1:2] == [&quot;--crash-after&quot;] else None
-
-results = {}
-with once.scope(&quot;run_42&quot;):
-    for name, args in PLAN:
-        time.sleep(0.5)  # stand-in for the model picking the next step
-        args = {k: results.get(v[1:], v) if isinstance(v, str) and v.startswith(&quot;$&quot;) else v
-                for k, v in args.items()}
-        print(f&quot;-&gt; {name}({&#x27;, &#x27;.join(f&#x27;{k}={v!r}&#x27; for k, v in args.items())})&quot;)
-        results[name] = TOOLS[name](**args)
-        print(f&quot;  &lt;- {results[name]!r}&quot;)
-        if name == crash_after:
-            time.sleep(0.4)
-            print(&quot;!! worker killed (simulated timeout)&quot;)
-            sys.stdout.flush()
-            os._exit(137)
-print(&quot;agent: plan done&quot;)</code></pre>
-              </details>
-
-              <div class="links">
-                <a href="https://pypi.org/project/agent-once/">PyPI ↗</a>
-                <a href="https://frogscooper.dev/once/">Docs ↗</a>
-                <a href="https://github.com/frogscooper/once">Source ↗</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="project featured">
-          <span class="index">03</span>
-
-          <div class="project-main">
-            <div class="heading">
-              <h3>
-                <a href="https://github.com/frogscooper/grch-procedural-gen">GRCH Procedural Generator</a>
-              </h3>
-              <span>Rust · 2026</span>
-            </div>
-
-             <figure class="frame">
-            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>~/grch/render_top.obj</span><span>FIG.03</span></div>
-            <div class="project-image grch-demo" id="grch-demo">
-              <a href="https://github.com/frogscooper/grch-procedural-gen">
-                  <img
-                      src="/assets/grch_obj_top_angle.png"
-                      alt="GRCH procedural generator render"
-                  >
-              </a>
-              <button type="button" class="grch-run" hidden>[ run grch ]</button>
-            </div>
-            <figcaption><span class="grch-cap-l">&gt; fig. 03 / bsp dungeon, top view</span><span class="grch-cap">obj export</span></figcaption>
-          </figure>
-
-            <div class="desc">
-              <p>
-                A 3D procedural dungeon generator built around binary space partitioning.
-                I wrote a constructive routing algorithm that moves corridors through the BSP
-                partition while avoiding rooms they aren't supposed to intersect.
-              </p>
-
-              <div class="links">
-                <a href="https://github.com/frogscooper/grch-procedural-gen">Source ↗</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="project featured">
-          <span class="index">04</span>
-
-          <div class="project-main">
-            <div class="heading">
-              <h3>
-                <a href="/slime/battle.html" id="slime-title">Slime Studies</a>
-              </h3>
-              <span>TypeScript · Python · 2026</span>
-            </div>
-
-            <figure class="frame">
-            <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span id="slime-file">~/slime/battle.html</span><span>FIG.04</span></div>
-            <div class="slime-tabs" role="tablist" aria-label="Slime study" hidden>
-              <button type="button" role="tab" id="slime-tab-battle" aria-controls="slime-demo" aria-selected="true" data-study="battle">pokémon</button>
-              <button type="button" role="tab" id="slime-tab-pong" aria-controls="slime-demo" aria-selected="false" tabindex="-1" data-study="pong">pong</button>
-              <button type="button" role="tab" id="slime-tab-bayarea" aria-controls="slime-demo" aria-selected="false" tabindex="-1" data-study="bayarea">bay area transit</button>
-            </div>
-            <div class="slime-demo" id="slime-demo" role="tabpanel" aria-labelledby="slime-tab-battle">
-              <iframe src="/slime/battle.html?embed" title="Slime Battler: a slime mould making the decisions in a Pokémon battle" loading="lazy"></iframe>
-            </div>
-            <figcaption><span id="slime-cap-l">&gt; fig. 04 / recorded battle, slime regrown live</span><span id="slime-cap-r">jones agent model, in your browser</span></figcaption>
-          </figure>
-
-            <div class="desc">
-              <p>
-                A simulated <i>Physarum</i> slime mould (Jeff Jones's agent model) put to work.
-                In each study something places food, the slime grows toward it, and wherever
-                it gathers is the answer.
-              </p>
-              <p class="slime-desc" id="slime-desc">
-                Every decision in a Pokémon battle. Ten food sites ring the slime, one per move
-                or switch, and the option it gathers on is played. One slime is fed by a PPO
-                network; the other was evolved with CMA-ES to play on its own senses, and beats
-                the network (71% against the strongest-move bot).
-              </p>
-
-              <div class="links">
-                <a href="/slime/battle.html" id="slime-full">Full page ↗</a>
-              </div>
-              <p class="slime-tm" id="slime-tm">Pokémon names are trademarks of Nintendo, Creatures and GAME FREAK. Not affiliated or endorsed; battles simulated on a local Pokémon Showdown server.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="project secondary">
-          <span class="index">05</span>
-
-          <div class="project-main">
-            <div class="desc">
-              <div class="heading">
-                <h3>
-                  <a href="https://github.com/frogscooper/cbtorrent">cbtorrent</a>
-                </h3>
-                <span>Python · 2026</span>
-              </div>
-
-              <p>
-                A Python BitTorrent client with online ML peer selection and a tkinter GUI.
-                My first deliberately AI-assisted project. An experiment in how far that
-                workflow goes on real protocol and learning code, not a claim that AI
-                shipped a finished client.
-              </p>
-
-              <div class="links">
-                <a href="https://github.com/frogscooper/cbtorrent">Source ↗</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="project secondary">
-          <span class="index">06</span>
-
-          <div class="project-main">
-            <div class="desc">
-              <div class="heading">
-                <h3>
-                  fly-osu
-                </h3>
-                <span>In progress</span>
-              </div>
-
-              <p>
-                An experiment using the reconstructed male fruit fly CNS as a controller for osu!.
-                I’m building a connectome simulator that encodes beatmap and game-state information
-                into neural input, then decodes network activity into cursor movement and click timing.
-              </p>
-
-              <div class="links">
-                <a></a>
-              </div>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section class="about">
-        <h2>About</h2>
-        <p>
-          I'm a computer science student at The Ohio State University. I enjoy algorithms,
-          systems programming, simulation, and building projects that are (hopefully) unique.
-        </p>
-      </section>
-    </main>
-
-    <footer>
-      <span>frogscooper</span>
-      <div>
-        <a href="mailto:stemboy@posteo.com">Email</a>
-        <a href="https://github.com/frogscooper">GitHub</a>
       </div>
-    </footer>
-  </div>
-  <script>
-    // GRCH demo: nothing heavy loads until the button is clicked.
-    (() => {
-      const box = document.getElementById('grch-demo');
-      const btn = box && box.querySelector('.grch-run');
-      if (!btn || !window.WebAssembly || !window.Worker) return;
-      btn.hidden = false;
-      btn.addEventListener('click', async () => {
-        btn.disabled = true;
-        btn.textContent = '[ loading ]';
-        try {
-          const { mount } = await import('/assets/grch/demo.js');
-          box.classList.add('live');
-          document.querySelector('.grch-cap').textContent = 'rust to wasm';
-          document.querySelector('.grch-cap-l').textContent = '> fig. 03 / drag to rotate';
-          mount(box);
-        } catch (e) {
-          btn.disabled = false;
-          btn.textContent = '[ failed, retry ]';
-        }
-      });
-    })();
-  </script>
-  <script>
-    // once card: replays a real recorded terminal session (asciinema-style cast,
-    // typed commands plus real pty output with real timing). Loops, pauses
-    // offscreen, and shows the final state for reduced motion.
-    (() => {
-      const box = document.getElementById('once-term');
-      const code = box && box.querySelector('code');
-      if (!code || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const CAST = [[0.3,"$ "],[0.73,"p"],[0.76,"y"],[0.79,"t"],[0.82,"h"],[0.85,"o"],[0.88,"n"],[0.91," "],[0.94,"a"],[0.97,"g"],[1.0,"e"],[1.03,"n"],[1.06,"t"],[1.09,"."],[1.12,"p"],[1.16,"y"],[1.19," "],[1.22,"-"],[1.25,"-"],[1.28,"c"],[1.31,"r"],[1.34,"a"],[1.37,"s"],[1.4,"h"],[1.43,"-"],[1.46,"a"],[1.49,"f"],[1.52,"t"],[1.55,"e"],[1.58,"r"],[1.61," "],[1.64,"c"],[1.67,"h"],[1.7,"a"],[1.73,"r"],[1.76,"g"],[1.79,"e"],[1.82,"_"],[1.85,"c"],[1.88,"a"],[1.91,"r"],[1.95,"d"],[2.2,"\n"],[2.76,"-> charge_card(order='A12', cents=1000)\n  ** charging card for A12: $10.00\n  <- 'ch_1'\n"],[3.17,"!! worker killed (simulated timeout)\n"],[4.07,"$ "],[4.5,"p"],[4.53,"y"],[4.56,"t"],[4.59,"h"],[4.62,"o"],[4.66,"n"],[4.68," "],[4.71,"a"],[4.75,"g"],[4.78,"e"],[4.8,"n"],[4.83,"t"],[4.87,"."],[4.9,"p"],[4.93,"y"],[5.18,"\n"],[5.74,"-> charge_card(order='A12', cents=1000)\n  once: saved result, not run again\n  <- 'ch_1'\n"],[6.24,"-> send_receipt(order='A12', charge='ch_1')\n"],[6.25,"  ** emailing receipt for A12 (ch_1)\n  <- 'msg_1'\nagent: plan done\n"],[9.37,""]];
-      const END = 9.37;
-      const kind = (l) => l.startsWith('$ ') ? 'p' : l.startsWith('  ** ') ? 'fx'
-        : l.startsWith('  once:') ? 'hit' : l.startsWith('!!') ? 'kill' : l.startsWith('  <- ') ? 'ret' : '';
-      const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      let shown = -1, base = 0, at = 0, raf = 0, visible = false;
-      const draw = (n) => {
-        if (n === shown) return;
-        shown = n;
-        let text = '';
-        for (let i = 0; i < n; i++) text += CAST[i][1];
-        const lines = text.split('\n');
-        code.innerHTML = lines.map((l, i) => {
-          const k = kind(l), body = esc(l) + (i === lines.length - 1 ? '<span class="cur"></span>' : '');
-          return k ? '<span class="' + k + '">' + body + '</span>' : body;
-        }).join('\n');
-      };
-      const tick = () => {
-        const t = ((performance.now() - base) / 1000) % END;
-        let n = 0;
-        while (n < CAST.length && CAST[n][0] <= t) n++;
-        draw(n);
-        raf = requestAnimationFrame(tick);
-      };
-      const play = () => { if (raf || !visible || document.hidden) return; base = performance.now() - at; raf = requestAnimationFrame(tick); };
-      const stop = () => { if (!raf) return; cancelAnimationFrame(raf); raf = 0; at = performance.now() - base; };
-      draw(0);
-      new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? play() : stop(); }).observe(box);
-      document.addEventListener('visibilitychange', () => (document.hidden ? stop() : play()));
-    })();
-  </script>
-  <script>
-    // once card: copy the install line.
-    (() => {
-      const btn = document.querySelector('.once-copy');
-      if (!btn || !navigator.clipboard) return;
-      btn.hidden = false;
-      btn.addEventListener('click', async () => {
-        try { await navigator.clipboard.writeText(btn.dataset.copy); btn.textContent = '[ copied ]'; }
-        catch (e) { btn.textContent = '[ copy failed ]'; }
-        setTimeout(() => (btn.textContent = '[ copy ]'), 1500);
-      });
-    })();
-  </script>
-  <script>
-    // Slime studies card: tabs swap which showcase page the iframe shows. Without JS the
-    // Pokémon study still loads, since it is the iframe's own src.
-    (() => {
-      const tabs = document.querySelector('.slime-tabs');
-      const frame = document.querySelector('#slime-demo iframe');
-      if (!tabs || !frame) return;
-      const STUDIES = {
-        battle: {
-          page: 'battle.html',
-          title: 'Slime Battler: a slime mould making the decisions in a Pokémon battle',
-          cap: ['> fig. 04 / recorded battle, slime regrown live', 'jones agent model, in your browser'],
-          desc: 'Every decision in a Pokémon battle. Ten food sites ring the slime, one per move or switch, and the option it gathers on is played. One slime is fed by a PPO network; the other was evolved with CMA-ES to play on its own senses, and beats the network (71% against the strongest-move bot).',
-        },
-        pong: {
-          page: 'index.html',
-          title: 'Slime Pong: a trained policy steering a slime mould paddle with food',
-          cap: ['> fig. 04 / trained policy, playing live', 'ppo policy, in your browser'],
-          desc: 'Pong, where the paddle is a slime. A PPO agent can only choose where to put food, and the slime takes hundreds of steps to follow, so it has to learn to aim where the ball will be. It returns 76% of balls, six times as many as chasing the ball.',
-        },
-        bayarea: {
-          page: 'bayarea.html',
-          title: 'Slime Transit: a slime mould growing a rail network across the Bay Area',
-          cap: ['> fig. 04 / seed 1, growing live', '2020 census, osm rail'],
-          desc: 'A rail network for the Bay Area. Food goes where 7.4 million residents live, water is a wall except at real bridges, and the slime grows between them. At about the length of today\'s rail (709 vs 762 km), it reaches all 30 population centres and joins every pair.',
-        },
-      };
-      const buttons = [...tabs.querySelectorAll('[role="tab"]')];
-      const panel = document.getElementById('slime-demo');
-      const select = (btn) => {
-        const s = STUDIES[btn.dataset.study];
-        if (btn.getAttribute('aria-selected') === 'true') return;
-        for (const b of buttons) {
-          b.setAttribute('aria-selected', String(b === btn));
-          b.tabIndex = b === btn ? 0 : -1;
-        }
-        panel.setAttribute('aria-labelledby', btn.id);
-        frame.title = s.title;
-        refit();
-        frame.src = '/slime/' + s.page + '?embed';
-        const url = '/slime/' + (s.page === 'index.html' ? '' : s.page);
-        document.getElementById('slime-full').href = url;
-        document.getElementById('slime-title').href = url;
-        document.getElementById('slime-file').textContent = '~/slime/' + s.page;
-        document.getElementById('slime-cap-l').textContent = s.cap[0];
-        document.getElementById('slime-cap-r').textContent = s.cap[1];
-        document.getElementById('slime-desc').textContent = s.desc;
-        document.getElementById('slime-tm').hidden = btn.dataset.study !== 'battle';
-      };
-      tabs.hidden = false;
-      tabs.addEventListener('click', (e) => {
-        const btn = e.target.closest('[role="tab"]');
-        if (btn) select(btn);
-      });
-      tabs.addEventListener('keydown', (e) => {
-        const i = buttons.indexOf(document.activeElement);
-        if (i < 0) return;
-        const j = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: buttons.length - 1 }[e.key];
-        if (j === undefined) return;
-        e.preventDefault();
-        const next = buttons[(j + buttons.length) % buttons.length];
-        next.focus();
-        select(next);
-      });
-      // The embedded page reports its height; fit the frame to it. Only grow while a study is
-      // showing, so the page doesn't jump each time the battle log gets a line shorter.
-      let fit = 0;
-      const refit = () => { fit = 0; frame.style.height = ''; };
-      addEventListener('message', (e) => {
-        const h = e.data && e.data.slimeEmbedHeight;
-        if (e.source !== frame.contentWindow || typeof h !== 'number' || h <= fit) return;
-        fit = h;
-        frame.style.height = h + 'px';
-      });
-      let w = innerWidth;
-      addEventListener('resize', () => { if (innerWidth !== w) { w = innerWidth; refit(); } });
-    })();
-  </script>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap"><span>frogscooper · CS @ Ohio State</span><div><a href="mailto:stemboy@posteo.com">Email</a><a href="https://github.com/frogscooper">GitHub</a><a href="/contact/">Contact</a></div></div>
+  </footer>
+
   <script src="/frog-backdrop.js" defer></script>
-  <script src="/assets/prs.js?v=1" defer></script>
+  <script src="/assets/pond.js?v=2" defer></script>
+  <script src="/assets/prs.js?v=2" defer></script>
   <script type="module" src="/assets/contrib.js?v=5"></script>
+  <script>
+  (() => {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const touch = matchMedia('(hover: none)').matches;
+    const $ = (s, el = document) => el.querySelector(s);
+    const svg = (w, h, inner) => `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+    let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+
+    // ---- slime drawings: veins grow along each edge when the slide shows
+    const vein = (a, b, w, d) => {
+      const mx = (a[0] + b[0]) / 2 + (rnd() - .5) * 10, my = (a[1] + b[1]) / 2 + (rnd() - .5) * 8;
+      return `<path class="v" pathLength="1" style="--d:${d}s" stroke-width="${w}" d="M${a[0]} ${a[1]}Q${mx.toFixed(1)} ${my.toFixed(1)} ${b[0]} ${b[1]}"/>`;
+    };
+    const ART = {
+      battle() {
+        const c = [80, 45], food = Array.from({ length: 10 }, (_, k) => { const t = k / 10 * Math.PI * 2 - Math.PI / 2; return [80 + 52 * Math.cos(t), 45 + 30 * Math.sin(t)]; });
+        let s = food.map((f, k) => vein(c, f, k === 3 ? 2.4 : .5, k === 3 ? .4 : .1 + rnd() * .5)).join('');
+        for (let k = 0; k < 14; k++) s += vein(c, [c[0] + (rnd() - .5) * 60, c[1] + (rnd() - .5) * 36], .3, rnd());
+        s += food.map((f, k) => `<circle class="${k === 3 ? 'pick' : 'food'}" cx="${f[0].toFixed(1)}" cy="${f[1].toFixed(1)}" r="${k === 3 ? 3 : 2}"/>`).join('');
+        return svg(160, 90, s);
+      },
+      pong() {
+        let s = `<rect x="14" y="10" width="92" height="70" fill="none" stroke="#5a5233" stroke-width=".6"/><path d="M28 70 L92 26" stroke="#5a5233" stroke-dasharray="2 2" stroke-width=".6" fill="none"/><circle cx="92" cy="26" r="2.2" fill="#fff"/>`;
+        for (let k = 0; k < 16; k++) s += vein([124 + (rnd() - .5) * 10, 78], [124 + (rnd() - .5) * 16, 12 + rnd() * 66], .4 + rnd() * .6, rnd() * .6);
+        return svg(160, 90, s + vein([124, 78], [124, 26], 2.2, .3) + `<circle class="pick" cx="124" cy="26" r="3"/>`);
+      },
+      bayarea() {
+        const P = [[40, 20], [52, 30], [46, 44], [60, 52], [74, 62], [92, 70], [110, 74], [124, 62], [118, 46], [104, 36], [96, 22], [82, 14], [66, 18], [134, 80], [30, 34], [56, 70]];
+        const E = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11], [11, 12], [12, 0], [7, 13], [0, 14], [14, 2], [3, 15], [15, 4], [1, 12], [9, 4]];
+        let s = `<path class="water" d="M60 26 C70 22 86 24 92 32 C98 42 96 52 104 60 C108 66 100 68 92 62 C82 54 70 48 64 40 C60 34 56 30 60 26Z"/>`;
+        s += E.map(([a, b], k) => vein(P[a], P[b], .8 + rnd() * 1.4, k * .06)).join('');
+        return svg(160, 90, s + P.map(p => `<circle class="food" cx="${p[0]}" cy="${p[1]}" r="${1.6 + rnd() * 1.4}"/>`).join(''));
+      },
+    };
+    document.querySelectorAll('.slime-art').forEach(el => { el.innerHTML = ART[el.dataset.art](); });
+
+    // ---- project grid: filter chips from data-tags, and past SHOW the rest fold behind "show all"
+    {
+      const SHOW = 6, grid = $('#grid'), cards = [...grid.children], bar = $('#filter'), more = $('#more');
+      document.querySelectorAll('.n-projects').forEach(n => { n.textContent = cards.length + 1; });
+      const count = {};
+      cards.forEach(c => c.dataset.tags.split(' ').forEach(t => { count[t] = (count[t] || 0) + 1; }));
+      let tag = 'all', open = false;
+      const apply = () => {
+        const hit = cards.filter(c => tag === 'all' || c.dataset.tags.split(' ').includes(tag));
+        cards.forEach(c => c.classList.toggle('out', !hit.includes(c)));
+        hit.forEach((c, i) => c.classList.toggle('folded', !open && i >= SHOW));
+        more.hidden = open || hit.length <= SHOW;
+        $('span', more).textContent = hit.length;
+        bar.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tag === tag)));
+      };
+      // Chips only earn their place once there is something to filter.
+      if (cards.length > 4) {
+        bar.innerHTML = [['all', cards.length], ...Object.entries(count).sort((a, b) => b[1] - a[1])]
+          .map(([t, n]) => `<button type="button" data-tag="${t}">${t}<small>${n}</small></button>`).join('');
+        bar.hidden = false;
+        bar.onclick = e => { const b = e.target.closest('button'); if (b) { tag = b.dataset.tag; apply(); } };
+      }
+      $('button', more).onclick = () => { open = true; apply(); };
+      apply();
+    }
+
+    // ---- GRCH: the real generator (Rust to wasm) runs in the card on request; nothing loads before.
+    {
+      const card = $('#grch'), run = card && $('.run', card);
+      if (run && window.WebAssembly && window.Worker) {
+        run.hidden = false;
+        run.onclick = async () => {
+          run.disabled = true; run.textContent = 'loading…';
+          try {
+            const { mount } = await import('/assets/grch/demo.js');
+            const box = document.createElement('div');
+            box.className = 'grch-live';
+            card.replaceChild(box, $('.cover', card));
+            card.classList.add('live');
+            delete card.dataset.preview;
+            mount(box);
+            run.remove();
+          } catch (e) { run.disabled = false; run.textContent = 'failed, retry ▶'; }
+        };
+      }
+    }
+
+    // ---- slime studies: tabs, auto-advance, run live in place
+    const STUDIES = [
+      { page: 'battle.html', cap: 'recorded battle, slime regrown live', desc: 'Every decision in a Pokémon battle. Ten food sites ring the slime, one per move or switch, and the option it gathers on is played. One slime is fed by a PPO network; the other was evolved with CMA-ES to play on its own senses, and beats the network (71% against the strongest-move bot).' },
+      { page: 'index.html', cap: 'trained policy, playing live', desc: 'Pong, where the paddle is a slime. A PPO agent can only choose where to put food, and the slime takes hundreds of steps to follow, so it has to learn to aim where the ball will be. It returns 76% of balls, six times as many as chasing the ball.' },
+      { page: 'bayarea.html', cap: 'seed 1, 2020 census and osm rail', desc: "A rail network for the Bay Area. Food goes where 7.4 million residents live, water is a wall except at real bridges, and the slime grows between them. At about the length of today's rail (709 vs 762 km), it reaches all 30 population centres and joins every pair." },
+    ];
+    const cover = $('#slime-cover'), slides = [...cover.querySelectorAll('.slide')], tabs = [...cover.querySelectorAll('[role="tab"]')];
+    let cur = 0, timer, live = false;
+    const show = i => {
+      cur = (i + STUDIES.length) % STUDIES.length;
+      const s = STUDIES[cur];
+      slides.forEach((el, k) => el.classList.toggle('on', k === cur));
+      tabs.forEach((t, k) => t.setAttribute('aria-selected', String(k === cur)));
+      $('#slime-cap').textContent = s.cap; $('#slime-desc').textContent = s.desc;
+      $('#slime-full').href = $('#slime-open').href = '/slime/' + (s.page === 'index.html' ? '' : s.page);
+      $('#slime-tm').hidden = cur !== 0;
+      const f = $('iframe', cover); if (f) f.src = '/slime/' + s.page + '?embed';
+    };
+    const auto = () => { clearInterval(timer); if (!reduce && !live) timer = setInterval(() => show(cur + 1), 6000); };
+    tabs.forEach(t => t.onclick = () => { show(+t.dataset.i); auto(); });
+    cover.addEventListener('pointerenter', () => clearInterval(timer));
+    cover.addEventListener('pointerleave', auto);
+    $('#slime-play').onclick = () => {
+      live = true; clearInterval(timer);
+      const f = document.createElement('iframe');
+      f.title = 'Slime study, running live'; f.src = '/slime/' + STUDIES[cur].page + '?embed';
+      cover.appendChild(f); $('#slime-play').hidden = true;
+      $('#slime').classList.add('live');
+    };
+    auto();
+
+    // ---- once recording (the same cast the live site plays)
+    const CAST = [[0.3,"$ "],[0.73,"p"],[0.76,"y"],[0.79,"t"],[0.82,"h"],[0.85,"o"],[0.88,"n"],[0.91," "],[0.94,"a"],[0.97,"g"],[1.0,"e"],[1.03,"n"],[1.06,"t"],[1.09,"."],[1.12,"p"],[1.16,"y"],[1.19," "],[1.22,"-"],[1.25,"-"],[1.28,"c"],[1.31,"r"],[1.34,"a"],[1.37,"s"],[1.4,"h"],[1.43,"-"],[1.46,"a"],[1.49,"f"],[1.52,"t"],[1.55,"e"],[1.58,"r"],[1.61," "],[1.64,"c"],[1.67,"h"],[1.7,"a"],[1.73,"r"],[1.76,"g"],[1.79,"e"],[1.82,"_"],[1.85,"c"],[1.88,"a"],[1.91,"r"],[1.95,"d"],[2.2,"\n"],[2.76,"-> charge_card(order='A12', cents=1000)\n  ** charging card for A12: $10.00\n  <- 'ch_1'\n"],[3.17,"!! worker killed (simulated timeout)\n"],[4.07,"$ "],[4.5,"p"],[4.53,"y"],[4.56,"t"],[4.59,"h"],[4.62,"o"],[4.66,"n"],[4.68," "],[4.71,"a"],[4.75,"g"],[4.78,"e"],[4.8,"n"],[4.83,"t"],[4.87,"."],[4.9,"p"],[4.93,"y"],[5.18,"\n"],[5.74,"-> charge_card(order='A12', cents=1000)\n  once: saved result, not run again\n  <- 'ch_1'\n"],[6.24,"-> send_receipt(order='A12', charge='ch_1')\n"],[6.25,"  ** emailing receipt for A12 (ch_1)\n  <- 'msg_1'\nagent: plan done\n"],[9.37,""]];
+    const paint = txt => txt.split('\n').map(l => {
+      const c = l.startsWith('$') ? 'p' : l.startsWith('!!') ? 'kill' : l.includes('once:') ? 'hit' : l.includes('**') ? 'fx' : l.includes('<-') ? 'ret' : '';
+      return c ? `<span class="${c}">${esc(l)}</span>` : esc(l);
+    }).join('\n');
+    const FULL = CAST.map(c => c[1]).join('').trimEnd(), code = $('#once-code');
+    code.innerHTML = paint(FULL);
+
+    // ---- cbtorrent swarm and fly-osu neurons, in ink and moss
+    {
+      seed = 11; let s = '', pk = '';
+      const C = [80, 45], peers = Array.from({ length: 11 }, () => [10 + rnd() * 140, 8 + rnd() * 74]);
+      peers.forEach((p, k) => {
+        const good = k % 3 === 0;
+        s += `<path d="M${C[0]} ${C[1]}L${p[0].toFixed(1)} ${p[1].toFixed(1)}" stroke="${good ? '#4c6b34' : '#c9ccc2'}" stroke-width="${good ? .9 : .5}"/>`;
+        s += `<rect x="${(p[0] - 2).toFixed(1)}" y="${(p[1] - 2).toFixed(1)}" width="4" height="4" fill="${good ? '#74a542' : '#fafaf8'}" stroke="#101010" stroke-width=".5"/>`;
+        if (good) pk += `<circle class="pkt" r="1.3" fill="#101010" style="offset-path:path('M${p[0].toFixed(1)} ${p[1].toFixed(1)}L${C[0]} ${C[1]}');animation-delay:${(k * .23).toFixed(2)}s"/>`;
+      });
+      $('#swarm').innerHTML = svg(160, 90, s + pk + `<rect x="75" y="40" width="10" height="10" fill="#101010"/>`);
+      seed = 5; s = '';
+      const N = Array.from({ length: 40 }, () => [8 + rnd() * 144, 8 + rnd() * 74]);
+      N.forEach((a, k) => { const b = N[(k * 7 + 3) % N.length]; s += `<path d="M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}" stroke="#c9ccc2" stroke-width=".5"/>`; });
+      s += N.map(a => `<circle class="n" cx="${a[0].toFixed(1)}" cy="${a[1].toFixed(1)}" r="${1 + rnd() * 1.5}" fill="#4c6b34" opacity=".35" style="animation-delay:${(rnd() * 1.2).toFixed(2)}s"/>`).join('');
+      $('#neuro').innerHTML = svg(160, 90, s);
+    }
+
+    // ---- hover previews. On touch screens they play when the card is mostly on screen.
+    const PREVIEW = {
+      lily(card) {
+        const fills = card.querySelectorAll('.fill'), ts = card.querySelectorAll('.t'), t0 = performance.now();
+        fills.forEach(f => { f.style.transition = 'none'; f.style.width = '0'; });
+        requestAnimationFrame(() => requestAnimationFrame(() => fills.forEach(f => { f.style.transition = `width ${f.dataset.ms}ms linear`; f.style.width = '100%'; })));
+        const tick = () => {
+          const s = (performance.now() - t0) / 1000;
+          ts.forEach(t => { t.textContent = Math.min(s, +t.dataset.to).toFixed(1) + ' s'; });
+          if (s < 8.9 && card._on) card._raf = requestAnimationFrame(tick);
+        };
+        tick();
+        return () => { cancelAnimationFrame(card._raf); fills.forEach(f => { f.style.transition = 'none'; f.style.width = '100%'; }); ts.forEach(t => { t.textContent = t.dataset.to + ' s'; }); };
+      },
+      term() {
+        let k = 0, txt = '', raf; const t0 = performance.now();
+        const step = () => {
+          const s = (performance.now() - t0) / 1000 * 1.3;
+          while (k < CAST.length && CAST[k][0] <= s) txt += CAST[k++][1];
+          code.innerHTML = paint(txt) + '<span class="caret"></span>';
+          if (k < CAST.length) raf = requestAnimationFrame(step);
+        };
+        step();
+        return () => { cancelAnimationFrame(raf); code.innerHTML = paint(FULL); };
+      },
+      shots(card) {
+        const imgs = [...card.querySelectorAll('.shots img')], bar = $('.scrub', card), cv = $('.cover', card);
+        const set = f => { const i = Math.min(imgs.length - 1, Math.floor(f * imgs.length)); imgs.forEach((im, k) => im.classList.toggle('on', k === i)); bar.style.width = (f * 100).toFixed(1) + '%'; };
+        const move = e => { const r = cv.getBoundingClientRect(); set(Math.max(0, Math.min(.999, (e.clientX - r.left) / r.width))); };
+        cv.addEventListener('pointermove', move);
+        let iv; if (touch) { let f = 0; iv = setInterval(() => { f = (f + .25) % 1; set(f + .01); }, 900); }
+        return () => { cv.removeEventListener('pointermove', move); clearInterval(iv); bar.style.width = '0'; imgs.forEach((im, k) => im.classList.toggle('on', k === 0)); };
+      },
+      swarm() { return () => {}; },
+      neuro() { return () => {}; },
+    };
+    const start = c => { if (c._on) return; c._on = true; c.classList.add('playing'); c._stop = PREVIEW[c.dataset.preview](c); };
+    const stop = c => { if (!c._on) return; c._on = false; c.classList.remove('playing'); c._stop && c._stop(); };
+    const cards = document.querySelectorAll('[data-preview]');
+    if (touch) {
+      $('#hint').textContent = 'covers run as you scroll';
+      const io = new IntersectionObserver(es => es.forEach(e => (e.intersectionRatio > .7 && !reduce ? start : stop)(e.target)), { threshold: [0, .7] });
+      cards.forEach(c => io.observe(c));
+    } else cards.forEach(c => {
+      c.addEventListener('pointerenter', () => start(c));
+      c.addEventListener('pointerleave', () => stop(c));
+      c.addEventListener('focusin', () => start(c));
+      c.addEventListener('focusout', () => stop(c));
+    });
+
+  })();
+  </script>
 </body>
 </html>

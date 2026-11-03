@@ -1,6 +1,6 @@
 // Refresh the open source PR lists in the browser, so they are current on every load.
 // Same query and markup as scripts/prs.py, which bakes the fallback rows every 4h.
-// Replaces the rows between <!-- prs:start/end --> (home, latest 1) and <!-- prs-all:start/end -->
+// Replaces the rows between <!-- prs:start/end --> (home, latest 4) and <!-- prs-all:start/end -->
 // (open-source page, all) only on a good, non-empty response that differs. Errors, rate
 // limits (search allows 10/min without a token) and empty results leave the baked rows alone.
 (() => {
@@ -81,7 +81,7 @@
 
   load().then((items) => {
     if (!items || !items.length) return;
-    fill('prs', block(items.slice(0, 1).map(row), 16));
+    fill('prs', block(items.slice(0, 4).map(row), 16));
     fill('prs-all', block(items.map(rowAll), 8));
   }).catch(() => {});
 })();
