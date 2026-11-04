@@ -139,13 +139,10 @@ a.cover:hover, .card.playing .cover { transform: translate(-2px, -2px); box-shad
 .shots img.on { opacity: 1; }
 
 .swarm { background: #f2f3ee; }
-.swarm svg, .neuro svg, .slime-art svg { width: 100%; height: 100%; display: block; }
+.swarm svg, .slime-art svg { width: 100%; height: 100%; display: block; }
 .swarm .pkt { opacity: 0; }
 .card.playing .swarm .pkt { animation: pkt 1.4s linear infinite; }
 @keyframes pkt { 0% { opacity: 0; offset-distance: 0%; } 10%, 90% { opacity: 1; } 100% { opacity: 0; offset-distance: 100%; } }
-.neuro { background: #f2f3ee; }
-.card.playing .neuro circle.n { animation: fire 1.2s ease-in-out infinite; }
-@keyframes fire { 0%, 100% { opacity: .2; } 50% { opacity: 1; } }
 
 .sheet { width: 64%; height: 100%; background: #fff; border: 1px solid var(--ink); border-bottom: 0; padding: 9% 9% 0; color: #222; transition: transform .3s ease; }
 .paper-row:hover .sheet { transform: translateY(-6%); }

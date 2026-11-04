@@ -27,7 +27,7 @@
   <meta name="twitter:image" content="https://frogscooper.dev/assets/og.png">
   <meta name="twitter:image:alt" content="frogscooper, Cracked CS student: the pixel frog beside project covers for Lilypad, once and GRCH. frogscooper.dev">
   <meta name="google-adsense-account" content="ca-pub-9008261213236010">
-  <link rel="stylesheet" href="/assets/pond.css?v=5">
+  <link rel="stylesheet" href="/assets/pond.css?v=6">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -174,12 +174,7 @@
           <div class="links"><a href="https://github.com/frogscooper/cbtorrent">Source ↗</a></div>
         </article>
 
-        <article class="card" data-preview="neuro" data-tags="simulation">
-          <div class="cover" aria-hidden="true">
-            <div class="art neuro" id="neuro"></div>
-            <span class="badge leaf">in progress</span>
-            <div class="strip"><b>fruit fly cns</b><span class="len">osu!</span></div>
-          </div>
+        <article class="card" data-tags="simulation">
           <span class="idx">in progress</span>
           <h3>fly-osu</h3>
           <p>The reconstructed male fruit fly CNS as a controller for osu!: beatmaps encoded into neural input, network activity decoded into cursor movement and clicks.</p>
@@ -347,7 +342,7 @@
     const FULL = CAST.map(c => c[1]).join('').trimEnd(), code = $('#once-code');
     code.innerHTML = paint(FULL);
 
-    // ---- cbtorrent swarm and fly-osu neurons, in ink and moss
+    // ---- cbtorrent swarm, in ink and moss
     {
       seed = 11; let s = '', pk = '';
       const C = [80, 45], peers = Array.from({ length: 11 }, () => [10 + rnd() * 140, 8 + rnd() * 74]);
@@ -358,11 +353,6 @@
         if (good) pk += `<circle class="pkt" r="1.3" fill="#101010" style="offset-path:path('M${p[0].toFixed(1)} ${p[1].toFixed(1)}L${C[0]} ${C[1]}');animation-delay:${(k * .23).toFixed(2)}s"/>`;
       });
       $('#swarm').innerHTML = svg(160, 90, s + pk + `<rect x="75" y="40" width="10" height="10" fill="#101010"/>`);
-      seed = 5; s = '';
-      const N = Array.from({ length: 40 }, () => [8 + rnd() * 144, 8 + rnd() * 74]);
-      N.forEach((a, k) => { const b = N[(k * 7 + 3) % N.length]; s += `<path d="M${a[0].toFixed(1)} ${a[1].toFixed(1)}L${b[0].toFixed(1)} ${b[1].toFixed(1)}" stroke="#c9ccc2" stroke-width=".5"/>`; });
-      s += N.map(a => `<circle class="n" cx="${a[0].toFixed(1)}" cy="${a[1].toFixed(1)}" r="${1 + rnd() * 1.5}" fill="#4c6b34" opacity=".35" style="animation-delay:${(rnd() * 1.2).toFixed(2)}s"/>`).join('');
-      $('#neuro').innerHTML = svg(160, 90, s);
     }
 
     // ---- hover previews. On touch screens they play when the card is mostly on screen.
@@ -399,7 +389,6 @@
         return () => { cv.removeEventListener('pointermove', move); clearInterval(iv); bar.style.width = '0'; imgs.forEach((im, k) => im.classList.toggle('on', k === 0)); };
       },
       swarm() { return () => {}; },
-      neuro() { return () => {}; },
     };
     const start = c => { if (c._on) return; c._on = true; c.classList.add('playing'); c._stop = PREVIEW[c.dataset.preview](c); };
     const stop = c => { if (!c._on) return; c._on = false; c.classList.remove('playing'); c._stop && c._stop(); };
