@@ -527,7 +527,7 @@
     .dots { display: flex; gap: 5px; }
     .dots i { width: 9px; height: 9px; border: 1.5px solid var(--ink); }
     .dots i:first-child { background: var(--ink); }
-    /* Man page README card: NAME and DESCRIPTION on the left, a key/value list on the right. */
+    /* Man page README card: GitHub photo on the left, stats in the column beside it. */
     .intro.man {
       padding: 23px 0 84px;
     }
@@ -538,16 +538,40 @@
     }
 
     .man-body {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+      display: flex;
+      flex-direction: column;
       border: 1px solid var(--ink);
       background: var(--bg);
     }
 
     .man-main {
-      display: flex;
-      flex-direction: column;
-      padding: 24px 28px 26px;
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr);
+      column-gap: 22px;
+      align-items: center;
+      padding: 18px 22px 12px;
+      background: #eef1ea;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .man-pfp-link {
+      grid-column: 1;
+      grid-row: 1;
+      display: block;
+      color: inherit;
+    }
+
+    .man-pfp-link:hover {
+      text-decoration: none;
+    }
+
+    .man-pfp {
+      display: block;
+      width: 112px;
+      height: 112px;
+      object-fit: cover;
+      border: 1.5px solid var(--ink);
+      background: var(--bg);
     }
 
     .man-k {
@@ -555,33 +579,50 @@
       font: 700 11px/1 var(--mono);
       letter-spacing: 0.09em;
       text-transform: uppercase;
-      margin: 0 0 10px;
+      margin: 0 0 8px;
     }
 
-    .man-main { container-type: inline-size; } /* lets the name scale to its column */
+    .man-id { container-type: inline-size; min-width: 0; } /* lets the name scale to its column */
 
     .man-main h1 {
-      font-size: 64px;
-      font-size: min(64px, (100cqi - 14px) / 6.1); /* "frogscooper" is ~6em wide; 14px = left margin */
-      line-height: 1;
+      font-size: 48px;
+      font-size: min(48px, (100cqi - 4px) / 6.1); /* "frogscooper" is ~6em wide */
+      line-height: 0.95;
       letter-spacing: -0.055em;
-      margin: 0 0 30px 14px;
+      margin: 0 0 6px;
     }
 
-    .man-main .man-desc {
-      max-width: 34em;
+    .man-gh {
+      display: inline-block;
+      font: 13px/1.3 var(--mono);
+      color: var(--ink);
+    }
+
+    .man-gh-counts {
+      display: block;
+      margin: 3px 0 0;
+      font: 12px/1.4 var(--mono);
+      color: var(--muted);
+    }
+
+    .man-copy {
+      padding: 18px 22px 22px;
+    }
+
+    .man-copy .man-desc {
+      max-width: 40em;
       font-size: 15.5px;
       line-height: 1.6;
       color: #2b2b2b;
-      margin: 0 0 0 14px;
+      margin: 0;
     }
 
     .man-acts {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      margin: auto 0 0 14px;
-      padding-top: 26px;
+      margin: 0;
+      padding-top: 18px;
     }
 
     .man-btn {
@@ -602,20 +643,21 @@
     }
 
     .man-list {
-      margin: 0;
+      grid-column: 1 / -1;
+      margin: 12px -22px 0;
+      padding: 0 22px;
       display: grid;
       grid-template-rows: repeat(5, auto);
-      border-left: 1px solid var(--ink);
-      background: #eef1ea;
+      border-top: 1px solid var(--ink);
     }
 
     .man-row {
       display: grid;
-      grid-template-columns: 112px 1fr;
-      gap: 14px;
+      grid-template-columns: 112px minmax(0, 1fr);
+      gap: 22px;
       align-items: baseline;
-      padding: 13px 16px;
-      border-bottom: 1px solid var(--ink);
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
     }
 
     .man-row:last-child {
@@ -642,6 +684,9 @@
     }
 
     .man-row.hl {
+      margin: 0 -22px;
+      padding-left: 22px;
+      padding-right: 22px;
       background: var(--ink);
       color: var(--bg);
     }
@@ -673,17 +718,6 @@
       outline-color: var(--bg);
     }
 
-    @media (max-width: 960px) {
-      .man-body {
-        grid-template-columns: 1fr;
-      }
-
-      .man-list {
-        border-left: 0;
-        border-top: 1px solid var(--ink);
-      }
-    }
-
     @media (max-width: 760px) {
       .intro.man {
         gap: 14px;
@@ -695,28 +729,48 @@
       }
 
       .man-main {
-        padding: 18px 16px 20px;
+        grid-template-columns: 72px minmax(0, 1fr);
+        column-gap: 14px;
+        padding: 14px 14px 8px;
+      }
+
+      .man-pfp {
+        width: 72px;
+        height: 72px;
       }
 
       .man-main h1 {
-        font-size: 44px;
-        font-size: min(44px, 100cqi / 6.1);
-        margin: 0 0 22px;
+        font-size: 32px;
+        font-size: min(32px, 100cqi / 6.1);
+        margin: 0 0 6px;
       }
 
-      .man-main .man-desc,
-      .man-acts {
-        margin-left: 0;
+      .man-copy {
+        padding: 14px 14px 16px;
       }
 
-      .man-main .man-desc {
+      .man-copy .man-desc {
         font-size: 14.5px;
+      }
+
+      .man-list {
+        margin-left: -14px;
+        margin-right: -14px;
+        padding-left: 14px;
+        padding-right: 14px;
       }
 
       .man-row {
         grid-template-columns: 1fr;
         gap: 2px;
-        padding: 11px 16px;
+        padding: 8px 0;
+      }
+
+      .man-row.hl {
+        margin-left: -14px;
+        margin-right: -14px;
+        padding-left: 14px;
+        padding-right: 14px;
       }
 
       .man .frame figcaption {
@@ -982,8 +1036,24 @@
           <div class="fig-head"><span class="dots"><i></i><i></i><i></i></span><span>man frogscooper</span><span>FROGSCOOPER(1)</span></div>
           <div class="man-body">
             <div class="man-main">
-              <span class="man-k">Name</span>
-              <h1 id="man-name">frogscooper</h1>
+              <a class="man-pfp-link" href="https://github.com/frogscooper" aria-label="frogscooper on GitHub">
+                <img class="man-pfp" src="https://avatars.githubusercontent.com/u/187351941?v=4&amp;s=224" width="112" height="112" alt="">
+              </a>
+              <div class="man-id">
+                <span class="man-k">Name</span>
+                <h1 id="man-name">frogscooper</h1>
+                <a class="man-gh" href="https://github.com/frogscooper">@frogscooper</a>
+                <span class="man-gh-counts">17 public repos · 4 followers · 5 following</span>
+              </div>
+              <dl class="man-list">
+                <div class="man-row"><dt>currently</dt><dd>creating machine learning simulations of Physarum polycephalum. im making it play pokemon and pong, and reproducing Tero et al. with San Francisco</dd></div>
+                <div class="man-row"><dt>shipped</dt><dd><a href="https://lilypad.frogscooper.dev">lilypad</a>, 32 tools in 4 languages, 11x faster than heictojpg.com</dd></div>
+                <div class="man-row"><dt>research</dt><dd><a href="/research/">non-intersecting corridor routing in BSP-generated spaces</a></dd></div>
+                <div class="man-row"><dt>stack</dt><dd>Rust, TypeScript, Python</dd></div>
+                <div class="man-row hl"><dt>looking for</dt><dd>SWE internship</dd></div>
+              </dl>
+            </div>
+            <div class="man-copy">
               <span class="man-k">Description</span>
               <p class="man-desc">CS sophomore @ OSU. I build software with 3 priorities: efficiency, precision, and aura.</p>
               <div class="man-acts">
@@ -991,13 +1061,6 @@
                 <a class="man-btn" href="https://github.com/frogscooper">[github]</a>
               </div>
             </div>
-            <dl class="man-list">
-              <div class="man-row"><dt>currently</dt><dd>creating machine learning simulations of Physarum polycephalum. im making it play pokemon and pong, and reproducing Tero et al. with San Francisco</dd></div>
-              <div class="man-row"><dt>shipped</dt><dd><a href="https://lilypad.frogscooper.dev">lilypad</a>, 32 tools in 4 languages, 11x faster than heictojpg.com</dd></div>
-              <div class="man-row"><dt>research</dt><dd><a href="/research/">non-intersecting corridor routing in BSP-generated spaces</a></dd></div>
-              <div class="man-row"><dt>stack</dt><dd>Rust, TypeScript, Python</dd></div>
-              <div class="man-row hl"><dt>looking for</dt><dd>SWE internship</dd></div>
-            </dl>
           </div>
           <figcaption><span>&gt; see also: <a href="#projects">projects(1)</a>, <a href="/research/">research(1)</a></span><span>updated oct 2026</span></figcaption>
         </figure>
@@ -1498,6 +1561,21 @@ print(&quot;agent: plan done&quot;)</code></pre>
       });
       let w = innerWidth;
       addEventListener('resize', () => { if (innerWidth !== w) { w = innerWidth; refit(); } });
+    })();
+  </script>
+  <script>
+    // GitHub profile counts on the readme card. The text in the page is the fallback.
+    (() => {
+      const el = document.querySelector('.man-gh-counts');
+      if (!el) return;
+      const n = v => new Intl.NumberFormat('en-US').format(v);
+      fetch('https://api.github.com/users/frogscooper', { headers: { Accept: 'application/vnd.github+json' } })
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(u => {
+          if (typeof u.public_repos !== 'number') return;
+          el.textContent = `${n(u.public_repos)} public repos · ${n(u.followers)} followers · ${n(u.following)} following`;
+        })
+        .catch(() => {});
     })();
   </script>
   <script src="/frog-backdrop.js" defer></script>
