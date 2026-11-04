@@ -98,7 +98,9 @@ function range(data, months) {
   const from = fmt(day(days[0][0])), to = fmt(day(data.to));
   const best = days.reduce((a, b) => (b[1] > a[1] ? b : a));
   const label = `${total} GitHub contributions from ${from} to ${to}. Busiest day ${fmt(day(best[0]))} with ${best[1]}.`;
-  return { cols: weeks(days), total, from, to, label };
+  let active = 0, streak = 0, run = 0;
+  for (const d of days) { run = d[1] ? run + 1 : 0; if (d[1]) active++; if (run > streak) streak = run; }
+  return { cols: weeks(days), total, from, to, label, active, streak };
 }
 
 async function main() {
@@ -116,6 +118,8 @@ async function main() {
     box.scrollLeft = box.scrollWidth;
   }
   document.querySelectorAll('.cg-total').forEach(n => (n.textContent = r.total));
+  document.querySelectorAll('.cg-active').forEach(n => (n.textContent = r.active));
+  document.querySelectorAll('.cg-streak').forEach(n => (n.textContent = r.streak));
   document.querySelectorAll('.cg-range').forEach(n => (n.textContent = `${r.from} to ${r.to}`));
   if (tall) {
     // the rail has its own total and month count, since on short screens it shows less
