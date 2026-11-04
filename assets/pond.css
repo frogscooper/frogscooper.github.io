@@ -340,3 +340,24 @@ footer a:hover { color: var(--ink); }
   .grch-bar input { width: 100%; max-width: 21ch; }
   .grch-status { margin-left: 0; flex-basis: 100%; }
 }
+
+/* ---- 404: an empty lilypad bobbing on the water (the frog is up in the header, looking around) */
+.pond-empty { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 28px; align-items: center; }
+.water { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid var(--ink); background: repeating-linear-gradient(0deg, #dde7e2 0 6px, #e5ede9 6px 12px); display: grid; place-items: center; }
+.water .pad { width: 62%; height: auto; position: relative; z-index: 1; animation: bob 4s ease-in-out infinite; }
+.ripple { position: absolute; left: 50%; top: 55%; width: 70%; aspect-ratio: 32 / 14; translate: -50% -50%; border: 1.5px solid #9bb07c; border-radius: 50%; opacity: 0; animation: ripple 4s ease-out infinite; }
+.ripple.r2 { animation-delay: 2s; }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-4%) rotate(1deg); } }
+@keyframes ripple { 0% { scale: .85; opacity: .8; } 100% { scale: 1.45; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .water .pad, .ripple { animation: none; } }
+.miss { display: inline-block; max-width: 100%; overflow-wrap: anywhere; font: 700 15px/1.4 var(--mono); background: var(--ink); color: var(--paper); padding: 6px 9px; }
+.lost p { margin: 12px 0 18px; font-size: 15px; color: #4b4b4b; }
+.lost .acts { flex-wrap: wrap; }
+@media (max-width: 760px) {
+  .pond-empty { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+}
+.water .ghost { fill: none; stroke: var(--ink); stroke-width: 1.5px; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; stroke-linejoin: miter; animation: march 1.6s linear infinite; }
+.water .q { fill: var(--ink); animation: wonder 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes march { to { stroke-dashoffset: -18; } }
+@keyframes wonder { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(8deg) translateY(-6%); } }
+@media (prefers-reduced-motion: reduce) { .water .ghost, .water .q { animation: none; } }
