@@ -1,0 +1,11 @@
+/* Social preview mockups: each page is exactly 1200x630 and is screenshotted to a PNG.
+   Built on assets/pond.css, so the cards match the site. */
+html, body { width: 1200px; height: 630px; overflow: hidden; margin: 0; }
+.frog-bg-float { display: none !important; }
+.og { position: absolute; inset: 0; }
+.sheet-og { position: absolute; background: var(--paper); border: 2px solid var(--ink); box-shadow: 10px 10px 0 var(--ink); }
+.og .avatar { margin: 0; cursor: default; }
+.url { font: 700 22px/1 var(--mono); }
+.tagline { font-size: 26px; line-height: 1.35; margin: 0; }
+.chip { display: inline-block; background: var(--ink); color: var(--paper); font: 700 22px/1 var(--mono); padding: 12px 16px; }
+.k { font: 18px var(--mono); color: var(--muted); }

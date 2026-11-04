@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>og card</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="/assets/pond.css">
+  <link rel="stylesheet" href="og.css">
+  <script>try { localStorage.setItem('frog-bg', 'swiss-contour'); } catch (e) {}</script>
+  <style>
+.sheet-og { left: 50px; top: 50%; translate: 0 -50%; width: 1100px; padding: 40px 44px 44px; box-sizing: border-box; }
+.c-top { display: flex; align-items: center; gap: 26px; }
+.og .avatar { width: 104px; height: 104px; border-width: 2px; box-shadow: 5px 5px 0 var(--ink); }
+.og .avatar svg { width: 66px; }
+h1 { margin: 0; font-size: 64px; line-height: 1; letter-spacing: -.045em; }
+.c-sub { margin: 10px 0 0; font: 700 30px/1.1 var(--mono); letter-spacing: -.02em; color: var(--moss); }
+.c-top .url { margin-left: auto; align-self: flex-start; margin-top: 10px; }
+.c-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 30px; }
+
+.c-grid .cover { aspect-ratio: 16 / 9.4; border-width: 2px; }
+.c-grid .cover > .art { inset: 0 0 34px; }
+.c-grid .strip { height: 34px; font-size: 15px; padding: 0 12px; }
+.c-grid .lily { gap: 14px; }
+.c-grid .lane, .c-grid .lane .t { font-size: 17px; }
+.c-grid .track { height: 14px; }
+.c-grid .term pre { font-size: 12px; padding: 12px 14px; }
+.c-grid .shots img { opacity: 1; }
+</style>
+</head>
+<body>
+  <div class="og">
+    <div class="sheet-og">
+      <div class="c-top"><div class="avatar"></div><div><h1>frogscooper</h1><p class="c-sub">Cracked CS student</p></div><span class="url">frogscooper.dev</span></div>
+      <div class="c-grid">
+        <div class="cover"><div class="art lily"><div class="lane me"><span>lilypad</span><span class="t">0.8 s</span><div class="track"><div class="fill"></div></div></div><div class="lane"><span>heictojpg.com</span><span class="t">8.9 s</span><div class="track"><div class="fill"></div></div></div></div><div class="strip"><b>lilypad</b><span class="len">11x faster</span></div></div>
+        <div class="cover"><div class="art term"><pre><span class="kill">!! worker killed (simulated timeout)</span>
+<span class="p">$ python agent.py</span>
+-&gt; charge_card(order='A12', cents=1000)
+<span class="hit">  once: saved result, not run again</span>
+<span class="ret">  &lt;- 'ch_1'</span>
+agent: plan done</pre></div><div class="strip"><b>once</b><span class="len">charged once</span></div></div>
+        <div class="cover"><div class="art shots"><img src="/assets/grch_obj_top_angle.png" alt=""></div><div class="strip"><b>grch</b><span class="len">bsp dungeons</span></div></div>
+      </div>
+    </div>
+  </div>
+  <script src="/frog-backdrop.js"></script>
+  <script src="/assets/pond.js"></script>
+</body>
+</html>
