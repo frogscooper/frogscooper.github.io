@@ -10,7 +10,7 @@
   <meta name="description" content="frogscooper, CS sophomore @ Ohio State. Projects, research, and contact.">
   <link rel="canonical" href="https://frogscooper.dev/">
   <link rel="icon" type="image/svg+xml" href="/assets/frog.svg">
-  <meta name="theme-color" content="#fafaf8">
+  <meta name="theme-color" content="#f8f2e9">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="frogscooper">
   <meta property="og:title" content="frogscooper | CS @ Ohio State">
@@ -27,7 +27,7 @@
   <meta name="twitter:image" content="https://frogscooper.dev/assets/og.png">
   <meta name="twitter:image:alt" content="frogscooper, Cracked CS student: the pixel frog beside project covers for Lilypad, once and GRCH. frogscooper.dev">
   <meta name="google-adsense-account" content="ca-pub-9008261213236010">
-  <link rel="stylesheet" href="/assets/pond.css?v=10">
+  <link rel="stylesheet" href="/assets/pond.css?v=11">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -207,7 +207,7 @@
           <h3 class="cg-total">301</h3>
           <small>github contributions, last 6 months · <span class="cg-range"></span></small>
           <div class="cg-box"><p class="cg-fallback">The contribution graph needs JavaScript. See it on <a href="https://github.com/frogscooper">github.com/frogscooper</a>.</p></div>
-          <div class="cap">one frog per day, greener frog, more commits</div>
+          <div class="cap">one frog per day, darker frog, more commits</div>
         </div>
         <div>
           <h3>open source</h3>
@@ -230,8 +230,8 @@
     <div class="wrap"><span>frogscooper · CS @ Ohio State</span><div><a href="mailto:stemboy@posteo.com">Email</a><a href="https://github.com/frogscooper">GitHub</a><a href="/contact/">Contact</a></div></div>
   </footer>
 
-  <script src="/frog-backdrop.js" defer></script>
-  <script src="/assets/pond.js?v=2" defer></script>
+  <script src="/frog-backdrop.js?v=2" defer></script>
+  <script src="/assets/pond.js?v=3" defer></script>
   <script src="/assets/prs.js?v=2" defer></script>
   <script type="module" src="/assets/contrib.js?v=6"></script>
   <script src="/assets/langs.js?v=2" defer></script>
@@ -366,11 +366,11 @@
       const C = [80, 45], peers = Array.from({ length: 11 }, () => [10 + rnd() * 140, 8 + rnd() * 74]);
       peers.forEach((p, k) => {
         const good = k % 3 === 0;
-        s += `<path d="M${C[0]} ${C[1]}L${p[0].toFixed(1)} ${p[1].toFixed(1)}" stroke="${good ? '#4c6b34' : '#c9ccc2'}" stroke-width="${good ? .9 : .5}"/>`;
-        s += `<rect x="${(p[0] - 2).toFixed(1)}" y="${(p[1] - 2).toFixed(1)}" width="4" height="4" fill="${good ? '#74a542' : '#fafaf8'}" stroke="#101010" stroke-width=".5"/>`;
-        if (good) pk += `<circle class="pkt" r="1.3" fill="#101010" style="offset-path:path('M${p[0].toFixed(1)} ${p[1].toFixed(1)}L${C[0]} ${C[1]}');animation-delay:${(k * .23).toFixed(2)}s"/>`;
+        s += `<path d="M${C[0]} ${C[1]}L${p[0].toFixed(1)} ${p[1].toFixed(1)}" stroke="${good ? '#8a5a36' : '#d8cbbb'}" stroke-width="${good ? .9 : .5}"/>`;
+        s += `<rect x="${(p[0] - 2).toFixed(1)}" y="${(p[1] - 2).toFixed(1)}" width="4" height="4" fill="${good ? '#c8935e' : '#f8f2e9'}" stroke="#2b1d15" stroke-width=".5"/>`;
+        if (good) pk += `<circle class="pkt" r="1.3" fill="#2b1d15" style="offset-path:path('M${p[0].toFixed(1)} ${p[1].toFixed(1)}L${C[0]} ${C[1]}');animation-delay:${(k * .23).toFixed(2)}s"/>`;
       });
-      $('#swarm').innerHTML = svg(160, 90, s + pk + `<rect x="75" y="40" width="10" height="10" fill="#101010"/>`);
+      $('#swarm').innerHTML = svg(160, 90, s + pk + `<rect x="75" y="40" width="10" height="10" fill="#2b1d15"/>`);
     }
 
     // ---- hover previews. On touch screens they play when the card is mostly on screen.

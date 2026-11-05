@@ -4,7 +4,7 @@
 (() => {
   // 11x9 grid. w = eye white; the pupils and the closed lids are drawn separately below.
   const FROG = ['.ddd...ddd.', 'dwwwd.dwwwd', 'dwwwdgdwwwd', 'dgggggggggd', 'dgpgggggpgd', 'dgdgggggdgd', 'dggdddddggd', '.dgggggggd.', '..ddddddd..'];
-  const INK = { d: '#24401a', g: '#74a542', w: '#ffffff', p: '#e39a86' };
+  const INK = { d: '#3b2416', g: '#c8935e', w: '#ffffff', p: '#e39a86' };
   const px = (x, y, fill, cls = '') => `<rect${cls && ` class="${cls}"`} x="${x}" y="${y}" width="1" height="1" fill="${fill}"/>`;
   const body = FROG.map((r, y) => [...r].map((c, x) => INK[c] ? px(x, y, INK[c]) : '').join('')).join('');
   // Closed: the top row of each eye turns to skin, the bottom row to a dark lash line.

@@ -3,14 +3,14 @@
  *  then load this file from your page with a deferred script tag (src="/frog-backdrop.js").
  *  Keep html/body backgrounds transparent so the canvas shows through. */
 (() => {
-  const SCENES = [{"id":"paper-lilypad","label":"Pond","name":"Paper Lilypad","pal":["#f4f1e8","#e3e2cc","#c3c99b","#8a9e5c","#4c6b34","#1d3318"],"px":3,"inks":5,"range":0.45,"speed":0.8},{"id":"swiss-contour","label":"Contour","name":"Swiss Contour","pal":["#ffffff","#eef1ec","#cfd8cc","#9aae95","#4f6b4f","#18261a"],"px":2,"inks":5,"range":0.8,"speed":1}];
+  const SCENES = [{"id":"paper-lilypad","label":"Pond","name":"Paper Lilypad","pal":["#f6efe4","#ead9c2","#d5b590","#a87648","#8a5a36","#2e1a10"],"px":3,"inks":5,"range":0.45,"speed":0.8},{"id":"swiss-contour","label":"Contour","name":"Swiss Contour","pal":["#ffffff","#f3eadf","#e0cdb6","#b8987a","#6f4e37","#2a1a10"],"px":2,"inks":5,"range":0.8,"speed":1}];
   const KEY = 'frog-bg';
   let cur = 1; // Swiss Contour unless the visitor has picked
   try { const i = SCENES.findIndex(s => s.id === localStorage.getItem(KEY)); if (i >= 0) cur = i; } catch (e) {}
 
   // Pixel frog face for the switch knob: 11x9 grid, 2px per pixel.
   const FROG = ['.ddd...ddd.','dwwwd.dwwwd','dwkwdgdwkwd','dgggggggggd','dgpgggggpgd','dgdgggggdgd','dggdddddggd','.dgggggggd.','..ddddddd..'];
-  const INK = { d: '#24401a', g: '#74a542', w: '#ffffff', k: '#111111', p: '#e39a86' };
+  const INK = { d: '#3b2416', g: '#c8935e', w: '#ffffff', k: '#111111', p: '#e39a86' };
   const frogSVG = '<svg class="fb-k" viewBox="0 0 11 9" width="22" height="18" shape-rendering="crispEdges" aria-hidden="true">' +
     FROG.map((row, y) => [...row].map((ch, x) => INK[ch] ? `<rect x="${x}" y="${y}" width="1" height="1" fill="${INK[ch]}"/>` : '').join('')).join('') + '</svg>';
 
