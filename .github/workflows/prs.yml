@@ -26,7 +26,9 @@ jobs:
       - name: Fetch latest PRs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 scripts/prs.py index.html open-source/index.html
+        run: |
+          python3 scripts/prs.py index.html open-source/index.html
+          python3 scripts/gh.py index.html
 
       - name: Commit if changed
         run: |

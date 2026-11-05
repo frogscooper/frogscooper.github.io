@@ -72,6 +72,33 @@ img { display: block; max-width: 100%; }
 .nums b { display: block; font: 700 24px/1.1 var(--mono); letter-spacing: -.04em; }
 .nums span { display: block; font-size: 11px; line-height: 1.3; color: var(--muted); }
 .acts { display: flex; gap: 12px; }
+
+/* ---- home card, GitHub-backed: pfp + numbers in a left column, merged-into repos in the facts */
+.prof.gh { grid-template-columns: 216px minmax(0, 1fr) auto; }
+.lead { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.pfp { position: relative; width: 104px; height: 104px; margin-top: -42px; border: 1.5px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); background: var(--pad); }
+.pfp img { width: 100%; height: 100%; object-fit: cover; }
+/* the frog moves in as a badge on the pfp; it still blinks, looks around and hops */
+.pfp .avatar { position: absolute; right: -16px; bottom: -12px; width: 40px; height: 40px; margin: 0; border-width: 1.5px; box-shadow: 2px 2px 0 var(--ink); }
+.pfp .avatar svg { width: 26px; }
+.gh .nums { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--ink); }
+.gh .nums div { background: var(--paper); border: 0; padding: 7px 10px; }
+.gh .nums .big { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 8px; }
+.gh .nums .big b { font-size: 30px; }
+.gh .nums b { font-size: 20px; }
+.gh .langs { max-width: none; }
+.gh .side { gap: 14px; }
+.handle { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font: 12px var(--mono); color: var(--muted); }
+.handle svg { width: 14px; height: 14px; fill: currentColor; }
+.handle:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.merged { display: flex; flex-wrap: wrap; gap: 6px; }
+.repo { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px 3px 4px; border: 1px solid var(--ink); background: var(--paper); font: 11.5px/1.3 var(--mono); color: var(--ink); box-shadow: 2px 2px 0 var(--ink); transition: transform .1s, box-shadow .1s; }
+.repo:hover { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
+.repo img { width: 16px; height: 16px; border: 1px solid var(--line); }
+.facts .repo { text-decoration: none; white-space: nowrap; max-width: 100%; }
+.repo span { color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
+.repo b { color: var(--ink); }
+.repo em { font-style: normal; color: var(--moss); }
 /* language bar shades, biggest language first; 6 is "other" */
 :root { --lang1: #2a4020; --lang2: #5e8b3a; --lang3: #93c051; --lang4: #c3d79a; --lang5: #e2ead0; --lang6: #f1f3ea; }
 .langs { display: grid; gap: 7px; width: 100%; max-width: 360px; }
@@ -246,6 +273,25 @@ footer a:hover { color: var(--ink); }
   .side { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding-top: 0; }
   .nums div { padding: 5px 12px; }
   .nums b { font-size: 19px; }
+  .prof.gh { grid-template-columns: 196px minmax(0, 1fr); }
+  .gh .lead { grid-row: 1 / span 2; }
+  .gh .side { grid-column: 2; }
+  .gh .nums div { padding: 6px 9px; }
+}
+@media (max-width: 760px) {
+  /* the left column unfolds: pfp beside the name, then the numbers as one strip */
+  .prof.gh { grid-template-columns: auto minmax(0, 1fr); }
+  .gh .lead { display: contents; }
+  .gh .pfp { grid-row: 1; width: 76px; height: 76px; margin-top: -30px; }
+  .gh .pfp .avatar { width: 32px; height: 32px; right: -12px; bottom: -10px; }
+  .gh .pfp .avatar svg { width: 20px; }
+  .gh .who { grid-row: 1; grid-column: 2; }
+  .gh .nums { grid-row: 2; grid-column: 1 / -1; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .gh .nums .big { grid-column: auto; display: block; }
+  .gh .nums .big b, .gh .nums b { font-size: 17px; }
+  .gh .nums div { padding: 5px 7px; }
+  .gh .langs { grid-row: 3; grid-column: 1 / -1; }
+  .gh .side { grid-row: 4; grid-column: 1 / -1; }
 }
 @media (max-width: 760px) {
   .pondview { height: 70px; }
