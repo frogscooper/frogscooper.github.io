@@ -1,8 +1,7 @@
-// frogscooper.dev, Umber (from _designs/24-umber): the background behind every page, a
-// topographic map drifting slowly in the dark: caramel contour lines over deep umber, every fifth
-// line heavier, lit a little toward the top. One full-screen shader on a fixed canvas; it renders
-// at most ~30 fps, stops while the tab is hidden, and draws one still frame for visitors who
-// prefer reduced motion. Without WebGL the html background colour from umber.css shows instead.
+// frogscooper.dev, Instrument (from _designs/28-instrument): the board behind every page. One
+// full-screen shader on a fixed canvas; it renders at most ~30 fps, stops while the tab is hidden,
+// and draws one still frame for visitors who prefer reduced motion. Without WebGL the html
+// background colour from instrument.css shows instead.
 window.latteField = (src, { scale = .6, speed = 1 } = {}) => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const c = document.createElement('canvas');
@@ -62,33 +61,38 @@ ${src}`;
   fit(); go();
 };
 
+// 28 Instrument: the dark board the panels are mounted on — a fine measuring grid (every 24 CSS px,
+// heavier every 120) over faint caramel contours drifting slowly, like a plotter's underlay.
+// Runs on /_designs/latte-gl.js.
 latteField(`
-const vec3 UMBER = vec3(.105, .068, .045), LIFT = vec3(.19, .12, .075), LINE = vec3(.80, .60, .38);
+const vec3 BOARD = vec3(.09, .062, .043), GRID = vec3(.30, .22, .15), LINE = vec3(.80, .60, .38);
 
 void main() {
   vec2 css = vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y) / uDpr;   // CSS px from the top left
-  vec2 p = (gl_FragCoord.xy - .5 * uRes) / uRes.y;                    // y up, screen heights
-  float t = uT * .02;
+  vec2 p = (gl_FragCoord.xy - .5 * uRes) / uRes.y;
+  float t = uT * .015;
+  vec3 col = BOARD;
 
-  float h = fbm(p * 1.4 + vec2(t, -t * .5)) + .45 * fbm(p * 3.1 - vec2(t * .7, 0.));
-  vec3 col = mix(UMBER, LIFT, ss(.45, 1.1, h));
+  // grid: px from the nearest line per axis, fine and major
+  vec2 f = abs(fract(css / 24.) - .5) * 24., F = abs(fract(css / 120.) - .5) * 120.;
+  float fine = max(1. - ss(.3, 1., 12. - f.x), 1. - ss(.3, 1., 12. - f.y));
+  float big = max(1. - ss(.4, 1.2, 60. - F.x), 1. - ss(.4, 1.2, 60. - F.y));
+  col = mix(col, GRID, fine * .22 + big * .35);
 
-  // contours sit at k = n + .5; d is the distance to the nearest one, in k units
-  float k = h * 16.;
+  // faint contours, every fourth a little stronger
+  float h = fbm(p * 1.2 + vec2(t, -t * .4)) + .4 * fbm(p * 2.7 - vec2(t * .6, 0.));
+  float k = h * 13.;
   float d = abs(fract(k) - .5);
 #ifdef HAS_DER
-  float px = fwidth(k);                                               // k units per pixel: lines stay ~1px
+  float px = fwidth(k);
 #else
   float px = .04;
 #endif
-  float major = 1. - step(.5, mod(floor(k), 5.));                     // every fifth contour
-  float lw = mix(.5, 1.1, major) * px;                                // half-width
-  float line = 1. - ss(lw, lw + px, d);
-  line *= mix(.35, .75, major);
-  float glow = ss(-.8, .55, p.y);                                     // brighter toward the top
-  col = mix(col, LINE, line * (.55 + .45 * glow));
+  float major = 1. - step(.5, mod(floor(k), 4.));
+  float lw = mix(.45, .9, major) * px;
+  col = mix(col, LINE, (1. - ss(lw, lw + px, d)) * mix(.14, .3, major));
 
-  col += (hash(floor(css)) - .5) * .02;
+  col += (hash(floor(css)) - .5) * .015;
   gl_FragColor = vec4(col, 1.);
 }
 `, { scale: 1, speed: 1 });

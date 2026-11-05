@@ -40,10 +40,29 @@ background (23 and 24 run a shader through the shared `latte-gl.js`; 25 is a sti
 frog leaves the profile card and page headers in all three and stays as the favicon and on the
 404; 25 also keeps it in the contribution graph.
 
-24 Umber is the live site since 2026-11-05: its look moved into `/assets/umber.css` and
-`/assets/umber.js` (loaded after `pond.css` on every page) and the live graph draws dots. The
+24 Umber was the live site for part of 2026-11-05 (as `/assets/umber.css` and `umber.js`, since
+removed; 28 Instrument replaced it the same day), and the live graph has drawn dots since. The
 23-25 folders are the snapshot built from the pond-feed pages just before; `latte.py` refuses to
 run now that those pages are gone, so edit the folders by hand.
+
+| # | Design | Layout | Field |
+|---|--------|--------|-------|
+| 26 | Atlas | pinned legend | a field atlas: fixed left legend with the plate index, numbered plates with ruler edges, contours under a graticule |
+| 27 | Strata | editorial beds | giant slab name over drifting rock strata, full-width tan and umber beds, projects as a numbered index |
+| 28 | Instrument | dashboard | dark tiled panels with caramel hairlines on a gridded board, a segmented page switch |
+
+26-28 are total redesigns in the live site's Umber palette and mood (deep umber, tan paper,
+caramel contours, Zilla Slab). `python3 _designs/umber.py` builds them from the live Umber pages,
+so rerun it after editing the site. Each is a `style.css` that lays the same markup out its own
+way over `/assets/pond.css` (the only markup changes are classes on `<body>` and the profile
+wrapper), plus a `bg.js` shader through `latte-gl.js`. Every demo, filter and live preview works
+as on the live site.
+
+28 Instrument is the live site since 2026-11-05 (after 24 Umber, the same day): its look is
+`/assets/instrument.css` and `/assets/instrument.js` over `pond.css`, and the live pages carry
+its body classes. The 26-28 folders are the snapshot built from the Umber pages; `umber.py`
+refuses to run now that those are gone, so edit the folders by hand. 24 Umber's own folder still
+works on its own `theme.css`.
 
 21 and 22 are hand-written prototypes, not built by `build.py`: only the home page exists
 (`21-bili/index.html`, with `assets/theme/field.js` copied from `src/`; `22-pond-feed/index.html`,

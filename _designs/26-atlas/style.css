@@ -1,0 +1,162 @@
+/* 26 Atlas: the site as a field atlas, in Umber's palette. On wide screens the profile is a fixed
+   legend down the left edge (pfp, name, readings, languages, and the pages as a numbered plate
+   index); every section is a numbered plate with ruler ticks along its edges and its map
+   reference below it, laid on a drifting contour map with a graticule (bg.js). Zilla Slab
+   headings, Source Serif text, mono for the legend. Below 1081px the legend folds back on top.
+   Loaded after /assets/pond.css and /_designs/latte-base.css. */
+:root {
+  --paper: #dcc6a1; --ink: #21140c; --muted: #5c4433; --line: #b89c74; --moss: #a33f22; --leaf: #e0a458; --pad: #e7d5b4;
+  --panel: #e9d9bb; --night: #1c120c; --cream: #f3e6cf; --dim: #b39a7c;
+  --cg-ink: #21140c; --eye: #f6e7c6;
+  --f0: #e3cfab; --f1: #c9a679; --f2: #a8743f; --f3: #7f4a25; --f4: #4f2c16; --dk: #170b05;
+  --lang1: #21140c; --lang2: #4f2c16; --lang3: #7f4a25; --lang4: #c38b52; --lang5: #dcc08f; --lang6: #ecdcbc;
+  --slab: "Zilla Slab", Rockwell, Georgia, serif;
+  --serif: "Source Serif 4", Georgia, serif;
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .2 0 0 0 0 .09 0 0 0 .3 -.08'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23k)'/%3E%3C/svg%3E");
+  --side: 340px;
+}
+html { background: var(--night); }
+body { font-family: var(--serif); font-size: 15.5px; }
+::selection { background: var(--leaf); color: var(--ink); }
+
+/* ---- top strip and footer: the dark margin of the map */
+.bar { background: color-mix(in srgb, var(--night) 94%, transparent); border-bottom: 1px solid #3a2618; color: var(--cream); }
+.id strong { font: 700 18px/1.1 var(--slab); }
+.id span { color: var(--dim); }
+footer { background: var(--night); border-top: 1px solid #3a2618; }
+footer .wrap { color: var(--dim); font-family: var(--mono); font-size: 11px; }
+footer a:hover { color: var(--cream); }
+
+/* ---- the legend: profile, readings and plate index */
+.profile { background: var(--paper) var(--grain); border: 2px solid var(--ink); box-shadow: 6px 6px 0 rgba(0, 0, 0, .55); }
+.d-atlas .prof { display: flex; flex-direction: column; align-items: stretch; gap: 14px; padding: 28px 26px 22px; }
+.d-atlas .lead, .d-atlas .who, .d-atlas .side { display: contents; }
+.d-atlas .prof > .pfp, .d-atlas .prof > .avatar, .d-atlas .lead > .pfp { order: 1; }
+.d-atlas .crumb { order: 2; }
+.d-atlas .who h1 { order: 3; }
+.d-atlas .handle { order: 4; }
+.d-atlas .who > p { order: 5; }
+.d-atlas .seek { order: 6; }
+.d-atlas .nums { order: 7; }
+.d-atlas .langs { order: 8; }
+.d-atlas .facts { order: 9; }
+.d-atlas .acts { order: 10; }
+
+.d-atlas .pfp, .d-atlas .prof > .avatar { width: 112px; height: 112px; margin: 0; flex: none; border: 2px solid var(--ink); outline: 0; box-shadow: 4px 4px 0 var(--ink); background: var(--cream); transform: none; }
+.d-atlas .prof > .avatar svg { width: 70px; }
+.d-atlas .crumb { font: 11px var(--mono); color: var(--muted); letter-spacing: .04em; }
+.d-atlas .who h1 { margin: 0; font: 700 38px/1 var(--slab); letter-spacing: -.01em; }
+.d-atlas.page-home .who h1 { font-size: 40px; }
+.d-atlas .handle { margin: -8px 0 0; }
+.d-atlas .who > p { margin: 0; max-width: none; font-size: 15px; line-height: 1.5; color: #3f2c1e; }
+.d-atlas .who .desc { font-size: 16px; color: var(--ink); }
+.d-atlas .seek { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: var(--cream); padding: 7px 11px 7px 10px; }
+.d-atlas .seek::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--leaf); box-shadow: 0 0 0 3px rgba(224, 164, 88, .28); }
+.d-atlas .gh .nums { width: 100%; background: var(--ink); border: 1.5px solid var(--ink); }
+.d-atlas .gh .nums div { background: var(--panel); padding: 7px 10px; }
+.d-atlas .gh .nums b { font: 700 21px/1.1 var(--slab); letter-spacing: 0; }
+.d-atlas .gh .nums .big b { font-size: 30px; }
+.d-atlas .nums span { font-family: var(--mono); font-size: 10px; letter-spacing: .02em; }
+.d-atlas .langs { max-width: none; }
+.d-atlas .lang-bar { border-width: 1.5px; }
+.d-atlas .facts { margin: 4px 0 0; padding-top: 12px; border-top: 1px solid var(--line); gap: 10px; font-size: 14px; color: #3f2c1e; max-width: none; }
+.d-atlas .facts div { grid-template-columns: 1fr; gap: 1px; }
+.d-atlas .facts dt { line-height: 1.4; text-transform: uppercase; letter-spacing: .08em; font-size: 10px; }
+.d-atlas .repo { background: var(--panel); }
+.d-atlas .acts { gap: 10px; }
+.btn { background: var(--cream); border-width: 1.5px; }
+.btn.ink { background: var(--ink); color: var(--cream); }
+
+/* the plate index */
+.d-atlas .tabs { counter-reset: pl; border-top: 2px solid var(--ink); }
+.d-atlas .tabs a { counter-increment: pl; }
+.d-atlas .tabs a::before { content: counter(pl, decimal-leading-zero); font: 10px var(--mono); color: var(--muted); margin-right: 8px; letter-spacing: 0; }
+.d-atlas .tabs a[aria-current] { border-color: var(--moss); }
+.d-atlas .tabs a[aria-current]::before { color: var(--moss); }
+
+/* ---- plates */
+main { counter-reset: plate; }
+.d-atlas .shelf { counter-increment: plate; position: relative; background: var(--paper) var(--grain); border: 2px solid var(--ink); box-shadow: 6px 6px 0 rgba(0, 0, 0, .55); padding: 30px 28px 28px; }
+.d-atlas .shelf::before {   /* ruler ticks along the top and left edges: every 10px, longer every 50px */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 50px),
+    repeating-linear-gradient(180deg, var(--ink) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(180deg, var(--ink) 0 1px, transparent 1px 50px);
+  background-size: 100% 5px, 100% 10px, 5px 100%, 10px 100%;
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  background-repeat: no-repeat;
+  opacity: .55;
+}
+.d-atlas .shelf::after {   /* map reference under each plate: Columbus, Ohio */
+  content: "plate " counter(plate, upper-roman) "  ·  39°59′N 83°00′W  ·  scale 1:1"; white-space: pre;
+  position: absolute; left: 0; bottom: -24px; font: 10px var(--mono); color: var(--dim); letter-spacing: .06em;
+}
+.d-atlas .sec-head { border-bottom: 3px double var(--ink); }
+.d-atlas .sec-head h2 { font: 700 15px/1 var(--slab); letter-spacing: .1em; }
+.d-atlas .sec-head h2::before { content: "Plate " counter(plate, upper-roman) " \2014  "; white-space: pre; color: var(--moss); }
+.d-atlas .shelf + .shelf { margin-top: 76px; }
+.card h3, .paper-row h3, .way strong { font-family: var(--slab); font-weight: 700; letter-spacing: 0; }
+.feature h3 { font-size: 32px; }
+.duo h3 { font: 700 40px/1 var(--slab); letter-spacing: 0; }
+.card p, .paper-row p, .note, .lost p { color: #3f2c1e; }
+.cover { border-width: 1.5px; }
+.strip b { color: var(--leaf); }
+.filter button { background: var(--panel); }
+.filter button[aria-pressed="true"] { background: var(--ink); color: var(--cream); }
+.pr-tag.open, .os-state { background: var(--panel); }
+.pr-tag.merged, .os-state.merged { background: var(--leaf); }
+.os-state.open { color: var(--moss); }
+.way { background: var(--panel); border-width: 1.5px; }
+.way.ink { background: var(--ink); color: var(--cream); }
+.way.ink .k, .way.ink small { color: var(--dim); }
+.miss { background: var(--ink); color: var(--cream); }
+
+/* ---- wide: the legend is pinned to the left edge */
+@media (min-width: 1081px) {
+  body { padding-left: var(--side); }
+  .bar .id { visibility: hidden; }
+  .pondview { height: 40px; }
+  .d-atlas .top { width: auto; margin: 0; }
+  .d-atlas .profile { position: fixed; z-index: 30; top: 0; bottom: 0; left: 0; width: var(--side); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; border-width: 0 2px 0 0; box-shadow: none; }
+  /* the plate index stays in view at the foot of the legend while the legend scrolls */
+  .d-atlas .tabs { position: sticky; bottom: 0; flex-direction: column; gap: 0; padding: 4px 26px 18px; overflow: visible; background: var(--paper) var(--grain); box-shadow: 0 -10px 16px -10px rgba(33, 20, 12, .35); }
+  .d-atlas .tabs a { display: flex; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--ink); }
+  .d-atlas .tabs a[aria-current] { border-bottom: 2px solid var(--moss); }
+  .d-atlas .tabs a[aria-current]::after { content: "\25C6"; margin-left: auto; color: var(--moss); font-size: 10px; }
+  .d-atlas main.wrap { width: min(1080px, calc(100% - 72px)); padding-top: 0; }
+  .d-atlas .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  footer .wrap { width: min(1080px, calc(100% - 72px)); }
+}
+@media (min-width: 1081px) and (max-width: 1360px) {
+  .d-atlas .feature { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .d-atlas .feature .idx { margin-top: 12px; }
+  .d-atlas .duo { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- narrow: the legend sits on top, pfp beside it */
+@media (max-width: 1080px) {
+  .d-atlas .prof, .d-atlas .prof.gh { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: 24px; row-gap: 12px; align-items: start; }
+  .d-atlas .prof > .pfp, .d-atlas .prof > .avatar, .d-atlas .lead > .pfp { grid-column: 1; grid-row: 1 / span 4; }
+  .d-atlas .prof .who > *, .d-atlas .prof .lead > :not(.pfp), .d-atlas .prof .side > * { grid-column: 2; grid-row: auto; }
+  .d-atlas .gh .nums { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .d-atlas .gh .nums .big { grid-column: auto; display: block; }
+  .d-atlas .gh .nums .big b, .d-atlas .gh .nums b { font-size: 20px; }
+  .d-atlas .shelf { padding: 28px 22px 24px; }
+}
+@media (max-width: 760px) {
+  .d-atlas .prof, .d-atlas .prof.gh { grid-template-columns: 72px minmax(0, 1fr); column-gap: 16px; padding: 22px 16px 18px; }
+  .d-atlas .pfp, .d-atlas .prof > .avatar { width: 72px; height: 72px; box-shadow: 3px 3px 0 var(--ink); }
+  .d-atlas .prof > .avatar svg { width: 46px; }
+  .d-atlas .prof > .pfp, .d-atlas .prof > .avatar, .d-atlas .lead > .pfp { grid-row: 1 / span 2; }
+  .d-atlas .who h1, .d-atlas.page-home .who h1 { font-size: 30px; }
+  /* everything after the name and handle takes the full width */
+  .d-atlas .prof .who > p, .d-atlas .prof .facts, .d-atlas .prof .lead > :not(.pfp), .d-atlas .prof .side > * { grid-column: 1 / -1; }
+  .d-atlas .gh .nums .big b, .d-atlas .gh .nums b { font-size: 17px; }
+  .d-atlas .gh .nums div { padding: 5px 7px; }
+  .d-atlas .shelf { padding: 24px 14px 20px; box-shadow: 4px 4px 0 rgba(0, 0, 0, .55); }
+  .d-atlas .shelf + .shelf { margin-top: 64px; }
+  .d-atlas .sec-head h2 { font-size: 13px; }
+  .d-atlas .tabs { padding: 0 14px; }
+}
