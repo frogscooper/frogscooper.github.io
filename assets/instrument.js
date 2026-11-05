@@ -65,7 +65,7 @@ ${src}`;
 // bent by a slow, smooth flow like combed fibres or brushed metal, fading in and out in broad
 // patches so most of the board stays quiet.
 latteField(`
-const vec3 BOARD = vec3(.085, .058, .04), LINE = vec3(.78, .56, .34);
+const vec3 BOARD = vec3(.08, .057, .045), LINE = vec3(.815, .674, .52);
 
 void main() {
   vec2 css = vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y) / uDpr;   // CSS px from the top left
@@ -87,7 +87,7 @@ void main() {
   // broad patches where the threads show; quiet elsewhere
   float patch = ss(.42, .75, fbm(q * 1.6 + vec2(-t * .7, t * .4) + 9.));
   vec3 col = mix(BOARD, LINE, line * (.05 + .26 * patch));
-  col = mix(col, vec3(.13, .085, .055), patch * .35);
+  col = mix(col, vec3(.122, .083, .063), patch * .35);
 
   vec2 v = gl_FragCoord.xy / uRes - .5;
   col *= 1. - .3 * dot(v, v);

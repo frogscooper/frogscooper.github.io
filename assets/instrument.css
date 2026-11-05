@@ -1,5 +1,6 @@
 /* frogscooper.dev, Instrument (from _designs/28-instrument): loaded after /assets/pond.css on every
-   page, which carries body classes "d-instrument page-*". A dense dashboard in the Umber palette:
+   page, which carries body classes "d-instrument page-*". A dense dashboard in a coffee palette (umber and mocha mixed half and half,
+   from _designs/palettes):
    everything is a dark panel with caramel hairlines on a gridded board (/assets/instrument.js);
    the profile splits into tiles, the pages are a segmented switch, every section is a panel with a
    lit header. Zilla Slab names, IBM Plex Sans text, mono labels. The frog stays as the favicon
@@ -11,11 +12,11 @@
 .pfp img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 :root {
-  --paper: #21170f; --ink: #f1e3cb; --muted: #a88d72; --line: #3d2b1d; --moss: #e0a458; --leaf: #e0a458; --pad: #2a1e14;
-  --panel: #2a1e14; --board: #17100b; --deep: #0f0a07; --soft: #cdb89c; --red: #c4553a;
-  --cg-ink: #120c08; --eye: #f6e7c6;
-  --f0: #2a1e14; --f1: #5a3a22; --f2: #8f5a30; --f3: #c38b52; --f4: #e0a458; --dk: #120c08;
-  --lang1: #e0a458; --lang2: #c38b52; --lang3: #8f5a30; --lang4: #6a4428; --lang5: #4a3220; --lang6: #3d2b1d;
+  --paper: #1f1611; --ink: #edddcf; --muted: #a38877; --line: #392921; --moss: #e5c08f; --leaf: #e5c08f; --pad: #281d16;
+  --panel: #281d16; --board: #16100c; --deep: #0e0a08; --soft: #c8b2a1; --red: #c4553a;
+  --cg-ink: #110c09; --eye: #f1decb;
+  --f0: #281d16; --f1: #623e2b; --f2: #9c603e; --f3: #c89773; --f4: #e5c08f; --dk: #110c09;
+  --lang1: #e5c08f; --lang2: #c89773; --lang3: #9c603e; --lang4: #744933; --lang5: #513628; --lang6: #392921;
   --slab: "Zilla Slab", Rockwell, Georgia, serif;
   --sans: "IBM Plex Sans", Arial, Helvetica, sans-serif;
   --r: 6px;
@@ -36,16 +37,16 @@ footer a:hover { color: var(--leaf); }
 .btn { background: var(--pad); color: var(--ink); border: 1px solid var(--line); border-radius: 4px; box-shadow: none; font-weight: 700; transition: border-color .15s, background .15s; }
 .btn:hover { transform: none; box-shadow: none; border-color: var(--leaf); }
 .btn.ink { background: var(--leaf); color: var(--deep); border-color: var(--leaf); }
-.btn.ink:hover { background: #ebb771; }
-.seek { display: inline-flex; align-items: center; gap: 8px; background: rgba(224, 164, 88, .1); color: var(--leaf); border: 1px solid rgba(224, 164, 88, .38); border-radius: 4px; padding: 7px 11px 7px 10px; }
+.btn.ink:hover { background: #f2d5ad; }
+.seek { display: inline-flex; align-items: center; gap: 8px; background: rgba(229, 192, 143, .1); color: var(--leaf); border: 1px solid rgba(229, 192, 143, .38); border-radius: 4px; padding: 7px 11px 7px 10px; }
 .seek::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--leaf); animation: pulse 2.4s ease-in-out infinite; }
-@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(224, 164, 88, .55); } 60% { box-shadow: 0 0 0 6px rgba(224, 164, 88, 0); } }
-@media (prefers-reduced-motion: reduce) { .seek::before { animation: none; box-shadow: 0 0 0 3px rgba(224, 164, 88, .28); } }
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(229, 192, 143, .55); } 60% { box-shadow: 0 0 0 6px rgba(229, 192, 143, 0); } }
+@media (prefers-reduced-motion: reduce) { .seek::before { animation: none; box-shadow: 0 0 0 3px rgba(229, 192, 143, .28); } }
 .filter { border-top-color: var(--line); }
 .filter button { background: var(--pad); border-color: var(--line); color: var(--ink); border-radius: 4px; }
 .filter button:hover { background: var(--line); }
 .filter button[aria-pressed="true"] { background: var(--leaf); color: var(--deep); border-color: var(--leaf); }
-.filter button[aria-pressed="true"] small { color: #5a3a22; }
+.filter button[aria-pressed="true"] small { color: #623e2b; }
 .repo { background: var(--pad); border: 1px solid var(--line); border-radius: 4px; box-shadow: none; color: var(--ink); }
 .repo:hover { transform: none; border-color: var(--leaf); }
 .repo img { border-color: var(--line); border-radius: 3px; }
@@ -119,7 +120,7 @@ footer a:hover { color: var(--leaf); }
 .d-instrument .shelf + .shelf { margin-top: 12px; }
 .d-instrument .sec-head { margin: 0 -20px 20px; padding: 12px 20px; background: var(--pad); border-bottom: 1px solid var(--line); border-radius: var(--r) var(--r) 0 0; }
 .d-instrument .sec-head h2 { font: 700 11px/1 var(--mono); letter-spacing: .16em; }
-.d-instrument .sec-head h2::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 9px; border-radius: 50%; background: var(--leaf); box-shadow: 0 0 6px rgba(224, 164, 88, .7); vertical-align: 0; }
+.d-instrument .sec-head h2::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 9px; border-radius: 50%; background: var(--leaf); box-shadow: 0 0 6px rgba(229, 192, 143, .7); vertical-align: 0; }
 .d-instrument .sec-head span { color: var(--muted); font-family: var(--mono); font-size: 11px; }
 .d-instrument .sec-head a { color: var(--leaf); font-family: var(--mono); font-size: 11px; }
 .card h3, .paper-row h3, .way strong { font-family: var(--slab); font-weight: 700; letter-spacing: 0; color: var(--ink); }
@@ -135,7 +136,7 @@ a.cover:hover, .card.playing .cover { transform: none; box-shadow: 0 0 0 1px var
 .badge.leaf { background: var(--leaf); color: var(--deep); }
 .lily { background: var(--paper); }
 .track { border-color: var(--line); background: var(--pad); }
-.fill { background: #6a5442; }
+.fill { background: #665246; }
 .bench, .bench div, .bench div:nth-child(2n) { border-color: var(--line); }
 .bench dt { color: var(--ink); }
 .pr-tag { border-color: var(--line); border-radius: 3px; }
@@ -147,13 +148,13 @@ a.cover:hover, .card.playing .cover { transform: none; box-shadow: 0 0 0 1px var
 .way { background: var(--pad); border: 1px solid var(--line); border-radius: var(--r); box-shadow: none; }
 .way:hover { transform: none; box-shadow: none; border-color: var(--leaf); }
 .way.ink { background: var(--leaf); color: var(--deep); border-color: var(--leaf); }
-.way.ink .k, .way.ink small { color: #5a3a22; }
+.way.ink .k, .way.ink small { color: #623e2b; }
 .way.ink strong { color: var(--deep); }
 .miss { background: var(--deep); color: var(--leaf); border: 1px solid var(--line); border-radius: 4px; }
 .thumb { border-color: var(--line); border-radius: 4px; }
 .water { border-color: var(--line); border-radius: 4px; }
-.water .ghost { stroke: #21140c; }   /* the 404 water stays light, so its ink stays dark */
-.water .q { fill: #21140c; }
+.water .ghost { stroke: #1f140e; }   /* the 404 water stays light, so its ink stays dark */
+.water .q { fill: #1f140e; }
 .grch-live, .grch-canvas { background: var(--deep); border-color: var(--line); }
 .grch-bar { background: var(--paper); border-top-color: var(--line); }
 .grch-bar input, .grch-bar select, .grch-bar button { background: var(--pad); color: var(--ink); border-color: var(--line); }
