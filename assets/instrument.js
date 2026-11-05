@@ -61,37 +61,36 @@ ${src}`;
   fit(); go();
 };
 
-// 28 Instrument: the dark board the panels are mounted on — a fine measuring grid (every 24 CSS px,
-// heavier every 120) over faint caramel contours drifting slowly, like a plotter's underlay.
-// Runs on /_designs/latte-gl.js.
+// The board behind the panels ("threads", from _designs/bg-lab): fine parallel lines every ~12 CSS px,
+// bent by a slow, smooth flow like combed fibres or brushed metal, fading in and out in broad
+// patches so most of the board stays quiet.
 latteField(`
-const vec3 BOARD = vec3(.09, .062, .043), GRID = vec3(.30, .22, .15), LINE = vec3(.80, .60, .38);
+const vec3 BOARD = vec3(.085, .058, .04), LINE = vec3(.78, .56, .34);
 
 void main() {
   vec2 css = vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y) / uDpr;   // CSS px from the top left
   vec2 p = (gl_FragCoord.xy - .5 * uRes) / uRes.y;
-  float t = uT * .015;
-  vec3 col = BOARD;
+  float t = uT * .01;
 
-  // grid: px from the nearest line per axis, fine and major
-  vec2 f = abs(fract(css / 24.) - .5) * 24., F = abs(fract(css / 120.) - .5) * 120.;
-  float fine = max(1. - ss(.3, 1., 12. - f.x), 1. - ss(.3, 1., 12. - f.y));
-  float big = max(1. - ss(.4, 1.2, 60. - F.x), 1. - ss(.4, 1.2, 60. - F.y));
-  col = mix(col, GRID, fine * .22 + big * .35);
-
-  // faint contours, every fourth a little stronger
-  float h = fbm(p * 1.2 + vec2(t, -t * .4)) + .4 * fbm(p * 2.7 - vec2(t * .6, 0.));
-  float k = h * 13.;
+  // bend the lines by a smooth warp, then draw one every ~12 px across them
+  vec2 w = vec2(fbm(p * 1.1 + vec2(t, 1.7)), fbm(p * 1.1 + vec2(5.2, -t)));
+  vec2 q = p + .55 * (w - .5);
+  float k = (q.y + .25 * q.x) * uRes.y / uDpr / 12.;
   float d = abs(fract(k) - .5);
 #ifdef HAS_DER
   float px = fwidth(k);
 #else
-  float px = .04;
+  float px = .08;
 #endif
-  float major = 1. - step(.5, mod(floor(k), 4.));
-  float lw = mix(.45, .9, major) * px;
-  col = mix(col, LINE, (1. - ss(lw, lw + px, d)) * mix(.14, .3, major));
+  float line = 1. - ss(.35 * px, 1.35 * px, d);
 
+  // broad patches where the threads show; quiet elsewhere
+  float patch = ss(.42, .75, fbm(q * 1.6 + vec2(-t * .7, t * .4) + 9.));
+  vec3 col = mix(BOARD, LINE, line * (.05 + .26 * patch));
+  col = mix(col, vec3(.13, .085, .055), patch * .35);
+
+  vec2 v = gl_FragCoord.xy / uRes - .5;
+  col *= 1. - .3 * dot(v, v);
   col += (hash(floor(css)) - .5) * .015;
   gl_FragColor = vec4(col, 1.);
 }
