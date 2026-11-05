@@ -1,0 +1,80 @@
+/* 23 Silk: soft and light. Cream sheets with rounded corners and soft shadows float on slow
+   caramel silk (bg.js). Fraunces for headings, DM Sans for text, round buttons and tags. The
+   contribution graph is one rounded tile per day. Latte is the palette only. */
+:root {
+  --paper: #fbf6ee; --ink: #3b2417; --muted: #85695a; --line: #ead9c6; --moss: #9a6038; --leaf: #d9a877; --pad: #f4e9da;
+  --cg-ink: #5a3721; --eye: #fffaf2;
+  --f0: #f7efe4; --f1: #ecd6b8; --f2: #dcb185; --f3: #b0703f; --f4: #7a4728; --dk: #5a3721;
+  --lang1: #3b2417; --lang2: #7a4728; --lang3: #b0703f; --lang4: #dcb185; --lang5: #ecd6b8; --lang6: #f6ecdf;
+  --serif: "Fraunces", Georgia, serif;
+  --r: 22px;
+  --soft: 0 22px 48px -26px rgba(59, 36, 23, .6), 0 2px 8px -3px rgba(59, 36, 23, .22);
+  --lift: 0 16px 30px -16px rgba(59, 36, 23, .65), 0 0 0 1px rgba(59, 36, 23, .1);
+}
+html { background: #b98a5c; }
+body { font-family: "DM Sans", Arial, Helvetica, sans-serif; }
+::selection { background: var(--leaf); color: var(--ink); }
+
+/* top bar: frothed glass */
+.bar { background: color-mix(in srgb, var(--paper) 84%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.id strong { font: 600 18px/1.1 var(--serif); letter-spacing: -.01em; }
+
+/* sheets */
+.profile, .shelf { border: 0; border-radius: var(--r); box-shadow: var(--soft); }
+.tabs { border-top: 1px solid var(--line); }
+.tabs a[aria-current] { border-color: var(--leaf); }
+.sec-head { border-bottom: 1px solid var(--line); }
+.sec-head h2 { font: italic 600 19px/1 var(--serif); text-transform: none; letter-spacing: -.01em; }
+footer { border-top: 1px solid var(--line); }
+
+/* type */
+.who h1 { font-family: var(--serif); font-weight: 650; font-size: 40px; letter-spacing: -.025em; font-variation-settings: "SOFT" 100; }
+.page-head .who h1 { font-size: 34px; }
+.card h3, .paper-row h3, .way strong { font-family: var(--serif); font-weight: 600; letter-spacing: -.015em; font-variation-settings: "SOFT" 100; }
+.feature h3 { font-size: 32px; }
+.duo h3 { font: 650 38px/1 var(--serif); letter-spacing: -.02em; font-variation-settings: "SOFT" 100; }
+
+/* buttons and tags: poured round */
+.btn { border: 1px solid var(--ink); border-radius: 999px; box-shadow: none; padding: 8px 17px; transition: transform .15s, box-shadow .15s, background .15s; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 8px 16px -10px rgba(59, 36, 23, .8); }
+.seek { border-radius: 999px; padding: 7px 12px; background: var(--leaf); color: var(--ink); }
+.filter button { border-radius: 999px; border-color: var(--line); padding: 6px 11px; }
+.filter button[aria-pressed="true"] { border-color: var(--ink); }
+.pr-tag { border-radius: 999px; padding: 4px 8px; }
+.pr-tag.open { border-color: var(--line); }
+.os-state { border-radius: 50%; border-color: var(--line); }
+.badge { border-radius: 14px 0 12px 0; }
+.stabs { border-radius: 0 14px 0 12px; overflow: hidden; }
+.play { border-radius: 999px; border-width: 1px; box-shadow: 0 10px 22px -10px rgba(0, 0, 0, .6); }
+.play:hover { box-shadow: 0 6px 14px -8px rgba(0, 0, 0, .6); }
+.miss { border-radius: 8px; }
+
+/* profile card */
+.avatar { border: 4px solid var(--paper); border-radius: 50%; box-shadow: 0 0 0 1px var(--line), var(--soft); }   /* the 404 frog */
+.pfp { border: 4px solid var(--paper); border-radius: 50%; overflow: hidden; background: var(--leaf); box-shadow: 0 0 0 1px var(--line), var(--soft); }
+.gh .nums { background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.gh .nums b { letter-spacing: -.03em; }
+.lang-bar { height: 9px; border: 0; border-radius: 99px; overflow: hidden; }
+.lang-bar i + i { box-shadow: inset 2px 0 0 var(--paper); }
+.lang-key i { border: 0; border-radius: 50%; width: 8px; height: 8px; }
+.repo { border: 1px solid var(--line); border-radius: 999px; box-shadow: none; background: var(--pad); padding: 3px 10px 3px 3px; }
+.repo:hover { transform: none; background: var(--paper); border-color: var(--leaf); }
+.repo img { border: 0; border-radius: 50%; }
+
+/* project covers */
+.cover { border: 0; border-radius: 14px; box-shadow: 0 0 0 1px rgba(59, 36, 23, .12); }
+a.cover:hover, .card.playing .cover { transform: translateY(-3px); box-shadow: var(--lift); }
+.track { border-color: rgba(59, 36, 23, .25); border-radius: 99px; overflow: hidden; }
+.thumb, .water { border-radius: 14px; }
+.grch-live { border-radius: 14px; overflow: hidden; }
+
+/* contact */
+.way { border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--soft); }
+.way:hover { transform: translateY(-2px); box-shadow: var(--lift); }
+.way.ink { border-color: var(--ink); }
+
+@media (max-width: 760px) {
+  .who h1 { font-size: 30px; }
+  .page-head .who h1 { font-size: 26px; }
+  .profile, .shelf { border-radius: 18px; }
+}

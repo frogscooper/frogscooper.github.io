@@ -1,0 +1,7 @@
+/* Shared by the latte designs (23-25), loaded after /assets/pond.css and before each theme.css.
+   Only structure the generator's markup changes need; the look lives in each theme.css. */
+
+/* the inner pages show the pfp where the frog avatar was (built by _designs/latte.py) */
+.page-head .pfp { display: block; width: 76px; height: 76px; margin-top: -30px; }
+@media (max-width: 760px) { .page-head .pfp { width: 64px; height: 64px; margin-top: -24px; } }
+.pfp img { display: block; width: 100%; height: 100%; object-fit: cover; }

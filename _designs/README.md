@@ -28,6 +28,22 @@ GitHub Pages builds the site with Jekyll, and Jekyll skips folders whose names s
 | 20 | Rain | full screen | rain rings on a night pond breaking up the moon's reflection |
 | 21 | Bili | creator profile | banner, avatar and tabs; projects as video cards that preview on hover |
 | 22 | Pond feed | creator profile | 21's layout in the original look: pond backdrop, paper and ink, frog graph |
+| 23 | Silk | creator profile | latte palette: rounded cream sheets over slow caramel silk folds; tile graph |
+| 24 | Umber | creator profile | latte palette: tan paper sheets over a drifting topographic map in the dark; dot graph |
+| 25 | Folio | creator profile | latte palette: hairline sheets on dotted-grid paper, serif headings; the frog graph stays |
+
+23-25 retheme the live site (22) in a latte colour scheme (foam, caramel, mocha, espresso), every
+page; the designs themselves are abstract. They're generated, not copied: `python3 _designs/latte.py`
+rebuilds their pages from the live ones, so rerun it after editing the site. Each design is only
+its `theme.css` (over `/assets/pond.css` and the shared `latte-base.css`) and its `bg.js`
+background (23 and 24 run a shader through the shared `latte-gl.js`; 25 is a still canvas). The
+frog leaves the profile card and page headers in all three and stays as the favicon and on the
+404; 25 also keeps it in the contribution graph.
+
+24 Umber is the live site since 2026-11-05: its look moved into `/assets/umber.css` and
+`/assets/umber.js` (loaded after `pond.css` on every page) and the live graph draws dots. The
+23-25 folders are the snapshot built from the pond-feed pages just before; `latte.py` refuses to
+run now that those pages are gone, so edit the folders by hand.
 
 21 and 22 are hand-written prototypes, not built by `build.py`: only the home page exists
 (`21-bili/index.html`, with `assets/theme/field.js` copied from `src/`; `22-pond-feed/index.html`,

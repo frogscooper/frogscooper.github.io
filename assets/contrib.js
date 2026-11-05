@@ -1,4 +1,4 @@
-// GitHub contribution heatmap. Fetches /assets/contrib.json and draws one pixel frog per day.
+// GitHub contribution heatmap. Fetches /assets/contrib.json and draws one pixel dot per day.
 // Data is refreshed every few hours by .github/workflows/contrib.yml (scripts/contrib.py).
 // Two renders from the same data: horizontal inside the page, vertical in the fixed left rail.
 // No libraries.
@@ -7,7 +7,7 @@ const fmt = d => `${MON[d.getUTCMonth()]} ${d.getUTCDate()} ${d.getUTCFullYear()
 const day = s => new Date(s + 'T00:00:00Z');
 const f = v => +v.toFixed(2);
 const MONTHS = 6; // how far back to show; the page text says "6 months" too
-// The fixed rail on short screens only has room for 4 months of frogs. 897px is where 6 months
+// The fixed rail on short screens only has room for 4 months of dots. 897px is where 6 months
 // stop fitting in the rail (it is capped at 100vh - 32px), so short means under 900px tall.
 const SHORT = matchMedia('(max-height: 899px)'), SHORT_MONTHS = 4;
 
@@ -27,22 +27,23 @@ function monthRow(cols) {
 
 const tip = d => `${d[1] || 'no'} contribution${d[1] === 1 ? '' : 's'} on ${fmt(day(d[0]))}`;
 
-// X body, E eye white, O pupil, M mouth, S spot. Each appears from `min` level up; below that it
-// falls back to plain body. Empty days (level 0) are just the outline.
+// One dot per day (the Umber look). X is body, shaded by level; empty days (level 0) are just the
+// outline. RULES can add detail pixels: { char: [min level, colour] }, plain body below that level.
+// (The frog this used to draw lives on in _designs/25-folio/assets/contrib.js.)
 const SPRITE = [
-  '.XXXX.XXXX.',
-  'XEOEXXXEOEX',
-  'XEOEXXXEOEX',
-  'XSXXXXXXXSX',
-  'XXXSXXXSXXX',
-  'XMXXXXXXXMX',
-  'XXMMMMMMMXX',
+  '...XXXXX...',
   '.XXXXXXXXX.',
+  'XXXXXXXXXXX',
+  'XXXXXXXXXXX',
+  'XXXXXXXXXXX',
+  'XXXXXXXXXXX',
+  '.XXXXXXXXX.',
+  '...XXXXX...',
 ];
-const RULES = { E: [1, 'var(--eye)'], O: [1, 'var(--cg-ink)'], M: [2, 'var(--cg-ink)'], S: [4, 'var(--dk)'] };
+const RULES = {};
 // Everything is drawn in sprite pixels (1 unit = 1 sprite pixel) and the SVG is sized to a whole
-// number of CSS px per unit, so frogs stay crisp instead of getting uneven pixel rows.
-// s = CSS px per sprite pixel, cx/cy = cell pitch in sprite pixels (the frog is 11x8).
+// number of CSS px per unit, so dots stay crisp instead of getting uneven pixel rows.
+// s = CSS px per sprite pixel, cx/cy = cell pitch in sprite pixels (the sprite is 11x8).
 const LAYOUT = {
   wide: { s: 1, cx: 13, cy: 12, lab: 0, top: 14 },
   tall: { s: 2, cx: 13, cy: 10, lab: 12, top: 0 },

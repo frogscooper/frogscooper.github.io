@@ -1,0 +1,68 @@
+/* 25 Folio: quiet and editorial. Uncoated paper with a faint dotted grid (bg.js), white sheets
+   with hairline rules and no shadows, Instrument Serif headings over Instrument Sans. The frog
+   stays here, in the contribution graph and on the 404. Latte is the palette only. */
+:root {
+  --paper: #fffcf7; --ink: #2b1d15; --muted: #7a6656; --line: #e5d9c9; --moss: #9a6a40; --leaf: #d4ab7f; --pad: #f6efe4;
+  --serif: "Instrument Serif", Georgia, serif;
+}
+html { background: #efe6d8; }
+body { font-family: "Instrument Sans", Arial, Helvetica, sans-serif; }
+::selection { background: var(--leaf); color: var(--ink); }
+
+.bar { background: color-mix(in srgb, #efe6d8 88%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.id strong { font: italic 400 21px/1 var(--serif); }
+
+/* sheets: hairlines, no shadow */
+.profile, .shelf { border: 1px solid var(--line); border-radius: 3px; box-shadow: none; }
+.tabs { border-top: 1px solid var(--line); }
+.tabs a[aria-current] { border-color: var(--ink); border-bottom-width: 1px; }
+.sec-head { border-bottom: 1px solid var(--ink); }
+.sec-head h2 { font: italic 400 23px/1 var(--serif); text-transform: none; letter-spacing: 0; }
+footer { background: transparent; border-top: 1px solid var(--line); }
+
+/* type */
+.who h1 { font: 400 54px/.95 var(--serif); letter-spacing: -.01em; }
+.page-head .who h1 { font-size: 46px; }
+.card h3, .paper-row h3, .way strong { font-family: var(--serif); font-weight: 400; font-size: 27px; letter-spacing: 0; line-height: 1.05; }
+.feature h3 { font-size: 40px; }
+.way strong { font-size: 30px; }
+.duo h3 { font: 400 52px/1 var(--serif); letter-spacing: 0; }
+.card .idx, .facts dt { letter-spacing: .02em; }
+
+/* controls: thin rules, ink on hover */
+.btn { box-shadow: none; border-width: 1px; border-radius: 2px; font-weight: 400; transition: background .15s, color .15s; }
+.btn:hover { transform: none; box-shadow: none; background: var(--ink); color: var(--paper); }
+.btn.ink:hover { background: var(--moss); border-color: var(--moss); }
+.seek { background: none; color: var(--moss); border: 1px solid var(--moss); font-weight: 400; }
+.filter button { border-color: var(--line); }
+.pr-tag { border-color: var(--line); font-weight: 400; }
+.pr-tag.merged { border-color: var(--leaf); }
+.os-state { border-color: var(--line); }
+
+/* profile card */
+.avatar { border: 1px solid var(--line); border-radius: 50%; box-shadow: none; }   /* the 404 frog */
+.pfp { border: 0; border-radius: 50%; overflow: hidden; box-shadow: none; outline: 1px solid var(--line); outline-offset: 5px; background: var(--pad); }
+.gh .nums { background: var(--line); border: 1px solid var(--line); }
+.gh .nums b { font-family: var(--serif); font-weight: 400; font-size: 28px; letter-spacing: 0; }
+.gh .nums .big b { font-size: 44px; }
+.lang-bar { height: 6px; border: 0; }
+.lang-key i { border: 0; }
+.repo { box-shadow: none; border-color: var(--line); border-radius: 2px; }
+.repo:hover { transform: none; border-color: var(--ink); }
+
+/* covers: no lift, a ruled frame on hover */
+.cover { border: 0; border-radius: 2px; }
+a.cover:hover, .card.playing .cover { transform: none; box-shadow: 0 0 0 1px var(--paper), 0 0 0 2px var(--ink); }
+.way { border: 1px solid var(--line); border-radius: 3px; box-shadow: none; }
+.way:hover { transform: none; box-shadow: none; border-color: var(--ink); }
+
+@media (max-width: 1080px) {
+  .gh .nums b { font-size: 24px; }
+  .gh .nums .big b { font-size: 36px; }
+}
+@media (max-width: 760px) {
+  .who h1 { font-size: 38px; }
+  .page-head .who h1 { font-size: 34px; }
+  .gh .nums .big b, .gh .nums b { font-size: 21px; }
+  .card h3 { font-size: 21px; }
+}
