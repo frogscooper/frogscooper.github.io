@@ -77,20 +77,28 @@ footer a:hover { color: var(--leaf); }
   position: absolute; top: 11px; left: 16px; font: 10px/1 var(--mono); text-transform: uppercase; letter-spacing: .14em; color: var(--muted);
 }
 .d-instrument .gh .who::before { content: "profile"; }
-.d-instrument .gh .side::before { content: "status"; }
+.d-instrument .gh .side::before { content: "activity"; }
 .d-instrument .gh .langs::before { content: "languages"; }
 .d-instrument .page-head .who::before { content: "page"; }
 .d-instrument .gh .pfp { width: auto; height: auto; aspect-ratio: 1; overflow: hidden; padding: 0; }
 .d-instrument .gh .who { padding: 30px 20px 14px; min-width: 0; display: flex; flex-direction: column; }
-.d-instrument .gh .who .handle { align-self: flex-start; }
+/* name on the left, the internship chip and contact buttons on the right */
+.d-instrument .who-head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 20px; }
+.d-instrument .who-acts { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
 /* the facts fill what the row height leaves, spread across their lines, so no gap pools under "merged into" */
 .d-instrument .gh .facts { flex: 1; align-content: space-between; }
 .d-instrument .who h1 { margin: 0; font: 700 46px/1 var(--slab); letter-spacing: -.01em; color: var(--ink); }
 .d-instrument .who .desc { margin: 10px 0 0; font-size: 17px; color: var(--ink); max-width: 60ch; }
 .d-instrument .facts { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); max-width: none; }
 .d-instrument .facts dt { color: var(--muted); }
-.d-instrument .gh .side { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 14px; padding: 38px 16px 16px; }
-.d-instrument .gh .side .acts { margin-top: auto; }
+.d-instrument .gh .side { display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; gap: 10px; padding: 34px 16px 14px; }
+/* activity heatmap (assets/heat.js): weekdays down, months across, darker = fewer */
+.heat-map { display: block; width: 100%; height: auto; overflow: visible; }
+.heat-map text { font: 9px var(--mono); fill: var(--muted); }
+.heat-map rect { stroke: none; }
+.heat-map .l0 { fill: var(--f0); } .heat-map .l1 { fill: var(--f1); } .heat-map .l2 { fill: var(--f2); }
+.heat-map .l3 { fill: var(--f3); } .heat-map .l4 { fill: var(--f4); }
+.heat-cap { margin: 0; font: 10.5px/1.3 var(--mono); color: var(--muted); }
 .d-instrument .gh .langs { display: flex; flex-direction: column; justify-content: flex-start; gap: 12px; padding: 38px 16px 16px; max-width: none; }
 .d-instrument .gh .lang-key { flex-direction: column; gap: 7px; }
 .d-instrument .gh .lang-key span { display: flex; align-items: center; }
@@ -172,8 +180,8 @@ a.cover:hover, .card.playing .cover { transform: none; box-shadow: 0 0 0 1px var
 @media (max-width: 760px) {
   .pondview { height: 16px; }
   .d-instrument .prof.gh { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "pfp side" "who who" "nums nums" "langs langs"; gap: 10px; }
-  .d-instrument .gh .side { justify-content: flex-start; padding: 34px 12px 12px; gap: 10px; }
-  .d-instrument .gh .side .acts { flex-wrap: wrap; gap: 8px; }
+  .d-instrument .gh .side { padding: 30px 12px 12px; gap: 8px; }
+  .d-instrument .who-acts { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px; }
   .d-instrument .seek { white-space: normal; line-height: 1.3; }
   .d-instrument .gh .who { padding: 30px 16px 14px; }
   .d-instrument .who h1 { font-size: 34px; }
