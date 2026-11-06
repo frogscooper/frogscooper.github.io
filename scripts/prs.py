@@ -3,7 +3,8 @@
 # Runs every 4h from .github/workflows/prs.yml, or by hand.
 # Reads GitHub's public search API (no token needed, uses GITHUB_TOKEN if set). Only PRs to
 # repos not owned by frogscooper, newest first.
-#   index.html: the latest N, between <!-- prs:start --> and <!-- prs:end -->
+#   index.html: the latest N, between <!-- prs:start --> and <!-- prs:end -->, and the most
+#   recently merged one on the profile card, between <!-- last-merged:start/end -->
 #   open-source/index.html (optional 2nd arg): every PR, between <!-- prs-all:start --> and
 #   <!-- prs-all:end -->. A <!-- prs-count:start/end --> pair, if present, gets the total.
 import json, os, re, sys, html, datetime, urllib.parse, urllib.request
@@ -51,6 +52,16 @@ def row_all(it):  # open-source page: title, state icon (sprite in the page) on 
             f'<span class="os-meta">{html.escape(repo)} #{it["number"]} &middot; '
             f'<time datetime="{day}">{day.strftime("%b %d %Y").lower()}</time></span></li>')
 
+def last_merged(items):  # profile card: the PR merged most recently, linked, with repo and merge date
+    merged = [it for it in items if it['pull_request'].get('merged_at')]
+    if not merged:
+        return None
+    it = max(merged, key=lambda it: it['pull_request']['merged_at'])
+    repo, _, _, url, title = info(it)
+    day = datetime.date.fromisoformat(it['pull_request']['merged_at'][:10])
+    return (f'<a href="{url}">{title}</a><span class="lm-meta"> &middot; {html.escape(repo)} &middot; '
+            f'<time datetime="{day}">{day.strftime("%b %d %Y").lower()}</time></span>')
+
 def fill(s, name, inner, optional=False):
     if optional and '<!-- %s:start -->' % name not in s:
         return s
@@ -72,7 +83,10 @@ def update(path, edits):
         open(path, 'w', encoding='utf-8').write(s2)
     print(path, 'updated' if s2 != s else 'unchanged')
 
-update(sys.argv[1], [('prs', rows_block([row(it) for it in items[:N]], 16))])
+home = [('prs', rows_block([row(it) for it in items[:N]], 16))]
+if last_merged(items):
+    home.append(('last-merged', last_merged(items), True))
+update(sys.argv[1], home)
 if len(sys.argv) > 2:
     update(sys.argv[2], [('prs-all', rows_block([row_all(it) for it in items], 8)),
                          ('prs-count', str(len(items)), True)])

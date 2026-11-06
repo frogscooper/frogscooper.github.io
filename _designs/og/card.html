@@ -3,34 +3,46 @@
 <head>
   <meta charset="utf-8">
   <title>og card</title>
+  <!-- The social preview in the live Instrument look: threads board, coffee panels, slab name.
+       Render with: python3 scripts/og.py -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Zilla+Slab:wght@500;700&amp;display=swap">
   <link rel="stylesheet" href="/assets/pond.css">
-  <link rel="stylesheet" href="og.css">
-  <script>try { localStorage.setItem('frog-bg', 'swiss-contour'); } catch (e) {}</script>
+  <link rel="stylesheet" href="/assets/instrument.css">
   <style>
-.sheet-og { left: 50px; top: 50%; translate: 0 -50%; width: 1100px; padding: 40px 44px 44px; box-sizing: border-box; }
-.c-top { display: flex; align-items: center; gap: 26px; }
-.og .avatar { width: 104px; height: 104px; border-width: 2px; box-shadow: 5px 5px 0 var(--ink); }
-.og .avatar svg { width: 66px; }
-h1 { margin: 0; font-size: 64px; line-height: 1; letter-spacing: -.045em; }
-.c-sub { margin: 10px 0 0; font: 700 30px/1.1 var(--mono); letter-spacing: -.02em; color: var(--moss); }
-.c-top .url { margin-left: auto; align-self: flex-start; margin-top: 10px; }
-.c-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 30px; }
+html, body { width: 1200px; height: 630px; overflow: hidden; margin: 0; }
+body { background: none; }  /* let the threads canvas (z-index -1) show through */
+.og { position: absolute; inset: 0; }
+.panel { position: absolute; left: 50px; top: 50%; translate: 0 -50%; width: 1100px; box-sizing: border-box; padding: 46px 40px 40px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); }
+.panel::before { content: "profile"; position: absolute; top: 15px; left: 20px; font: 12px/1 var(--mono); text-transform: uppercase; letter-spacing: .14em; color: var(--muted); }
+.c-top { display: flex; align-items: center; gap: 28px; }
+.pic { width: 112px; height: 112px; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; flex: none; }
+.pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+h1 { margin: 0; font: 700 70px/1 var(--slab); letter-spacing: -.01em; color: var(--ink); }
+.c-sub { margin: 12px 0 0; font: 700 26px/1.1 var(--mono); letter-spacing: -.01em; color: var(--leaf); }
+.url { margin-left: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px;
+  font: 700 20px/1 var(--mono); color: var(--leaf); background: var(--pad); border: 1px solid var(--line); border-radius: 4px; }
+.url::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--leaf); }
+.c-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 30px; padding-top: 30px; border-top: 1px solid var(--line); }
 
-.c-grid .cover { aspect-ratio: 16 / 9.4; border-width: 2px; }
-.c-grid .cover > .art { inset: 0 0 34px; }
-.c-grid .strip { height: 34px; font-size: 15px; padding: 0 12px; }
+.c-grid .cover { aspect-ratio: 16 / 9.4; border-width: 1px; }
+.c-grid .cover > .art { inset: 0 0 36px; }
+.c-grid .strip { height: 36px; font-size: 15px; padding: 0 12px; border-top: 1px solid var(--line); }
+.c-grid .strip .len { color: var(--muted); }
 .c-grid .lily { gap: 14px; }
-.c-grid .lane, .c-grid .lane .t { font-size: 17px; }
+.c-grid .lane, .c-grid .lane .t { font-size: 17px; color: var(--ink); }
+.c-grid .lane.me .t { color: var(--leaf); }
 .c-grid .track { height: 14px; }
-.c-grid .term pre { font-size: 12px; padding: 12px 14px; }
+.c-grid .term { background: var(--deep); }
+.c-grid .term pre { font-size: 12px; padding: 12px 14px; color: var(--soft); }
 .c-grid .shots img { opacity: 1; }
 </style>
 </head>
-<body>
+<body class="d-instrument">
   <div class="og">
-    <div class="sheet-og">
-      <div class="c-top"><div class="avatar"></div><div><h1>frogscooper</h1><p class="c-sub">Cracked CS student</p></div><span class="url">frogscooper.dev</span></div>
+    <div class="panel">
+      <div class="c-top"><div class="pic"><img src="https://avatars.githubusercontent.com/u/187351941?s=224" alt=""></div><div><h1>frogscooper</h1><p class="c-sub">Cracked CS student</p></div><span class="url">frogscooper.dev</span></div>
       <div class="c-grid">
         <div class="cover"><div class="art lily"><div class="lane me"><span>lilypad</span><span class="t">0.8 s</span><div class="track"><div class="fill"></div></div></div><div class="lane"><span>heictojpg.com</span><span class="t">8.9 s</span><div class="track"><div class="fill"></div></div></div></div><div class="strip"><b>lilypad</b><span class="len">11x faster</span></div></div>
         <div class="cover"><div class="art term"><pre><span class="kill">!! worker killed (simulated timeout)</span>
@@ -43,7 +55,6 @@ agent: plan done</pre></div><div class="strip"><b>once</b><span class="len">char
       </div>
     </div>
   </div>
-  <script src="/frog-backdrop.js"></script>
-  <script src="/assets/pond.js"></script>
+  <script src="/assets/instrument.js"></script>
 </body>
 </html>

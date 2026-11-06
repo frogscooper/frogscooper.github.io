@@ -1,7 +1,7 @@
 # Renders the social preview image. Edit _designs/og/card.html, then run from the repo root:
 #   python3 scripts/og.py
-# Serves the repo on a free local port (the card loads /assets/pond.css, /frog-backdrop.js and the
-# frog from the live site's files), screenshots the card at 1200x630 with headless Chrome or Edge,
+# Serves the repo on a free local port (the card loads /assets/pond.css, /assets/instrument.css and
+# the threads board from /assets/instrument.js, plus the GitHub avatar), screenshots the card at 1200x630 with headless Chrome or Edge,
 # and writes assets/og.png. Set CHROME to the browser's path if it isn't found.
 import functools, http.server, os, shutil, socketserver, subprocess, sys, tempfile, threading
 

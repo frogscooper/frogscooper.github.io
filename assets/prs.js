@@ -1,6 +1,7 @@
 // Refresh the open source PR lists in the browser, so they are current on every load.
 // Same query and markup as scripts/prs.py, which bakes the fallback rows every 4h.
-// Replaces the rows between <!-- prs:start/end --> (home, latest 4) and <!-- prs-all:start/end -->
+// Replaces the rows between <!-- prs:start/end --> (home, latest 4), <!-- last-merged:start/end -->
+// (home profile card) and <!-- prs-all:start/end -->
 // (open-source page, all) only on a good, non-empty response that differs. Errors, rate
 // limits (search allows 10/min without a token) and empty results leave the baked rows alone.
 (() => {
@@ -26,6 +27,14 @@
       `<span class="os-state ${state}" role="img" aria-label="${state[0].toUpperCase() + state.slice(1)}">` +
       `<svg aria-hidden="true" focusable="false"><use href="#oi-${state}"/></svg></span>` +
       `<span class="os-meta">${p.repo} #${it.number} &middot; <time datetime="${p.day}">${p.date}</time></span></li>`;
+  };
+  const lastMerged = (items) => {  // profile card: the PR merged most recently, with repo and merge date
+    const m = items.filter((it) => it.pull_request.merged_at);
+    if (!m.length) return null;
+    const it = m.reduce((a, b) => (b.pull_request.merged_at > a.pull_request.merged_at ? b : a));
+    const p = info(it), day = it.pull_request.merged_at.slice(0, 10), [y, mo, d] = day.split('-');
+    return `<a href="${p.url}">${p.title}</a><span class="lm-meta"> &middot; ${p.repo} &middot; ` +
+      `<time datetime="${day}">${MON[+mo - 1]} ${d} ${y}</time></span>`;
   };
   const block = (rows, indent) => { const pad = ' '.repeat(indent); return '\n' + rows.map((r) => pad + r).join('\n') + '\n' + pad; };
 
@@ -83,5 +92,7 @@
     if (!items || !items.length) return;
     fill('prs', block(items.slice(0, 4).map(row), 16));
     fill('prs-all', block(items.map(rowAll), 8));
+    const lm = lastMerged(items);
+    if (lm) fill('last-merged', lm);
   }).catch(() => {});
 })();

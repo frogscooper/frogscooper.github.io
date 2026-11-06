@@ -81,7 +81,10 @@ footer a:hover { color: var(--leaf); }
 .d-instrument .gh .langs::before { content: "languages"; }
 .d-instrument .page-head .who::before { content: "page"; }
 .d-instrument .gh .pfp { width: auto; height: auto; aspect-ratio: 1; overflow: hidden; padding: 0; }
-.d-instrument .gh .who { padding: 36px 22px 20px; min-width: 0; }
+.d-instrument .gh .who { padding: 30px 20px 14px; min-width: 0; display: flex; flex-direction: column; }
+.d-instrument .gh .who .handle { align-self: flex-start; }
+/* the facts fill what the row height leaves, spread across their lines, so no gap pools under "merged into" */
+.d-instrument .gh .facts { flex: 1; align-content: space-between; }
 .d-instrument .who h1 { margin: 0; font: 700 46px/1 var(--slab); letter-spacing: -.01em; color: var(--ink); }
 .d-instrument .who .desc { margin: 10px 0 0; font-size: 17px; color: var(--ink); max-width: 60ch; }
 .d-instrument .facts { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); max-width: none; }
@@ -172,7 +175,7 @@ a.cover:hover, .card.playing .cover { transform: none; box-shadow: 0 0 0 1px var
   .d-instrument .gh .side { justify-content: flex-start; padding: 34px 12px 12px; gap: 10px; }
   .d-instrument .gh .side .acts { flex-wrap: wrap; gap: 8px; }
   .d-instrument .seek { white-space: normal; line-height: 1.3; }
-  .d-instrument .gh .who { padding: 34px 16px 16px; }
+  .d-instrument .gh .who { padding: 30px 16px 14px; }
   .d-instrument .who h1 { font-size: 34px; }
   .d-instrument .who .desc { font-size: 15.5px; }
   .d-instrument .gh .nums { grid-template-columns: repeat(5, minmax(0, 1fr)); }
