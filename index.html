@@ -60,7 +60,7 @@
             <div class="big"><b class="cg-total">301</b><span>commits, 6 mo</span></div>
             <div><b class="cg-active">88</b><span>active days</span></div>
             <div><b class="cg-streak">10</b><span>day streak</span></div>
-            <div><b class="n-projects">6</b><span>projects</span></div>
+            <div><b class="n-projects">7</b><span>projects</span></div>
             <div><b><!-- gh-repos:start -->11<!-- gh-repos:end --></b><span>public repos</span></div>
           </div>
           <!-- filled by assets/langs.js from assets/langs.json (scripts/langs.py) -->
@@ -141,6 +141,22 @@
       <!-- Everything else, newest first. data-tags drives the filter chips; past 6 the rest fold behind "show all". -->
       <div class="filter" id="filter" role="toolbar" aria-label="Filter projects" hidden></div>
       <div class="grid" id="grid">
+        <article class="card" id="ftfy" data-preview="fix" data-tags="rust python">
+          <a class="cover" href="https://github.com/frogscooper/ftfy-rs" aria-label="ftfy-rs">
+            <div class="art term"><pre aria-label="Python session: ftfy_rs fixes mojibake such as schÃ¶n into schön"><code><span class="p">&gt;&gt;&gt; fix_text("schÃ¶n")</span>
+<span class="ret fx-out">'schön'</span>
+<span class="p">&gt;&gt;&gt; fix_text("âœ” No problems")</span>
+<span class="ret fx-out">'✔ No problems'</span>
+<span class="p">&gt;&gt;&gt; fix_and_explain("sÃ³").text</span>
+<span class="ret fx-out">'só'</span></code></pre></div>
+            <div class="strip"><b>20–500× faster</b><span class="hide-sm">same output as ftfy</span><span class="len">rust</span></div>
+          </a>
+          <span class="idx">Rust · Python · 2026</span>
+          <h3><a href="https://github.com/frogscooper/ftfy-rs">ftfy-rs</a></h3>
+          <p>A drop-in replacement for ftfy ("fixes text for you"), written in Rust. Same output byte for byte, 20–500× faster.</p>
+          <div class="links"><a href="https://github.com/frogscooper/ftfy-rs">Source ↗</a></div>
+        </article>
+
         <article class="card" id="slime" data-tags="typescript python">
           <div class="cover" id="slime-cover">
             <div class="slide on"><div class="art slime-art" data-art="battle"></div></div>
@@ -409,6 +425,12 @@
         };
         step();
         return () => { cancelAnimationFrame(raf); code.innerHTML = paint(FULL); };
+      },
+      fix(card) {  // the fixed strings come back one at a time
+        const outs = [...card.querySelectorAll('.fx-out')], timers = [];
+        outs.forEach(o => { o.style.visibility = 'hidden'; });
+        outs.forEach((o, i) => timers.push(setTimeout(() => { o.style.visibility = ''; }, 450 + i * 550)));
+        return () => { timers.forEach(clearTimeout); outs.forEach(o => { o.style.visibility = ''; }); };
       },
       shots(card) {
         const imgs = [...card.querySelectorAll('.shots img')], bar = $('.scrub', card), cv = $('.cover', card);
