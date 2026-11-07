@@ -92,7 +92,7 @@ footer a:hover { color: var(--leaf); }
 .d-instrument .facts { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); max-width: none; }
 .d-instrument .facts dt { color: var(--muted); }
 .d-instrument .gh .side { display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; gap: 10px; padding: 34px 16px 14px; }
-/* activity heatmap (assets/heat.js): weekdays down, months across, darker = fewer */
+/* activity calendar (assets/heat.js): one cell per day, weeks across, darker = fewer */
 .heat-map { display: block; width: 100%; height: auto; overflow: visible; }
 .heat-map text { font: 9px var(--mono); fill: var(--muted); }
 .heat-map rect { stroke: none; }
