@@ -177,7 +177,7 @@ a.cover:hover, .card.playing .cover { transform: translate(-2px, -2px); box-shad
 .shots img.on { opacity: 1; }
 
 .swarm { background: #f4ece1; }
-.swarm svg, .slime-art svg { width: 100%; height: 100%; display: block; }
+.swarm svg { width: 100%; height: 100%; display: block; }
 .swarm .pkt { opacity: 0; }
 .card.playing .swarm .pkt { animation: pkt 1.4s linear infinite; }
 @keyframes pkt { 0% { opacity: 0; offset-distance: 0%; } 10%, 90% { opacity: 1; } 100% { opacity: 0; offset-distance: 100%; } }
@@ -192,17 +192,12 @@ a.cover:hover, .card.playing .cover { transform: translate(-2px, -2px); box-shad
 /* ---- featured: slime studies */
 .feature { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 26px; align-items: start; }
 .feature .cover { aspect-ratio: 16 / 10; }
-#slime-cover { background: #1f1c12; }
+#slime-cover { background: #2a2617; }   /* the battle arena's own colour, so its square still letterboxes cleanly */
 .feature .idx { margin-top: 0; }
 .slide { position: absolute; inset: 0 0 24px; opacity: 0; transition: opacity .5s; }
 .slide.on { opacity: 1; }
-.slime-art .v { fill: none; stroke: #f2c21b; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
-.slide.on .slime-art .v { animation: grow 2.6s cubic-bezier(.3, .6, .3, 1) both; animation-delay: var(--d, 0s); }
-@keyframes grow { from { stroke-dashoffset: 1; } }
-.slime-art .food { fill: #fff3c4; }
-.slime-art .pick { fill: var(--leaf); }
-.slime-art .water { fill: #233648; }
-@media (prefers-reduced-motion: reduce) { .slime-art .v { animation: none !important; } }
+.slime-shot { display: block; width: 100%; height: 100%; object-fit: cover; }
+.slime-shot.fit { object-fit: contain; }   /* the square battle arena, shown whole */
 .stabs { position: absolute; right: 0; top: 0; z-index: 4; display: flex; }
 .stabs button { font: 11px/1 var(--mono); color: var(--paper); background: rgba(16, 16, 16, .7); border: 0; border-left: 1px solid #444; padding: 6px 9px; cursor: pointer; }
 .stabs button[aria-selected="true"] { background: var(--leaf); color: var(--ink); font-weight: 700; }

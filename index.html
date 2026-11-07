@@ -27,9 +27,9 @@
   <meta name="twitter:image" content="https://frogscooper.dev/assets/og.png?v=3">
   <meta name="twitter:image:alt" content="frogscooper, Cracked CS student: a latte-art profile photo beside project covers for Lilypad, once and GRCH. frogscooper.dev">
   <meta name="google-adsense-account" content="ca-pub-9008261213236010">
-  <link rel="stylesheet" href="/assets/pond.css?v=12">
+  <link rel="stylesheet" href="/assets/pond.css?v=13">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Zilla+Slab:wght@500;700&amp;display=swap">
-  <link rel="stylesheet" href="/assets/instrument.css?v=4">
+  <link rel="stylesheet" href="/assets/instrument.css?v=5">
 </head>
 <body class="d-instrument page-home">
   <a class="skip" href="#main">Skip to content</a>
@@ -159,9 +159,10 @@
 
         <article class="card" id="slime" data-tags="typescript python">
           <div class="cover" id="slime-cover">
-            <div class="slide on"><div class="art slime-art" data-art="battle"></div></div>
-            <div class="slide"><div class="art slime-art" data-art="pong"></div></div>
-            <div class="slide"><div class="art slime-art" data-art="bayarea"></div></div>
+            <!-- stills captured from the live studies in /slime/ -->
+            <div class="slide on"><img class="slime-shot fit" src="/assets/slime-battle.webp" alt="" width="600" height="600"></div>
+            <div class="slide"><img class="slime-shot" src="/assets/slime-pong.webp" alt="" width="960" height="488" loading="lazy"></div>
+            <div class="slide"><img class="slime-shot" src="/assets/slime-bayarea.webp" alt="" width="500" height="629" loading="lazy"></div>
             <div class="stabs" role="tablist" aria-label="Slime study">
               <button type="button" role="tab" aria-selected="true" data-i="0">pokémon</button>
               <button type="button" role="tab" aria-selected="false" data-i="1">pong</button>
@@ -272,34 +273,6 @@
     let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
     const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-
-    // ---- slime drawings: veins grow along each edge when the slide shows
-    const vein = (a, b, w, d) => {
-      const mx = (a[0] + b[0]) / 2 + (rnd() - .5) * 10, my = (a[1] + b[1]) / 2 + (rnd() - .5) * 8;
-      return `<path class="v" pathLength="1" style="--d:${d}s" stroke-width="${w}" d="M${a[0]} ${a[1]}Q${mx.toFixed(1)} ${my.toFixed(1)} ${b[0]} ${b[1]}"/>`;
-    };
-    const ART = {
-      battle() {
-        const c = [80, 45], food = Array.from({ length: 10 }, (_, k) => { const t = k / 10 * Math.PI * 2 - Math.PI / 2; return [80 + 52 * Math.cos(t), 45 + 30 * Math.sin(t)]; });
-        let s = food.map((f, k) => vein(c, f, k === 3 ? 2.4 : .5, k === 3 ? .4 : .1 + rnd() * .5)).join('');
-        for (let k = 0; k < 14; k++) s += vein(c, [c[0] + (rnd() - .5) * 60, c[1] + (rnd() - .5) * 36], .3, rnd());
-        s += food.map((f, k) => `<circle class="${k === 3 ? 'pick' : 'food'}" cx="${f[0].toFixed(1)}" cy="${f[1].toFixed(1)}" r="${k === 3 ? 3 : 2}"/>`).join('');
-        return svg(160, 90, s);
-      },
-      pong() {
-        let s = `<rect x="14" y="10" width="92" height="70" fill="none" stroke="#5a5233" stroke-width=".6"/><path d="M28 70 L92 26" stroke="#5a5233" stroke-dasharray="2 2" stroke-width=".6" fill="none"/><circle cx="92" cy="26" r="2.2" fill="#fff"/>`;
-        for (let k = 0; k < 16; k++) s += vein([124 + (rnd() - .5) * 10, 78], [124 + (rnd() - .5) * 16, 12 + rnd() * 66], .4 + rnd() * .6, rnd() * .6);
-        return svg(160, 90, s + vein([124, 78], [124, 26], 2.2, .3) + `<circle class="pick" cx="124" cy="26" r="3"/>`);
-      },
-      bayarea() {
-        const P = [[40, 20], [52, 30], [46, 44], [60, 52], [74, 62], [92, 70], [110, 74], [124, 62], [118, 46], [104, 36], [96, 22], [82, 14], [66, 18], [134, 80], [30, 34], [56, 70]];
-        const E = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8], [8, 9], [9, 10], [10, 11], [11, 12], [12, 0], [7, 13], [0, 14], [14, 2], [3, 15], [15, 4], [1, 12], [9, 4]];
-        let s = `<path class="water" d="M60 26 C70 22 86 24 92 32 C98 42 96 52 104 60 C108 66 100 68 92 62 C82 54 70 48 64 40 C60 34 56 30 60 26Z"/>`;
-        s += E.map(([a, b], k) => vein(P[a], P[b], .8 + rnd() * 1.4, k * .06)).join('');
-        return svg(160, 90, s + P.map(p => `<circle class="food" cx="${p[0]}" cy="${p[1]}" r="${1.6 + rnd() * 1.4}"/>`).join(''));
-      },
-    };
-    document.querySelectorAll('.slime-art').forEach(el => { el.innerHTML = ART[el.dataset.art](); });
 
     // ---- project grid: filter chips from data-tags, and past SHOW the rest fold behind "show all"
     {

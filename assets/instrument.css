@@ -171,6 +171,8 @@ a.cover:hover, .card.playing .cover { transform: none; box-shadow: 0 0 0 1px var
 .grch-bar input, .grch-bar select, .grch-bar button { background: var(--pad); color: var(--ink); border-color: var(--line); }
 .grch-bar button:hover { background: var(--leaf); color: var(--deep); }
 .play { background: var(--deep); color: var(--ink); border-color: var(--leaf); }
+.stabs button { color: var(--soft); border-left-color: var(--line); }   /* pond.css used --paper, which is dark here */
+.stabs button:hover { color: var(--ink); }
 .stabs button[aria-selected="true"] { color: var(--deep); }
 
 @media (max-width: 1080px) {
