@@ -104,6 +104,8 @@ footer a:hover { color: var(--leaf); }
 .d-instrument .gh .lang-key span { display: flex; align-items: center; }
 .d-instrument .gh .lang-key em { margin-left: auto; }
 .d-instrument .gh .langs:hover .lang-key { text-decoration: none; }
+.d-instrument .merged-more { align-self: center; padding: 0 2px; font: 12.5px/1 var(--mono); color: var(--leaf); text-decoration: none; }   /* after the top 3 repos */
+.d-instrument .merged-more:hover { text-decoration: underline; }
 .d-instrument .gh .nums { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; padding: 0; overflow: hidden; background: var(--line); }
 .d-instrument .gh .nums div { background: var(--paper); padding: 10px 12px; border: 0; }
 .d-instrument .gh .nums .big { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 8px; }
