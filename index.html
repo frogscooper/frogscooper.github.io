@@ -112,35 +112,23 @@
     <section class="shelf" id="projects" aria-labelledby="projects-h">
       <div class="sec-head"><h2 id="projects-h">Projects</h2><span id="hint">hover a cover to run it</span></div>
 
-      <!-- Pinned: one project at a time gets the wide slot. Move another article in here to swap. -->
-      <article class="feature card" id="lilypad" data-preview="lily">
-        <a class="cover" href="https://lilypad.frogscooper.dev" aria-label="Lilypad">
-          <div class="art lily">
-            <div class="k">same heic photo → jpg, measured oct 2026</div>
-            <div class="lane me"><span>lilypad</span><span class="t" data-to="0.8">0.8 s</span><div class="track"><div class="fill" data-ms="800"></div></div></div>
-            <div class="lane"><span>heictojpg.com</span><span class="t" data-to="8.9">8.9 s</span><div class="track"><div class="fill" data-ms="8900"></div></div></div>
-          </div>
-          <span class="badge leaf">pinned</span>
-          <div class="strip"><b>11x faster</b><span class="hide-sm">0 bytes uploaded</span><span class="len">web</span></div>
-        </a>
-        <div class="ftext">
+      <!-- Newest first. data-tags drives the filter chips; past 9 the rest fold behind "show all". -->
+      <div class="filter" id="filter" role="toolbar" aria-label="Filter projects" hidden></div>
+      <div class="grid" id="grid">
+        <article class="card" id="lilypad" data-preview="lily" data-tags="web">
+          <a class="cover" href="https://lilypad.frogscooper.dev" aria-label="Lilypad">
+            <div class="art lily">
+              <div class="k">same heic photo → jpg, measured oct 2026</div>
+              <div class="lane me"><span>lilypad</span><span class="t" data-to="0.8">0.8 s</span><div class="track"><div class="fill" data-ms="800"></div></div></div>
+              <div class="lane"><span>heictojpg.com</span><span class="t" data-to="8.9">8.9 s</span><div class="track"><div class="fill" data-ms="8900"></div></div></div>
+            </div>
+            <div class="strip"><b>11x faster</b><span class="hide-sm">0 bytes uploaded</span><span class="len">web</span></div>
+          </a>
           <span class="idx">Web · 2026</span>
           <h3><a href="https://lilypad.frogscooper.dev">Lilypad</a></h3>
           <p>Free image and PDF tools that run entirely in the browser. Batch format conversion (HEIC, WebP, AVIF, PNG, JPG), merging, splitting, and compressing PDFs, QR codes, and more. Nothing gets uploaded.</p>
-          <dl class="bench" aria-label="lilypad vs 8 popular online converters">
-            <div><dt>0 <small>bytes</small></dt><dd>uploaded<span>7 of the 8 say they upload your file</span></dd></div>
-            <div><dt>never</dt><dd>stored<span>the rest keep them 2 hours to 7 days</span></dd></div>
-            <div><dt>2.6 <small>s</small></dt><dd>to load on a phone<span>median 8.3 s, simulated 3G</span></dd></div>
-            <div><dt>4.6x</dt><dd>lighter page<span>236 KB vs a median of 1,096 KB</span></dd></div>
-          </dl>
-          <div class="links"><a href="https://lilypad.frogscooper.dev">Try it →</a><span>no signup, nothing uploaded. drop a HEIC and watch.</span></div>
-          <p class="fine">vs 8 popular online converters, measured oct 2026 in headless chrome, median of 3 runs</p>
-        </div>
-      </article>
-
-      <!-- Everything else, newest first. data-tags drives the filter chips; past 6 the rest fold behind "show all". -->
-      <div class="filter" id="filter" role="toolbar" aria-label="Filter projects" hidden></div>
-      <div class="grid" id="grid">
+          <div class="links"><a href="https://lilypad.frogscooper.dev">Try it ↗</a></div>
+        </article>
         <article class="card" id="ftfy" data-preview="fix" data-tags="rust python">
           <a class="cover" href="https://github.com/frogscooper/ftfy-rs" aria-label="ftfy-rs">
             <div class="art term"><pre aria-label="Python session: ftfy_rs fixes mojibake such as schÃ¶n into schön"><code><span class="p">&gt;&gt;&gt; fix_text("schÃ¶n")</span>
@@ -276,8 +264,8 @@
 
     // ---- project grid: filter chips from data-tags, and past SHOW the rest fold behind "show all"
     {
-      const SHOW = 6, grid = $('#grid'), cards = [...grid.children], bar = $('#filter'), more = $('#more');
-      document.querySelectorAll('.n-projects').forEach(n => { n.textContent = cards.length + 1; });
+      const SHOW = 9, grid = $('#grid'), cards = [...grid.children], bar = $('#filter'), more = $('#more');
+      document.querySelectorAll('.n-projects').forEach(n => { n.textContent = cards.length; });
       const count = {};
       cards.forEach(c => c.dataset.tags.split(' ').forEach(t => { count[t] = (count[t] || 0) + 1; }));
       let tag = 'all', open = false;
